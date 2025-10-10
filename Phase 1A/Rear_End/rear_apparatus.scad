@@ -2,6 +2,7 @@ include <../robot_settings.scad>
 use <../spring_library.scad>
 use <dc_motor.scad>
 use <../Front_End/axle_for_custom_hub.scad>
+use <../Front_End/tire_rim.scad>
 
 $fn = 50;
 
@@ -13,6 +14,7 @@ module rear_apparatus(
   include_ball_bearing = false,
   include_axle = false,
   incude_motor = false,
+  include_rim = false,
 
   draw_left_apparatus = false,
   )
@@ -45,42 +47,96 @@ module rear_apparatus(
      
       spring_z = flip_spring ? ball_bearing_outer_diameter  : ball_bearing_outer_diameter;
 
-       // post 1
-       // carve a screw hole in post 1
-       difference() {
+      // frame connectorß
+       translate(
+         [
+          0, 
+          0, 
+          2 * ball_bearing_outer_diameter - 2.5
+         ])
+          cube([ball_bearing_height, 25, ball_bearing_outer_diameter], center = true);
+      
+      difference() {
+        // attachment bar
+        translate(
+            [
+                -2 * ball_bearing_height,
+                -ball_bearing_height, 
+                 2 * ball_bearing_outer_diameter - rail_thickness + 0.5
+           ])
+          cube([4 * ball_bearing_height, 15, 4]);
+        
+          // screw hole
+          translate(
+            [
+              -ball_bearing_height - 1, 
+              0, 
+              2 * ball_bearing_outer_diameter -  ball_bearing_height / 2
+            ])
+            cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d, center = true);
+          
+          // screw hole
+          translate(
+            [
+              ball_bearing_height + 1, 
+              0, 
+              2 * ball_bearing_outer_diameter -  ball_bearing_height / 2
+            ])
+            cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d, center = true);
+      }
+      
+      // attachment bar supports
+        translate(
+          [
+            -ball_bearing_height /2 -10.5, 
+            6, 
+            2 * ball_bearing_outer_diameter - 11
+          ])
+          cube([12,2,5]);
+   
+        translate(
+              [
+                -ball_bearing_height /2 -10.5, 
+                6, 
+                2 * ball_bearing_outer_diameter - 8.8
+              ])
+          rotate([0, 25, 0])
+          cube([12,2,4]);
 
-         // the post
-          translate([0 , 10, flip * spring_z + 7])
-          rotate([flip_spring ? 180 : 0, 0, 0])
-          cylinder(
-              h = post_height + 2 * ball_bearing_height, 
-              d = ball_bearing_inner_diameter);
+       translate(
+          [
+            -ball_bearing_height /2 -10.5, 
+            -7, 
+            2 * ball_bearing_outer_diameter - 11
+          ])
+          cube([12,2,5]);
 
-         // the screw hole 
-         translate([2, 10, flip * spring_z + 7 + 26])
-             rotate([0,90,0])
-              cylinder(
-                  h = 10, 
-                  d = dc_motor_screw_d);  
-       }
-     
-      // post 2
-       // carve a screw hold in post 2
-       difference() {
-      translate([0 , -10, flip * spring_z + 7])
-       rotate([flip_spring ? 180 : 0, 0, 0])
-      cylinder(
-          h = post_height + 2 * ball_bearing_height, 
-          d = ball_bearing_inner_diameter);
-       
-       // the screw hole
-       translate([2, -10, flip * spring_z + 7 + 26])
-        rotate([0,90,0])
-       cylinder(
-            h = 10,
-           d = dc_motor_screw_d);
-       }
-
+          translate(
+              [
+                -ball_bearing_height /2 -10.5, 
+                -7, 
+                2 * ball_bearing_outer_diameter - 8.8
+              ])
+          rotate([0, 25, 0])
+          cube([12,2,4]);
+ 
+         translate(
+          [
+            ball_bearing_height /2 - 1.5, 
+            6, 
+            2 * ball_bearing_outer_diameter - 8
+          ])
+          cube([12,2,2]);
+   
+         translate(
+          [
+            ball_bearing_height /2 - 1.5, 
+            -7, 
+            2 * ball_bearing_outer_diameter - 8
+          ])
+          cube([12,2,2]); 
+          
+ 
       if (incude_motor)
         translate([-dc_motor_housing_minus_encoder_z - dc_motor_axle_cutout_z + 7, 0, 0])
         dc_motor();
@@ -88,6 +144,11 @@ module rear_apparatus(
        if (include_axle)
         translate([16, 0, 0])
         axle(axle_length = 30);
+       
+       if (include_rim)
+         translate([25,0,0])
+         rotate([0, -90, 0])
+         tirerim();
 
  }
  rear_apparatus();
