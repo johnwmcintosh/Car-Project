@@ -1,2 +1,4 @@
 *.stl
 .DS_Store
+Phase 1A/Rear_End/*.stl
+Phase 1A/Front_End/*.stl
