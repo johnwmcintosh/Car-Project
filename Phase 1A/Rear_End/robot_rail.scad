@@ -16,11 +16,12 @@ module rear_robot_rail(include_apparatus = false, include_battery_box = false) {
   difference() {
     front_robot_rail(show_steering_apparatus = false);
     
-    translate([-rail_width / 2 + 24.8, -rail_length / 2 + 35, -rail_thickness])
-     cube([ball_bearing_height, 25, ball_bearing_outer_diameter], center = true);
+    // tire apparatus cutouts
+    translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -rail_thickness])
+     cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);
     
-    translate([rail_width / 2 - 24.8, -rail_length / 2 + 35, -rail_thickness])
-     cube([ball_bearing_height, 25, ball_bearing_outer_diameter], center = true);    
+    translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness])
+     cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);    
   }
     
   if (include_apparatus) {
@@ -32,37 +33,45 @@ module rear_robot_rail(include_apparatus = false, include_battery_box = false) {
     }
 
   // engine support
-    translate([-5, -rail_length / 2 + 30, -55])
-    cube([10, 10, 55]);
+    translate([-5, -rail_length / 2 + 30, -45])
+    cube([10, 10, 48]);
    
     difference() {
-        translate([-35, -rail_length / 2 + 35, -49])
+        translate([-35, -rail_length / 2 + 35, -53])
         rotate([0, 90, 0])
         cylinder(h = 70, d = dc_motor_cutout_d);
 
-    translate([-36, -rail_length / 2 + 35, -45.1])
-    rotate([0, 90, 0])
-    cylinder(h = 23, d = dc_motor_cutout_d);
-    
-    translate([13, -rail_length / 2 + 35, -45.1])
-    rotate([0, 90, 0])
-    cylinder(h = 23, d = dc_motor_cutout_d);
+        translate([-36, -rail_length / 2 + 35, -51])
+        rotate([0, 90, 0])
+        cylinder(h = 23, d = dc_motor_cutout_d);
+        
+        translate([13, -rail_length / 2 + 35, -51])
+        rotate([0, 90, 0])
+        cylinder(h = 23, d = dc_motor_cutout_d);   
     }
-    
-  // rail system for battery box
-  translate([-rail_width / 4 + 7.2, -rail_length /2, 2])
-  cube([rail_gap, main_box_y, 5.1]);
-  translate([-rail_width / 4 + 2.2, -rail_length /2, 5.1])
-  cube([rail_inset, main_box_y, rail_gap]); 
-  
-  // rail system for battery box
-  translate([rail_width / 4 - 13.7, -rail_length /2, 2])
-  cube([rail_gap, main_box_y, 5.1]);
-  translate([rail_width / 4 - 13.7, -rail_length /2, 5.1])
-  cube([rail_inset, main_box_y, rail_gap]); 
-  
+
+ 
+// rail attachments
+translate([0,  -rail_length / 2, rail_thickness / 2 - .9]) {
+  //color("blue")
+  translate([-main_box_x / 2 + rail_inset - 2.8, 0, 0]) {
+    translate([ .7, 0, 0]) 
+    cube([rail_gap, main_box_y, rail_inset - 1.7]);
+    translate([-4.3, 0, rail_inset - rail_gap - 1.7])
+    cube([rail_inset, main_box_y, rail_gap + 1.5]);
+  }
+
+//color("yellow")
+  translate([main_box_x / 2 - rail_inset - 4.8, 0, 0]) {
+    translate([0, 0, 0])
+    cube([rail_gap, main_box_y, rail_inset - 1.7]);
+    translate([0 , 0, rail_inset - rail_gap - 1.7])
+    cube([rail_inset, main_box_y, rail_gap + 1.5]);
+  }
+}
+
   if (include_battery_box) {
-      translate([-rail_width / 4, -rail_length / 2, 3])
+      translate([-rail_width / 4, -rail_length / 2, 3.6])
       battery_box();
   }
 

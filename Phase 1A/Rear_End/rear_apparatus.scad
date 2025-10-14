@@ -12,9 +12,9 @@ module rear_apparatus(
   flip_spring = false,
   post_height = 15,
   include_ball_bearing = false,
-  include_axle = false,
-  incude_motor = false,
-  include_rim = false,
+  include_axle = true,
+  incude_motor = true,
+  include_rim = true,
 
   draw_left_apparatus = false,
   )
@@ -54,7 +54,7 @@ module rear_apparatus(
           0, 
           2 * ball_bearing_outer_diameter - 2.5
          ])
-          cube([ball_bearing_height, 25, ball_bearing_outer_diameter], center = true);
+          cube([ball_bearing_height - .5, 24.5, ball_bearing_outer_diameter], center = true);
       
       difference() {
         // attachment bar
