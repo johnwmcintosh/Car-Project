@@ -33,27 +33,30 @@ module rear_robot_rail(include_apparatus = false, include_battery_box = false) {
     }
 
   // engine support
-    translate([-5, -rail_length / 2 + 30, -45])
+    translate([-5, -rail_length / 2 + 30, -39])
     cube([10, 10, 48]);
    
     difference() {
-        translate([-35, -rail_length / 2 + 35, -53])
+        translate([-35, -rail_length / 2 + 35, -47])
         rotate([0, 90, 0])
         cylinder(h = 70, d = dc_motor_cutout_d);
 
-        translate([-36, -rail_length / 2 + 35, -51])
+        translate([-36, -rail_length / 2 + 35, -45])
         rotate([0, 90, 0])
         cylinder(h = 23, d = dc_motor_cutout_d);
         
-        translate([13, -rail_length / 2 + 35, -51])
+        translate([13, -rail_length / 2 + 35, -45])
         rotate([0, 90, 0])
         cylinder(h = 23, d = dc_motor_cutout_d);   
-    }
 
+        // curcuit board connector cutout
+        translate([14.75, -rail_length / 2 + 45, -52])
+        cube([5, 3,  6]);
+    }
  
 // rail attachments
 translate([0,  -rail_length / 2, rail_thickness / 2 - .9]) {
-  //color("blue")
+  color("blue")
   translate([-main_box_x / 2 + rail_inset - 2.8, 0, 0]) {
     translate([ .7, 0, 0]) 
     cube([rail_gap, main_box_y, rail_inset - 1.7]);
@@ -62,7 +65,7 @@ translate([0,  -rail_length / 2, rail_thickness / 2 - .9]) {
   }
 
 //color("yellow")
-  translate([main_box_x / 2 - rail_inset - 4.8, 0, 0]) {
+  translate([main_box_x / 2 - rail_inset - 4.85, 0, 0]) {
     translate([0, 0, 0])
     cube([rail_gap, main_box_y, rail_inset - 1.7]);
     translate([0 , 0, rail_inset - rail_gap - 1.7])
