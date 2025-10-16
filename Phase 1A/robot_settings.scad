@@ -48,6 +48,23 @@ dc_motor_axle_cutout_z = 10;
 dc_motor_axle_notch_cutout = 0.5;
 dc_motor_axle_notch_cutout_z = 6;
 
+drv8871_x = 20.3;
+drv8871_y = 24;
+drv8871_z = 2;
+drv8871_screw_d = 2.5;
+drv8871_screw_distance = 15.64;
+drv8871_solder_points_z = 2;
+drv8871_solder_points_d = 1.66;
+drv8871_solder_offset_y = 4.4;
+drv8871_solder_inner_points_distance = 5;
+drv8871_solder_outer_points_distance = 12;
+
+drv8871mount_edge_x = 1.5;
+drv8871mount_edge_wall = 3;
+drv8871mount_z = 5;
+drv8871mount_x = drv8871_x +  drv8871mount_edge_wall - 2* drv8871mount_edge_x;
+drv8871mount_y = 19;
+
 steering_shaft_z = gear_post_height + dc_motor_axle_ring_z + pinion_gear_width + 15;
 steering_shaft_d = 7;
 steering_shaft_motor_fitting_d = 9;
@@ -73,3 +90,12 @@ axle_reciever_inner_diameter = 7.75;
 axle_reciever_length = 18.8;
 axle_notch_length = 7;
 axle_notch_cutout = 2.4;
+
+// power distribution bar
+power_bar_x = 96;
+power_bar_y = 19.1;
+power_bar_z = 1.5;
+power_bar_screw_distance = 91.4;
+power_bar_screw_d = 2.8;
+power_bar_standoff_z = 5;
+power_bar_standoff_d = 6.83;
