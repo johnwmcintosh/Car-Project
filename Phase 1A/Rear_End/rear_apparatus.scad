@@ -13,7 +13,7 @@ module rear_apparatus(
   post_height = 15,
   include_ball_bearing = false,
   include_axle = true,
-  incude_motor = true,
+  incude_motor = false,
   include_rim = true,
 
   draw_left_apparatus = false,
@@ -22,7 +22,7 @@ module rear_apparatus(
   {
     flip = flip_spring ?  -1 : 1;
     
-       // ball bearing housing
+       // engine housing
       difference() {
           translate([0, 0, 0])
           rotate([0, 90, 0])
@@ -39,7 +39,19 @@ module rear_apparatus(
           translate([-ball_bearing_height, dc_motor_screw_offset, 0])
             rotate([0, 90, 0])
             cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d);
+       
+         translate([-3, 0, 0]) {
+           difference() {
+              rotate([0, 90, 0])
+              cylinder(h = 2, d = dc_motor_cutout_d, center = true);
+               
+              rotate([0, 90, 0])
+              cylinder(h = 2, d = dc_motor_cutout_d - 1, center = true);
+             }
+         }
        }
+
+
                 
       // suspension
       translate([0, 0, flip * ball_bearing_outer_diameter + 2])
