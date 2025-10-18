@@ -12,9 +12,9 @@ module rear_apparatus(
   flip_spring = false,
   post_height = 15,
   include_ball_bearing = false,
-  include_axle = true,
+  include_axle = false,
   incude_motor = false,
-  include_rim = true,
+  include_rim = false,
 
   draw_left_apparatus = false,
   )
@@ -40,16 +40,18 @@ module rear_apparatus(
             rotate([0, 90, 0])
             cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d);
        
-         translate([-3, 0, 0]) {
-           difference() {
-              rotate([0, 90, 0])
-              cylinder(h = 2, d = dc_motor_cutout_d, center = true);
-               
-              rotate([0, 90, 0])
-              cylinder(h = 2, d = dc_motor_cutout_d - 1, center = true);
-             }
-         }
-       }
+         translate([-4, 0, -1]) {
+             difference() {
+                rotate([0, 90, 0])
+                cylinder(h = 4, d = dc_motor_cutout_d + 6.5, center = true);               
+                rotate([0, 90, 0])
+                cylinder(h = 4, d = dc_motor_cutout_d + 1, center = true);
+                translate([0,0,dc_motor_cutout_d / 2 - 4])
+                cube([4, dc_motor_cutout_d + 8, dc_motor_cutout_d / 2 + 10], center = true);
+              }
+          }
+        }
+        
 
 
                 

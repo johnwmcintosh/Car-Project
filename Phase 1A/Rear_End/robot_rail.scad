@@ -49,29 +49,29 @@ module rear_robot_rail(
       }
 
     // engine support
-      translate([-5, -rail_length / 2 + 30, -39])
-      cube([10, 10, 42]);
+      translate([-5, -rail_length / 2 + 30, -43])
+      cube([10, 10, 46]);
      
       difference() {
           //color("red")
-          translate([-72, -rail_length / 2 + 35, -45])
+          translate([-74, -rail_length / 2 + 35, -49])
           rotate([0, 90, 0])
-          cylinder(h = 144, d = dc_motor_cutout_d);
+          cylinder(h = 149, d = dc_motor_cutout_d);
 
-          translate([-73, -rail_length / 2 + 35, -42])
+          translate([-76, -rail_length / 2 + 35, -46])
           rotate([0, 90, 0])
-          cylinder(h = 66, d = dc_motor_cutout_d + 1);
+          cylinder(h = 69, d = dc_motor_cutout_d + 1);
           
-          translate([7, -rail_length / 2 + 35, -42])
+          translate([7, -rail_length / 2 + 35, -46])
           rotate([0, 90, 0])
-          cylinder(h = 65.5, d = dc_motor_cutout_d + 1);   
+          cylinder(h = 69, d = dc_motor_cutout_d + 1);   
 
           // curcuit board connector cutout
-          translate([15, -rail_length / 2 + 45, -50])
+          translate([15, -rail_length / 2 + 45, -54])
           cube([7, 3,  5]);
 
           // curcuit board connector cutout
-          translate([-22, -rail_length / 2 + 45, -50])
+          translate([-22, -rail_length / 2 + 45, -54])
           cube([7, 3,  5]);   
       }
 
@@ -82,16 +82,16 @@ module rear_robot_rail(
       translate([-main_box_x / 2 + rail_inset - 2.9, 0, 0]) {
         translate([ .7, 0, 0]) 
         cube([rail_gap, main_box_y, rail_inset - 1.7]);
-        translate([-4.3, 0, rail_inset - rail_gap - 1.7])
-        cube([rail_inset, main_box_y, rail_gap + 1.5]);
+        translate([-4.4, 0, rail_inset - rail_gap - 1.7])
+        cube([rail_inset + .1, main_box_y, rail_gap + 1.5]);
       }
 
     //color("yellow")
-      translate([main_box_x / 2 - rail_inset - 4.75, 0, 0]) {
+      translate([main_box_x / 2 - rail_inset - 4.65, 0, 0]) {
         translate([0, 0, 0])
         cube([rail_gap, main_box_y, rail_inset - 1.7]);
         translate([0 , 0, rail_inset - rail_gap - 1.7])
-        cube([rail_inset, main_box_y, rail_gap + 1.5]);
+        cube([rail_inset - .1, main_box_y, rail_gap + 1.5]);
       }
     }
     
