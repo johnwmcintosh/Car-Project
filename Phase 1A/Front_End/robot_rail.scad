@@ -78,7 +78,7 @@ module front_robot_rail(show_steering_apparatus = true) {
       rail_length / 2  - steering_motor_mount_setback_distance, 
       rail_thickness / 2 + 1
       ])
-      dc_motor_mount(show_steering_shaft = false);
+      dc_motor_mount(show_steering_shaft = show_steering_apparatus);
   
   if (show_steering_apparatus) {
      
@@ -116,6 +116,7 @@ module front_robot_rail(show_steering_apparatus = true) {
         post_height = 6, 
         flip_spring = false, 
         axle_rotation = false,
+        rear_axle = false,
         draw_left_apparatus = true);
      
     // rack
@@ -150,6 +151,7 @@ module front_robot_rail(show_steering_apparatus = true) {
         post_height = 6, 
         flip_spring = false, 
         axle_rotation = true,
+        rear_axle = false,
         draw_left_apparatus = false);
    
     //translate([ball_bearing_outer_diameter, 31,  rail_thickness - 1.5])

@@ -22,7 +22,7 @@ module rear_robot_rail(
     ) 
     {
     difference() {
-      front_robot_rail(show_steering_apparatus = false);
+      front_robot_rail(show_steering_apparatus = include_apparatus);
       
       // tire apparatus cutouts
       translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -rail_thickness])
@@ -32,12 +32,12 @@ module rear_robot_rail(
        cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
    
       // power bar wire passthrough cutouts
-      translate([0,  power_bar_y / 2 + 5, 0])
-      cube([power_bar_x, power_bar_y / 3, 2 * rail_thickness], center = true);
+      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 26, 0])
+      cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
    
       // power bar wire passthrough cutouts
-      translate([0,  -power_bar_y / 2 - 5, 0])
-      cube([power_bar_x, power_bar_y / 3, 2 * rail_thickness], center = true);
+      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
+      cube([power_bar_y / 3, power_bar_cutout_x , 2 * rail_thickness], center = true);
     }
       
     if (include_apparatus) {
@@ -67,11 +67,11 @@ module rear_robot_rail(
           cylinder(h = 69, d = dc_motor_cutout_d + 1);   
 
           // curcuit board connector cutout
-          translate([15, -rail_length / 2 + 45, -54])
+          translate([15.5, -rail_length / 2 + 45, -54])
           cube([7, 3,  5]);
 
           // curcuit board connector cutout
-          translate([-22, -rail_length / 2 + 45, -54])
+          translate([-22.5, -rail_length / 2 + 45, -54])
           cube([7, 3,  5]);   
       }
 
@@ -95,41 +95,68 @@ module rear_robot_rail(
       }
     }
     
-    // drv8871 platform
+    // drv8871 platform UPPER
+    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 2 * drv8871_y, rail_thickness / 2 - .25])
+    rotate([0,0,180])
+    drv8871mount();
+    
+    // drv8871 platform LOWER LEFT
     translate([- drv8871_screw_distance - 25, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
     rotate([180,0,90])
     drv8871mount();
        
-    // drv8871 platform
+    // drv8871 platform LOWER RIGHT
     translate([drv8871_screw_distance + 25, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2  + .25 ])
     rotate([180,0,-90])
     drv8871mount();
     
-
+    // power bar stand LEFT
+    translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .6 ])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
+    
+    translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
+        
     if (include_power_bar) {
-      translate([0, 0, rail_thickness / 2 + power_bar_standoff_z])
+      translate([-rail_width / 3 - 10, 80 -power_bar_screw_distance / 2, rail_thickness / 2 + power_bar_standoff_z])
+      rotate([0, 0, 90])        power_bar();
+    }
+    
+    // power bar label LEFT
+    color("red")
+    translate([-rail_width / 3 - power_bar_y / 2, power_bar_y / 2 - 36,  rail_thickness / 2])
+    linear_extrude(1)
+      text("5V", 6);
+     
+    color("green")
+    translate([-rail_width / 3 - power_bar_y / 2 - 13, power_bar_y / 2 - 36,  rail_thickness / 2])
+      linear_extrude(1)
+      text("N", 6);
+    
+    // power bar stand RIGHT
+    translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .6 ])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
+    
+    translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
+    
+    if (include_power_bar) {
+      translate([rail_width / 3 + 10, 80 -power_bar_screw_distance / 2, rail_thickness / 2 + power_bar_standoff_z])
+      rotate([0, 0, 90])
         power_bar();
     }
     
-    // power bar stand
-    translate([- power_bar_screw_distance / 2, 0,  rail_thickness / 2 - .6 ])
-    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-
-    // power bar stand
-    translate([power_bar_screw_distance / 2, 0,  rail_thickness / 2 - .6 ])
-    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-    
-    // power bar label
+    // power bar label RIGHT
     color("red")
-    translate([power_bar_screw_distance / 2 + 5, power_bar_y / 2 - 6,  rail_thickness / 2])
+    translate([rail_width / 3 - power_bar_y / 2 + 3, power_bar_y / 2 - 36,  rail_thickness / 2])
       linear_extrude(1)
-      text("12 V", 6);
-    
-    // power bar label
+      text("12V", 6);
+      
     color("green")
-    translate([power_bar_screw_distance / 2 + 5, -power_bar_y / 2,  rail_thickness / 2])
-    linear_extrude(1)
-      text("5 V", 6);
+    translate([rail_width / 3 + power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
+      linear_extrude(1)
+      text("N", 6);
+
     
     if (include_battery_box) {
         translate([-rail_width / 4, -rail_length / 2, 3.6])

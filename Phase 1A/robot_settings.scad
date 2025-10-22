@@ -92,7 +92,7 @@ axle_notch_length = 7;
 axle_notch_cutout = 2.4;
 
 // power distribution bar
-power_bar_x = 96;
+power_bar_cutout_x = 96;
 power_bar_y = 19.1;
 power_bar_z = 1.5;
 power_bar_screw_distance = 91.4;

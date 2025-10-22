@@ -3,7 +3,7 @@
 use <physical_ball_bearing.scad>
 use <tire_apparatus.scad>
 use <stepper_motor_mount.scad>
-use <spring_library.scad>
+use <../spring_library.scad>
 use <MCAD/involute_gears.scad>
 use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 $fn = 50;
@@ -33,8 +33,8 @@ module robot_rail() {
 
   // center post for gears
  
-translate([rail_width / 2, gears_setback_distance, rail_gap + 12])
-stepper_motor_mount(false, true);
+//translate([rail_width / 2, gears_setback_distance, rail_gap + 12])
+//stepper_motor_mount(false, true);
  
  
 

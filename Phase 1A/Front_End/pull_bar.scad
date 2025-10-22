@@ -1,4 +1,4 @@
-include <robot_settings.scad>
+include <../robot_settings.scad>
 $fn = 50;
 
 module pull_bar(bar_length = 35, rotate = false) {

@@ -16,14 +16,15 @@ module tire_apparatus(
   flip_spring = false,
   post_height = 15,
   include_ball_bearing = false,
-  include_axle = false,
-  include_pull_bar = false,
+  include_axle = true,
+  rear_axle = false,
+  include_pull_bar = true,
   include_grab_bar = false,
   draw_left_apparatus = false
 ) 
 {  
   if (include_axle)
-    axle(axle_length = axle_length + 10, rotate = axle_rotation);
+    axle(axle_length = axle_length + 10, rotate = axle_rotation, rear_axle = rear_axle);
 
   if (include_ball_bearing) {
   // ball bearing
@@ -114,4 +115,4 @@ module tire_apparatus(
       cylinder(h = post_height + ball_bearing_height, d = ball_bearing_inner_diameter - .09);
     }
 }
-tire_apparatus(include_axle = false);
+tire_apparatus();

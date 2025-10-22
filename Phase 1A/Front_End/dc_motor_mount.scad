@@ -47,7 +47,7 @@ if (show_mount) {
       // motor connection
         // shorten the main shaft
       
-    translate([-40,60, -steering_shaft_z]) {
+    translate([0,0, -steering_shaft_z - 4]) {
       cylinder(h = steering_shaft_z, d = ball_bearing_inner_diameter);
         
       union()
@@ -64,8 +64,8 @@ if (show_mount) {
        }
        
        // d brace
-       translate([-dc_motor_axle_cutout_d / 2 , dc_motor_axle_notch_cutout, steering_shaft_z])
-       cube([dc_motor_axle_cutout_d, dc_motor_axle_notch_cutout, ball_bearing_height]);
+       translate([-dc_motor_axle_cutout_d / 2 , dc_motor_axle_notch_cutout, steering_shaft_z - 2])
+       cube([dc_motor_axle_cutout_d, dc_motor_axle_notch_cutout + 1.2, ball_bearing_height]);
     }
   }
 }
