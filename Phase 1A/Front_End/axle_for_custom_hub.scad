@@ -3,8 +3,8 @@ include <../robot_settings.scad>
 $fn=50;
 
 module axle(
-  axle_length = 45,
-  axle_inner_radius = axle_reciever_inner_diameter / 2,
+  axle_length = axle_length,
+  axle_inner_radius = axle_reciever_inner_diameter / 2 + 0.1,
   rotate = true,
   rear_axle = true
 )

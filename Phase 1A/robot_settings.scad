@@ -45,7 +45,7 @@ dc_motor_axle_ring_z = 3;
 dc_motor_axle_ring_d = 7.2;
 dc_motor_axle_cutout_d = 4.5;
 dc_motor_axle_cutout_z = 10;
-dc_motor_axle_notch_cutout = 0.5;
+dc_motor_axle_notch_cutout = 0.4;
 dc_motor_axle_notch_cutout_z = 6;
 
 drv8871_x = 20.3;
@@ -65,12 +65,22 @@ drv8871mount_z = 5;
 drv8871mount_x = drv8871_x +  drv8871mount_edge_wall - 2* drv8871mount_edge_x;
 drv8871mount_y = 19;
 
+pdmount_x = 20;
+pdmount_y = 30;
+pdmount_z = 2;
+pdmount_edge_x = 1.5;
+pdmount_edge_wall = 3;
+
 steering_shaft_z = gear_post_height + dc_motor_axle_ring_z + pinion_gear_width + 15;
 steering_shaft_d = 7;
 steering_shaft_motor_fitting_d = 9;
 
-lidar_mount_y = 125;
-lidar_mount_x = 65;
+lidar_mount_y = 110;
+lidar_mount_x = 65 + 20;
+lidar_narrow_screws = 40;
+lidar_wide_screws = 56;
+lidar_front_to_back_screws = 70;
+lidar_screw_d = 3;
 
 ball_bearing_height = 7;
 ball_bearing_outer_diameter = 22;
@@ -86,6 +96,7 @@ rack_teeth = 30;
 rack_bore = 3;
 
 // tire hardware
+axle_length = 30;
 axle_reciever_inner_diameter = 7.75;
 axle_reciever_length = 18.8;
 axle_notch_length = 7;

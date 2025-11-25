@@ -10,7 +10,7 @@ difference() {
     cube([main_box_x, main_box_y, main_box_z]);
 
     // battery box cutout    
-    translate([wall_thickness, wall_thickness, wall_thickness])
+    translate([wall_thickness - .2, wall_thickness, wall_thickness])
     cube([main_box_x - 2 * wall_thickness, main_box_y + wall_thickness, main_box_z - 2 * wall_thickness]);
 
     // side windows
@@ -59,17 +59,24 @@ cylinder(h = raspberry_pi_peg_h, d = ball_bearing_inner_diameter);
 translate([main_box_x / 2 - tobsun_shelf_width / 2, main_box_y - tobsun_shelf_length, main_box_z + rail_gap + 2 * wall_thickness])
 tobsun_tray();
 
-// rail attachments
-translate([0, 0, 0])
-color("green")
-cube([rail_gap, main_box_y, rail_inset]);
-cube([rail_inset, main_box_y, rail_gap]);
-
-color("green")
-translate([main_box_x - rail_gap, 0, 0]) 
-cube([rail_gap, main_box_y, rail_inset]);
-translate([main_box_x - rail_inset, 0 ,0])
-cube([rail_inset, main_box_y, rail_gap]);
-
+  // rail attachments
+  difference() {
+    union() {
+      color("green")
+      cube([rail_gap + .1, main_box_y, rail_inset]);
+      cube([rail_inset, main_box_y, rail_gap]);
+      
+      color("green")
+      translate([main_box_x - rail_gap - .1, 0, 0]) 
+      cube([rail_gap + .1, main_box_y, rail_inset]);
+      translate([main_box_x - rail_inset, 0 ,0])
+      cube([rail_inset, main_box_y, rail_gap]);
+    }
+    
+    // peg cutout
+    translate([-3, 20, 4])
+    rotate([0, 90, 0])
+    cylinder(h = 100, d = 3);
+  }
 }
 battery_box();

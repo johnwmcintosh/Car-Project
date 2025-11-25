@@ -7,7 +7,6 @@ use <../spring_library.scad>
 use <../Front_End/MCAD/involute_gears.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/Battery_box_2.scad>
-use <pd_mount.scad>
 
 use <rear_apparatus.scad>
 use <power_bar.scad>
@@ -17,7 +16,7 @@ $fn = 50;
 
 
 module rear_robot_rail(
-    include_apparatus = true, 
+    include_apparatus = false, 
     include_battery_box = false,
     include_power_bar = false
     ) 
@@ -30,21 +29,17 @@ module rear_robot_rail(
        cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);
       
       translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness])
-      cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
+       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
+   
+      // power bar wire passthrough cutouts
+      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 26, 0])
+      cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
    
       // power bar wire passthrough cutouts
       translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
       cube([power_bar_y / 3, power_bar_cutout_x , 2 * rail_thickness], center = true);
-        
-      // power bar wire passthrough cutouts
-      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 26, 0])
-      cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
- 
-      // Pi's power passthrough
-      translate([-rail_width / 3 + 5, power_bar_y / 2 - 75, 0])
-      cube([power_bar_y /3, 60, 2 * rail_thickness], center = true);
-      }
-
+    }
+      
     if (include_apparatus) {
         translate([rail_width / 2 - 25, -rail_length / 2 + 35, -45])
           rear_apparatus();
@@ -89,10 +84,9 @@ module rear_robot_rail(
               color("blue")
               translate([ .5, 0, 0]) 
               cube([rail_gap, main_box_y, rail_inset - 1.7]);
-              
               color("red")
               translate([-4.4, -0, rail_inset - rail_gap - 1.8])
-              cube([rail_inset - .1, main_box_y, rail_gap + 1.7]);
+              cube([rail_inset, main_box_y, rail_gap + 1.8]);
             }
 
           //color("yellow")
@@ -100,15 +94,14 @@ module rear_robot_rail(
               color("blue")
               translate([0, 0, 0])
               cube([rail_gap, main_box_y, rail_inset - 1.7]);
-              
               color("yellow")
-              translate([0 , 0, rail_inset - rail_gap - 1.8])
-              cube([rail_inset - .1, main_box_y, rail_gap + 1.7]);
+              translate([0 , 0, rail_inset - rail_gap - 1.85])
+              cube([rail_inset - .1, main_box_y, rail_gap + 1.75]);
               }
           }
       }
       
-      // peg cutout
+      // battery peg cutout
       translate([0, -105, 7.5])
       rotate([0, 90, 0])
       cylinder(h = 150, d = 3, center = true); 
@@ -136,35 +129,16 @@ module rear_robot_rail(
     rotate([180,0,-90])
     drv8871mount();
     
-    // pd mount
-    translate([- drv8871_screw_distance - 60, -rail_length / 2 + 5.1 * pdmount_y, -rail_thickness / 2 - 1])
-    rotate([180,0,0])
-    pdmount();
-    
     // power bar stand LEFT
-    difference() {
-      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .6 ])
-      cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-      
-      // pilot hole for screw
-      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .5 ])
-      cylinder(h = power_bar_standoff_z, d = 1.5);
-      }
+    translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .6 ])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
     
-      difference() {
-      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
-      cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-          
-       // pilot hole for screw
-      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .5])
-      cylinder(h = power_bar_standoff_z, d = 1.5);
-      }
-    
+    translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
         
     if (include_power_bar) {
       translate([-rail_width / 3 - 10, 80 -power_bar_screw_distance / 2, rail_thickness / 2 + power_bar_standoff_z])
-      rotate([0, 0, 90])        
-      power_bar();
+      rotate([0, 0, 90])        power_bar();
     }
     
     // power bar label LEFT
@@ -179,23 +153,11 @@ module rear_robot_rail(
       text("N", 6);
     
     // power bar stand RIGHT
-    difference() {
-      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .6 ])
-      cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-      
-      // pilot hole for screw
-      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .5 ])
-      cylinder(h = power_bar_standoff_z, d = 1.5);
-    }
-
-  difference() {
-      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
-      cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
-
-      // pilot hole for screw
-      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .5])
-      cylinder(h = power_bar_standoff_z, d = 1.5);
-  }
+    translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .6 ])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
+    
+    translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+    cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
     
     if (include_power_bar) {
       translate([rail_width / 3 + 10, 80 -power_bar_screw_distance / 2, rail_thickness / 2 + power_bar_standoff_z])

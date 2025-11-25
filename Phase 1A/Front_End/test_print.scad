@@ -10,35 +10,19 @@ use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/axle_for_custom_hub.scad>
 use <../Rear_End/rear_apparatus.scad>
 use <../Front_End/Battery_box_2.scad>
+use <../arc.scad>
+use <lidar.scad>
 
-
-    cube([
-      rail_width - rail_gap * wall_thickness -50, 
-      rail_length - 120, 
-      rail_thickness], 
-      center = true
-    );
-    
-    translate([-main_box_x / 2, -main_box_y / 2, rail_thickness / 2])
-    battery_box();
-    
-
-  
-// rail attachments
-translate([0,  -rail_length / 2, rail_thickness / 2 - .3]) {
-  color("blue")
-  translate([-main_box_x / 2 + rail_inset - 2.5, 0, 0]) {
-    translate([ .7, 0, 0]) 
-    cube([rail_gap, main_box_y, rail_inset - 2]);
-    translate([-4.3, 0, rail_inset - rail_gap - 2])
-    cube([rail_inset, main_box_y, rail_gap]);
-  }
-
-  color("yellow")
-  translate([main_box_x / 2 - rail_inset - 4.8, 0, 0]) {
-    translate([0, 0, 0])
-    cube([rail_gap, main_box_y, rail_inset - 2]);
-    translate([0 , 0, rail_inset - rail_gap - 2])
-    cube([rail_inset, main_box_y, rail_gap]);
-  }
- 
+        difference() {
+        rotate([0,0,5])
+          gear(gear_thickness = pinion_gear_width,
+               number_of_teeth = pinion_gear_teeth,
+               circular_pitch = gears_module * PI,
+               bore_diameter = ball_bearing_inner_diameter + .05,
+               pressure_angle = 20,
+               clearance = 0,
+               backlash = .5);
+          
+          translate([0,-1,-2])
+          cube([ball_bearing_inner_diameter - 1, 2, 10]);
+        }

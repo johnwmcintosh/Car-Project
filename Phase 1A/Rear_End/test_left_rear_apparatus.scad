@@ -21,17 +21,17 @@ module tire_apparatus(
   rear_axle = false,
   include_pull_bar = false,
   include_grab_bar = false,
-  draw_left_apparatus = false
+  draw_left_apparatus = true
 ) 
 {  
   if (include_axle)
     axle(axle_length = axle_length + 10, rotate = axle_rotation, rear_axle = rear_axle);
 
   if (include_ball_bearing) {
-    // ball bearing
-    translate([axle_length - ball_bearing_height / 2, 0, 0])
-    rotate([0, 90, 0])
-    physical_ball_bearing();
+  // ball bearing
+  translate([axle_length - ball_bearing_height / 2, 0, 0])
+  rotate([0, 90, 0])
+  physical_ball_bearing();
   }
 
   translate([0, -8, 0])
@@ -99,7 +99,7 @@ module tire_apparatus(
       rotate([0, 90, 0])
       cylinder(h =  ball_bearing_height, d = 2 * ball_bearing_outer_diameter);
 
-      translate([-1, 0, 0])
+       translate([-1, 0, 0])
       rotate([0, 90, 0])
       cylinder(h = 2 * ball_bearing_height, d = ball_bearing_outer_diameter + .19);   
     }
@@ -110,18 +110,10 @@ module tire_apparatus(
   springLeaf(width = ball_bearing_height, len =  30, height = 9, thickness = 3);
 
   // post
-    difference() {
-      spring_z = flip_spring ? ball_bearing_outer_diameter  : ball_bearing_outer_diameter;
-      
-      translate([ball_bearing_height / 2 , 0, flip * spring_z + 7])
-        rotate([flip_spring ? 180 : 0, 0, 0])
-        cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter);
-      
-      // locking bar cutout  
-      translate([ball_bearing_height / 2 , 0, 9 + spring_z + post_height + ball_bearing_height])
-       rotate([90,0,0])
-       cylinder(h = ball_bearing_outer_diameter + 2, d = ball_bearing_inner_diameter / 2, center = true);
-    }
+  spring_z = flip_spring ? ball_bearing_outer_diameter  : ball_bearing_outer_diameter;
+  translate([ball_bearing_height / 2 , 0, flip * spring_z + 7])
+   rotate([flip_spring ? 180 : 0, 0, 0])
+  cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter);
     
    // circular anti-sway 
    difference() {
