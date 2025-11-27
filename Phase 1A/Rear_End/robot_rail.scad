@@ -8,6 +8,7 @@ use <../Front_End/MCAD/involute_gears.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/Battery_box_2.scad>
 use <pd_mount.scad>
+use <lidar_circuitboard_mount.scad>
 
 use <rear_apparatus.scad>
 use <power_bar.scad>
@@ -17,7 +18,7 @@ $fn = 50;
 
 
 module rear_robot_rail(
-    include_apparatus = true, 
+    include_apparatus = false, 
     include_battery_box = false,
     include_power_bar = false
     ) 
@@ -41,8 +42,8 @@ module rear_robot_rail(
       cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 5, power_bar_y / 2 - 75, 0])
-      cube([power_bar_y /3, 60, 2 * rail_thickness], center = true);
+      translate([-rail_width / 3 + 10, power_bar_y / 2 - 75, 0])
+      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
       }
 
     if (include_apparatus) {
@@ -125,6 +126,11 @@ module rear_robot_rail(
     translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 2 * drv8871_y, rail_thickness / 2 - .25])
     rotate([0,0,180])
     drv8871mount();
+
+    // lidar circuitboard mound
+    translate([-drv8871_screw_distance - drv8871_x, rail_length / 2 - lidar_cord_length, rail_thickness / 2 - .25])
+    rotate([0,0,180])
+    lidar_circuitboard_mount();
     
     // drv8871 platform LOWER LEFT
     translate([- drv8871_screw_distance - 25, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
