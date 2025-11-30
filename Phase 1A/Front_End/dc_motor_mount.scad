@@ -1,7 +1,7 @@
 $fn = 50;
 include <../robot_settings.scad>
 
- module dc_motor_mount(show_steering_shaft = false, show_mount = false) {
+ module dc_motor_mount(show_steering_shaft = false, show_mount = true) {
 
 if (show_mount) {
     // mount with hole

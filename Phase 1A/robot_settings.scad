@@ -12,7 +12,7 @@ rail_width = 200;
 
 raspberry_pi_screw_seperation_y = 57;
 raspberry_pi_screw_seperation_z = 48;
-raspberry_pi_peg_h = 8;
+raspberry_pi_peg_h = 4;
 
 gears_module = 1;
 pinion_gear_teeth = 30;
