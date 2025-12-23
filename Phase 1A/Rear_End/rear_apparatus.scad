@@ -27,7 +27,7 @@ module rear_apparatus(
           cylinder(h =  ball_bearing_height, d = 2 * ball_bearing_outer_diameter, center = true);
 
           translate([-1, 0, 0])
-            rotate([0, 90, 0])
+           rotate([0, 90, 0])
             cylinder(h = 2 * ball_bearing_height, d = 10, center = true); 
         
           translate([-ball_bearing_height, -dc_motor_screw_offset, 0])

@@ -114,3 +114,12 @@ power_bar_screw_distance = 91.4;
 power_bar_screw_d = 2.8;
 power_bar_standoff_z = 5;
 power_bar_standoff_d = 6.83;
+
+// breadboard
+breadboard_wall_thickness = 3;
+breadboard_width = 55;
+breadboard_length = 83;
+breadboard_height = 10.5;
+breadboard_notch_width = 3.8;
+breadboard_longside_notch_separation = 58.2 - breadboard_notch_width / 2;
+breadboard_shortside_notch_separation = 26.3 - breadboard_notch_width;

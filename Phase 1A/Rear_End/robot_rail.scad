@@ -14,6 +14,7 @@ use <rear_apparatus.scad>
 use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
+use <breadboard_mount.scad>
 $fn = 50;
 
 
@@ -80,8 +81,9 @@ module rear_robot_rail(
           translate([-22.5, -rail_length / 2 + 45, -52])
           cube([7, 3,  5]);   
       }
+   
 
-      
+  
     // rail attachments
     difference() {
       union() {
@@ -133,7 +135,7 @@ module rear_robot_rail(
     lidar_circuitboard_mount();
     
     // drv8871 platform LOWER LEFT
-    translate([- drv8871_screw_distance - 25, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
+    translate([- drv8871_screw_distance, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
     rotate([180,0,90])
     drv8871mount();
        
@@ -146,6 +148,11 @@ module rear_robot_rail(
     translate([- drv8871_screw_distance - 60, -rail_length / 2 + 5.1 * pdmount_y, -rail_thickness / 2 - 1])
     rotate([180,0,0])
     pdmount();
+    
+    // breadboard mount
+    translate([0, 7, rail_thickness / 2 ])
+    rotate([0,0,-90])
+    breadboard_mount();
     
     // power bar stand LEFT
     difference() {
