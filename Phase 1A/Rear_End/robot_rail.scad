@@ -81,9 +81,17 @@ module rear_robot_rail(
           translate([-22.5, -rail_length / 2 + 45, -52])
           cube([7, 3,  5]);   
       }
+      
+      // engine holder support bar
+      difference() {
+        translate([-149/2, -rail_length / 2 + 34.5, -58.5])
+        rotate([90,0,90])
+        cylinder(h = 148, d = 5);
+        
+        translate([-149/2 - 1, -rail_length / 2 + 29.5, -58.5])
+        cube([151, 10, 3]);
+      }
    
-
-  
     // rail attachments
     difference() {
       union() {
@@ -115,34 +123,46 @@ module rear_robot_rail(
       translate([0, -105, 7.5])
       rotate([0, 90, 0])
       cylinder(h = 150, d = 3, center = true); 
-
     }
-  
 
       // peg for battery box
      // translate([-3, -105, 7.5])
       //rotate([0, 90, 0])
       //cylinder(h = 97, d = 3.02, center = true); 
     
-    // drv8871 platform UPPER
-    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 2 * drv8871_y, rail_thickness / 2 - .25])
-    rotate([0,0,180])
+    // drv8871 Adafruit platform UPPER
+    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
     drv8871mount();
+    
+    // drv8871 Teyleten platform UPPER
+    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 2.9 * drv8871_y, rail_thickness / 2 - .25])
+    rotate([0,0,90])
+    drv8871mount("Teyleten");
 
     // lidar circuitboard mound
     translate([-drv8871_screw_distance - drv8871_x, rail_length / 2 - lidar_cord_length, rail_thickness / 2 - .25])
-    rotate([0,0,180])
+    rotate([0,0,0])
     lidar_circuitboard_mount();
     
-    // drv8871 platform LOWER LEFT
+    // drv8871 Adafruit platform LOWER LEFT
     translate([- drv8871_screw_distance, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
-    rotate([180,0,90])
-    drv8871mount();
-       
-    // drv8871 platform LOWER RIGHT
-    translate([drv8871_screw_distance + 25, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2  + .25 ])
     rotate([180,0,-90])
     drv8871mount();
+ 
+    // drv8871 Teyleten platform LOWER LEFT
+    translate([- drv8871_screw_distance, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2 + .25])
+    rotate([180,0,-90])
+    drv8871mount("Teyleten");    
+    
+    // drv8871 Adafruit platform LOWER RIGHT
+    translate([drv8871_screw_distance + 10, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2  + .25 ])
+    rotate([180,0,90])
+    drv8871mount();
+      
+   // drv8871 Teyleten platform LOWER RIGHT
+  translate([drv8871_screw_distance + 10, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2  + .25 ])
+    rotate([180,0,90])
+    drv8871mount("Teyleten"); 
     
     // pd mount
     translate([- drv8871_screw_distance - 60, -rail_length / 2 + 5.1 * pdmount_y, -rail_thickness / 2 - 1])
@@ -150,7 +170,7 @@ module rear_robot_rail(
     pdmount();
     
     // breadboard mount
-    translate([0, 7, rail_thickness / 2 ])
+    translate([0, 7, rail_thickness / 2  + 5])
     rotate([0,0,-90])
     breadboard_mount();
     
@@ -172,7 +192,6 @@ module rear_robot_rail(
       translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .5])
       cylinder(h = power_bar_standoff_z, d = 1.5);
       }
-    
         
     if (include_power_bar) {
       translate([-rail_width / 3 - 10, 80 -power_bar_screw_distance / 2, rail_thickness / 2 + power_bar_standoff_z])

@@ -27,6 +27,28 @@ steering_motor_mount_y = 36;
 steering_motor_mount_z = 18;
 steering_motor_mount_setback_distance = gears_setback_distance + 16;
 
+dc_motor_drivertype = "Teyleten"; // Teyleten
+isAdafruit = (dc_motor_drivertype == "Adafruit");
+
+drv8871_x = isAdafruit ? 20.3 : 21.6;
+drv8871_y = isAdafruit ?  24 : 25;
+
+drv8871_z = 2;
+drv8871_screw_d = 2.5;
+drv8871_solder_points_z = 2;
+
+drv8871mount_edge_x = 1.5;
+drv8871mount_edge_wall = 3;
+drv8871mount_z = 5;
+drv8871mount_x = drv8871_x +  drv8871mount_edge_wall - 2* drv8871mount_edge_x;
+drv8871mount_y = 19;
+
+drv8871_screw_distance = 15.64;
+drv8871_solder_points_d = 1.66;
+drv8871_solder_offset_y = 4.4;
+drv8871_solder_inner_points_distance = 5;
+drv8871_solder_outer_points_distance = 12;
+
 dc_motor_housing_minus_encoder_z = 48;
 dc_motor_encoder_z = 9.33;
 dc_motor_encoder_wheel_d = 13.4;
@@ -47,23 +69,6 @@ dc_motor_axle_cutout_d = 4.5;
 dc_motor_axle_cutout_z = 10;
 dc_motor_axle_notch_cutout = 0.4;
 dc_motor_axle_notch_cutout_z = 6;
-
-drv8871_x = 20.3;
-drv8871_y = 24;
-drv8871_z = 2;
-drv8871_screw_d = 2.5;
-drv8871_screw_distance = 15.64;
-drv8871_solder_points_z = 2;
-drv8871_solder_points_d = 1.66;
-drv8871_solder_offset_y = 4.4;
-drv8871_solder_inner_points_distance = 5;
-drv8871_solder_outer_points_distance = 12;
-
-drv8871mount_edge_x = 1.5;
-drv8871mount_edge_wall = 3;
-drv8871mount_z = 5;
-drv8871mount_x = drv8871_x +  drv8871mount_edge_wall - 2* drv8871mount_edge_x;
-drv8871mount_y = 19;
 
 pdmount_x = 20;
 pdmount_y = 30;
