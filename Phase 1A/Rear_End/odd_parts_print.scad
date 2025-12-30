@@ -19,7 +19,7 @@ use <drv8871mount.scad>
 $fn = 50;
 
 
-translate([0, 20, 0])
+translate([0, 0, 0])
 rotate([0, 90, 0])
 apparatus_peg();
 

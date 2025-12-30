@@ -8,7 +8,7 @@ use <../Front_End/MCAD/involute_gears.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/Battery_box_2.scad>
 use <pd_mount.scad>
-use <lidar_circuitboard_mount.scad>
+use <lidar_mount.scad>
 
 use <rear_apparatus.scad>
 use <power_bar.scad>
@@ -21,7 +21,8 @@ $fn = 50;
 module rear_robot_rail(
     include_apparatus = false, 
     include_battery_box = false,
-    include_power_bar = false
+    include_power_bar = false,
+    show_lidar_platform = false
     ) 
     {
     difference() {
@@ -135,14 +136,9 @@ module rear_robot_rail(
     drv8871mount();
     
     // drv8871 Teyleten platform UPPER
-    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 2.9 * drv8871_y, rail_thickness / 2 - .25])
-    rotate([0,0,90])
-    drv8871mount("Teyleten");
-
-    // lidar circuitboard mound
-    translate([-drv8871_screw_distance - drv8871_x, rail_length / 2 - lidar_cord_length, rail_thickness / 2 - .25])
+    translate([-drv8871_screw_distance - drv8871_x,  rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
     rotate([0,0,0])
-    lidar_circuitboard_mount();
+    drv8871mount("Teyleten");
     
     // drv8871 Adafruit platform LOWER LEFT
     translate([- drv8871_screw_distance, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
@@ -168,6 +164,10 @@ module rear_robot_rail(
     translate([- drv8871_screw_distance - 60, -rail_length / 2 + 5.1 * pdmount_y, -rail_thickness / 2 - 1])
     rotate([180,0,0])
     pdmount();
+    
+    if (show_lidar_platform) {
+      lidar_mount();
+    }
     
     // breadboard mount
     translate([0, 7, rail_thickness / 2  + 5])

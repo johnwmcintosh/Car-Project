@@ -6,13 +6,10 @@ use <dc_motor_mount.scad>
 use <../spring_library.scad>
 use <MCAD/involute_gears.scad>
 use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
-use <lidar.scad>
-use <../arc.scad>
 $fn = 50;
 
 module front_robot_rail(
-  show_steering_apparatus = true, 
-  show_lidar_platform = false
+  show_steering_apparatus = true
  ){
  
   difference() {
@@ -184,80 +181,6 @@ module front_robot_rail(
       //translate([rail_width - ball_bearing_outer_diameter, 31, rail_thickness - 1.5])
        // physical_ball_bearing();
     }
-    
-    if (show_lidar_platform) {
-      difference() {
-        translate([0, rail_length / 2 + 75/2 + 17, 0])
-          cube([lidar_mount_x, lidar_mount_y,rail_thickness], center = true);
-        
-        // attachment cutouts for extension
-        translate([-20,  rail_length / 2 + 5, 0])
-        cylinder(h = 2 * rail_thickness, d = 3, center = true);
-        
-        translate([0,  rail_length / 2 + 5, 0])
-        cylinder(h = 2 * rail_thickness, d = 3, center = true);
-        
-        translate([20,  rail_length / 2 + 5, 0])
-        cylinder(h = 2 * rail_thickness, d = 3, center = true);
-        
-        translate([0, rail_length /2 + 75,-rail_thickness / 2 - .1])
-        linear_extrude(rail_thickness + .2)
-        arc(50,55, 0,180); 
-        
-        translate([0,rail_length / 2 + 30,0])
-        lidar_cutouts();
-        }
-
-        
-        difference() {
-          translate([0,  rail_length / 2, rail_thickness])
-          cube([lidar_mount_x,  24, rail_thickness], center = true);
-          
-          // attachment cutouts for extension
-          translate([-20,  rail_length / 2 + 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([0,  rail_length / 2 + 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([20,  rail_length / 2 + 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-           translate([-20,  rail_length / 2 - 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([0,  rail_length / 2 - 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([20,  rail_length / 2 - 5, rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-      }
-      
-      difference() {
-          translate([0,  rail_length / 2, -rail_thickness])
-          cube([lidar_mount_x,  24, rail_thickness], center = true);
-
-         // attachment cutouts for extension
-          translate([-20,  rail_length / 2 + 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-         
-          translate([0,  rail_length / 2 + 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([20,  rail_length / 2 + 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-           translate([-20,  rail_length / 2 - 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([0,  rail_length / 2 - 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-          
-          translate([20,  rail_length / 2 - 5, -rail_thickness])
-          cylinder(h = 2 * rail_thickness, d = 3, center = true);
-        }
-
-  }
 }
 
 front_robot_rail();

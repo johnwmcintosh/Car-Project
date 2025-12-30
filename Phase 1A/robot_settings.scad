@@ -89,7 +89,7 @@ lidar_screw_d = 3;
 lidar_circuitboard_x = 20;
 lidar_circuitboard_y = 35;
 lidar_circuitboard_z = 1.2;
-lidar_cord_length = 55;
+lidar_cord_length = 29;
 
 ball_bearing_height = 7;
 ball_bearing_outer_diameter = 22;

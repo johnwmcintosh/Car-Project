@@ -1,7 +1,7 @@
 include <../robot_settings.scad>
 $fn = 50;
 
-module pull_bar(bar_length = 35, rotate = false) {
+module pull_bar(bar_length = rail_width / 2 - rack_length + 1, rotate = false) {
   rotation = rotate ? 180 : 0;
   
   rotate([0,rotation,0])

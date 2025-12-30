@@ -18,10 +18,9 @@ module tire_apparatus(
   dish_offset = 6,
   include_ball_bearing = false,
   include_axle = false,
-  rear_axle = false,
   include_pull_bar = false,
   include_grab_bar = false,
-  draw_left_apparatus = false
+  draw_left_apparatus = true
 ) 
 {  
   if (include_axle)
