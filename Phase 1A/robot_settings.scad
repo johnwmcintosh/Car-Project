@@ -128,3 +128,8 @@ breadboard_height = 10.5;
 breadboard_notch_width = 3.8;
 breadboard_longside_notch_separation = 58.2 - breadboard_notch_width / 2;
 breadboard_shortside_notch_separation = 26.3 - breadboard_notch_width;
+
+pico_expander_width = 63;
+pico_expander_height = 57;
+pico_screw_hole_offset = 3;
+pico_screw_hole_d = 2.5;
