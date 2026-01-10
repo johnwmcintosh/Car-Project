@@ -1,7 +1,13 @@
 $fn = 50;
 include <../robot_settings.scad>
+use <steering_coupler.scad>
 
- module dc_motor_mount(show_steering_shaft = false, show_mount = true) {
+ module dc_motor_mount(
+      show_steering_shaft = true, 
+      show_mount = true, 
+      show_coupler = false
+      ) 
+      {
 
 if (show_mount) {
     // mount with hole
@@ -53,44 +59,22 @@ if (show_mount) {
       // motor connection
         // shorten the main shaft
       
-    translate([0,0, -steering_shaft_z - 15.5]) {
-      difference() {
-      color("blue")
-      cylinder(h = steering_shaft_z, d = ball_bearing_inner_diameter);
-      // axle cutout
-      translate([0, 0, -dc_motor_axle_cutout_z + steering_shaft_z + .2])
-            cylinder(h = dc_motor_axle_cutout_z , d = dc_motor_axle_cutout_d - .4);
-      }
+    translate([0,0, -steering_shaft_z - dc_motor_axle_ring_z / 2 - coupler_length + coupler_gear_side_insert]) {
+        difference() {
+        color("blue")
+        cylinder(h = steering_shaft_z, d = ball_bearing_inner_diameter);
+     }
+      
       // key
-      translate([ball_bearing_inner_diameter - 3, 0, 22])
-        cube([ball_bearing_inner_diameter /3 , 1.9, 30], center = true);
-      
-        // d brace
-       translate([-dc_motor_axle_cutout_d / 2, dc_motor_axle_notch_cutout + 1.24, steering_shaft_z - ball_bearing_height - 1.8  ])
-      color("green")
-       cube([dc_motor_axle_cutout_d, dc_motor_axle_notch_cutout , ball_bearing_height + 2]);
-      
-      union()
-        
-      difference() 
-       {
-           // so that a 1 mm in diameter larger cap is on top
-          translate([0, 0, steering_shaft_z ])
-            color("red")
-            cylinder(h = ball_bearing_height, d = ball_bearing_inner_diameter + .05);
-         
-         // axle cutout
-          translate([0, 0, -dc_motor_axle_cutout_z + steering_shaft_z + ball_bearing_height + 2])
-            cylinder(h = dc_motor_axle_cutout_z , d = dc_motor_axle_cutout_d - .4);          
-         
-       }
-                
-          // d brace
-         translate([-dc_motor_axle_cutout_d / 2 , dc_motor_axle_notch_cutout + 1.24, steering_shaft_z - 2])
-         cube([dc_motor_axle_cutout_d, dc_motor_axle_notch_cutout , ball_bearing_height]);
-      
+      translate([0, ball_bearing_inner_diameter - 3, 15])
+        cube([ball_bearing_inner_diameter / 3 - .3 , 1.9, 30], center = true);
+     }
+    
+    if (show_coupler) {
+      translate([0, 0,  - coupler_length / 2 - dc_motor_axle_ring_z / 2])
+      rotate([0, 0, 90])
+      steering_coupler();
     }
-
   }
 }
 dc_motor_mount(show_steering_shaft = true);

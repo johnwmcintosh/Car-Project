@@ -26,8 +26,9 @@ module front_robot_rail(
       translate([-20,  rail_length / 2 - 5, 0])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
       
-      translate([0,  rail_length / 2 - 5, 0])
-      cylinder(h = 2 * rail_thickness, d = 3, center = true);
+      translate([0,  rail_length / 2 - 5, -4])
+      rotate([90, 0, 0])
+      cylinder(h = 8 * rail_thickness, d = 3.5, center = true);
       
       translate([20,  rail_length / 2 - 5, 0])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
@@ -136,7 +137,7 @@ module front_robot_rail(
           dish_offset = 6, 
           flip_spring = false, 
           axle_rotation = false,
-          rear_axle = false,
+          //rear_axle = false,
           draw_left_apparatus = true);
        
       // rack
@@ -172,7 +173,7 @@ module front_robot_rail(
           dish_offset = 6,
           flip_spring = false, 
           axle_rotation = true,
-          rear_axle = false,
+          //rear_axle = false,
           draw_left_apparatus = false);
      
       //translate([ball_bearing_outer_diameter, 31,  rail_thickness - 1.5])

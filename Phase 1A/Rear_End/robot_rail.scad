@@ -203,7 +203,7 @@ module rear_robot_rail(
     color("blue")
     translate([-rail_width / 3 - power_bar_y / 2, power_bar_y / 2 - 36,  rail_thickness / 2])
     linear_extrude(1)
-      text("5V", 6);
+      text("3.3V", 6);
      
     color("green")
     translate([-rail_width / 3 - power_bar_y / 2 - 13, power_bar_y / 2 - 36,  rail_thickness / 2])

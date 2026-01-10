@@ -76,9 +76,15 @@ pdmount_z = 2;
 pdmount_edge_x = 1.5;
 pdmount_edge_wall = 3;
 
-steering_shaft_z = gear_post_height + dc_motor_axle_ring_z + pinion_gear_width + 15;
+steering_shaft_z = 45;
 steering_shaft_d = 7;
 steering_shaft_motor_fitting_d = 9;
+coupler_length = 24.6;
+coupler_diameter = 14;
+coupler_screw_d = 4;
+coupler_screw_z_offset = 5;
+coupler_gear_side_insert = 12.6;
+steering_shaft_with_coupler_z = steering_shaft_z - coupler_gear_side_insert;
 
 lidar_mount_y = 110;
 lidar_mount_x = 65 + 20;
