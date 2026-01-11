@@ -5,7 +5,7 @@ use <steering_coupler.scad>
  module dc_motor_mount(
       show_steering_shaft = true, 
       show_mount = true, 
-      show_coupler = false
+      show_coupler = true
       ) 
       {
 
@@ -67,7 +67,7 @@ if (show_mount) {
       
       // key
       translate([0, ball_bearing_inner_diameter - 3, 15])
-        cube([ball_bearing_inner_diameter / 3 - .3 , 1.9, 30], center = true);
+        cube([ball_bearing_inner_diameter / 3 - .6 , 1.9, 30], center = true);
      }
     
     if (show_coupler) {

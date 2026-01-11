@@ -1,4 +1,5 @@
    include <../robot_settings.scad>
+   use <clampipe.scad>
    
    // front end jack
   module back_jack(
@@ -27,18 +28,24 @@
 
           // right turnbox carve out
           translate([rail_width / 3 - 20, -10, 90])
-          cube([rail_width / 4, 50,  dc_motor_cutout_d + 25]);    
-
+          cube([rail_width / 4, 50,  dc_motor_cutout_d + 25]); 
+    
+        // flatten the top front holder structure to allow for more angles of freedom of the clam pipe
+        translate([- rail_width / 2 - 1, 7, 120])
+          cube([rail_width + 2, 20, 20]);
+        
+          // carve out the top so that the pipe can be added removed
           translate([0, 0, 108])
             difference() {
-            translate([0, 0, 22])
-            cube([rail_width+ 1, 20, dc_motor_cutout_d + 20], center = true);
-
-            translate([0, 0, 0])
-            rotate([0, 90, 0])
-            cylinder(h = rail_width + 1.1, d = 20, center = true);
-        }
+                translate([0, 0, 22])
+                cube([rail_width+ 1, 20, dc_motor_cutout_d + 20], center = true);
+            
+              translate([0, 0, 0])
+              rotate([0, 90, 0])
+              cylinder(h = rail_width + 1.1, d = 20, center = true);
+          }
     }
+
 
     difference() {
       
@@ -71,37 +78,20 @@
         cube([8, 8, 120], center = true);
       }
      
-      // carve out for claim pipe (otherwise the support 
+      // carve out for claim pipe (otherwise the support columns get in the way
        translate([50, 0, 108])
         rotate([0, 90, 0])
         cylinder(h = 2 * rail_width, d =21, center = true);
     }
 }
 
+
   if (show_pipe) {
       // clam pipe
        translate([0, 0, 108]) {
-          rotate([0, 90, 0])
-          cylinder(h = rail_width + 10, d = 19, center = true);
+         rotate([33, 0, 0])
+         clam_pipe();
        }
-
-       // left clam 
-       translate([0, 16, 108])
-       {
-         // right clam
-        translate([-rail_width / 2.8,  5, rail_thickness])
-        cube([rail_width / 5,  40, rail_thickness], center = true);
-        
-        translate([-rail_width / 2.8,  5, -rail_thickness])
-        cube([rail_width / 5,  40, rail_thickness], center = true);
-
-        // left clam
-        translate([rail_width / 2.8,  5, rail_thickness])
-        cube([rail_width / 5,  40, rail_thickness], center = true);
-        
-        translate([rail_width / 2.8,  5, -rail_thickness])
-        cube([rail_width / 5,  40, rail_thickness], center = true);
-      }
   }
 }
 back_jack();

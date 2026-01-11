@@ -61,7 +61,7 @@ module rear_robot_rail(
       cube([10, 10, 44]);
      
       difference() {
-          //color("red")
+          color("red")
           translate([-75, -rail_length / 2 + 35, -47])
           rotate([0, 90, 0])
           cylinder(h = 149, d = dc_motor_cutout_d);
@@ -75,11 +75,11 @@ module rear_robot_rail(
           cylinder(h = 69, d = dc_motor_cutout_d + 1);   
 
           // curcuit board connector cutout
-          translate([15.5, -rail_length / 2 + 45, -52])
+          translate([15, -rail_length / 2 + 45, -52])
           cube([7, 3,  5]);
 
           // curcuit board connector cutout
-          translate([-22.5, -rail_length / 2 + 45, -52])
+          translate([-22, -rail_length / 2 + 45, -52])
           cube([7, 3,  5]);   
       }
       
