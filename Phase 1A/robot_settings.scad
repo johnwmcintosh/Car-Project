@@ -101,7 +101,10 @@ ball_bearing_height = 7;
 ball_bearing_outer_diameter = 22;
 ball_bearing_inner_diameter = 8;
 
-pull_bar_radius = 3.3;
+ armature_holder_height = 20;
+ armature_holder_thickness = 8;
+pull_bar_peg_r = 3.3;
+apparatus_locking_peg_d = 4;
 
 rack_module = 1;
 rack_length = main_box_x / 2;

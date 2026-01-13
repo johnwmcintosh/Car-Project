@@ -12,7 +12,7 @@ use <dc_motor.scad>
 use <../spring_library.scad>
 
 use <rear_apparatus.scad>
-use <apparatus_peg.scad>
+use <../apparatus_pegs.scad>
 use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>

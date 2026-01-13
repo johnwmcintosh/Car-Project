@@ -25,33 +25,40 @@ module rear_apparatus(
           translate([0, 0, 0])
           rotate([0, 90, 0])
           cylinder(h =  ball_bearing_height, d = 2 * ball_bearing_outer_diameter, center = true);
-
-          translate([-1, 0, 0])
-           rotate([0, 90, 0])
-            cylinder(h = 2 * ball_bearing_height, d = 10, center = true); 
+         
+           // cutout for bottom bump         
+          translate([-ball_bearing_height - 2, 0, -14.3])
+          rotate([0, 90, 0])
+          cylinder(h = 10, d = 5);
         
+          // axle pass through cutout
+          translate([-1, 0, 0])
+          rotate([0, 90, 0])
+          cylinder(h = 2 * ball_bearing_height, d = 10, center = true); 
+        
+          // screw cutout
           translate([-ball_bearing_height, -dc_motor_screw_offset, 0])
             rotate([0, 90, 0])
             cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d);
           
+          // screw cutout
           translate([-ball_bearing_height, dc_motor_screw_offset, 0])
             rotate([0, 90, 0])
             cylinder(h = 2 * ball_bearing_height, d = dc_motor_screw_d);
        
-        // cutout for the engine holder
-         translate([-2, 0, 1]) {
+          // cutout for the engine holder
+           translate([-2, 0, 1]) {
              difference() {
                 rotate([0, 90, 0])
-                cylinder(h = 6, d = dc_motor_cutout_d + 6.5, center = true);               
-                rotate([0, 90, 0])
-                cylinder(h = 6, d = dc_motor_cutout_d + 1, center = true);
-                translate([-1,0,dc_motor_cutout_d / 2 - 4])
+                cylinder(h = 6, d = dc_motor_cutout_d + 6.5, center = true  );               
+              rotate([0, 90, 0])
+              cylinder(h = 6, d = dc_motor_cutout_d + 1, center = true);
+                
+           translate([-1,0,dc_motor_cutout_d / 2 - 4])
                 cube([4, dc_motor_cutout_d + 8, dc_motor_cutout_d / 2 + 10], center = true);
               }
           }
         }
-        
-
 
                 
       // suspension
@@ -65,16 +72,19 @@ module rear_apparatus(
        translate([
           0, 0, 2 * ball_bearing_outer_diameter + 1.5
          ])
-          cube([ball_bearing_height - .5, 24.5, ball_bearing_outer_diameter + 5], center = true);
+        // the rail cutout for this is 
+        // x-> ball_bearing_height - .3
+        // y -> 25.2
+          cube([ball_bearing_height - .7, 24.5, ball_bearing_outer_diameter + 5], center = true);
        
-       translate([
-          0,0, 2 * ball_bearing_outer_diameter + rail_thickness
-        ]) 
-       rotate([90,0,90])
-       cylinder(h = ball_bearing_outer_diameter + 2, d = ball_bearing_inner_diameter / 2, center = true);
-      }
+          // cutout for peg
+         translate([
+            0,0, 2 * ball_bearing_outer_diameter + rail_thickness
+         ]) 
+         rotate([90,0,90])
+         cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
+        }
       
-      difference() {
         // attachment bar
         translate(
             [
@@ -83,7 +93,6 @@ module rear_apparatus(
                  2 * ball_bearing_outer_diameter - rail_thickness + 0.5
            ])
           cube([4 * ball_bearing_height, 15, 4]);
-      }
       
       // attachment bar supports
         translate([

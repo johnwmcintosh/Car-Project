@@ -151,11 +151,11 @@ module front_robot_rail(
         difference() {
           zahnstange(rack_module, rack_length, rack_height, rack_width);
 
-           translate([-rack_length / 2, rack_width /2 - 4 * pull_bar_radius , rack_height /2 - pull_bar_radius])
-          cube(2 * pull_bar_radius);
+           translate([-rack_length / 2, rack_width /2 - 4 * pull_bar_peg_r , rack_height /2 - pull_bar_peg_r])
+          cube(2 * pull_bar_peg_r);
           
-           translate([rack_length / 2 - 2 * pull_bar_radius + .75, rack_width /2 - 4 * pull_bar_radius , rack_height - pull_bar_radius - 5])
-          cube(2 * pull_bar_radius);     
+           translate([rack_length / 2 - 2 * pull_bar_peg_r + .75, rack_width /2 - 4 * pull_bar_peg_r , rack_height - pull_bar_peg_r - 5])
+          cube(2 * pull_bar_peg_r);     
           }
       }
       
