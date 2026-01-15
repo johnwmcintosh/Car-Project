@@ -3,6 +3,7 @@ include <../robot_settings.scad>
 use <physical_ball_bearing.scad>
 use <tire_apparatus.scad>
 use <dc_motor_mount.scad>
+use <pull_bar.scad>
 use <../spring_library.scad>
 use <MCAD/involute_gears.scad>
 use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
@@ -140,10 +141,10 @@ module front_robot_rail(
           draw_left_apparatus = true);
        
       // rack
-      color("blue")
+      color("yellow")
       translate([
         0, 
-        rail_length / 2 - gears_setback_distance -  31, 
+        rail_length / 2 - gears_setback_distance -  30, 
         -47
        ])
       rotate([0,0,0])
@@ -158,6 +159,13 @@ module front_robot_rail(
           cube(2 * pull_bar_peg_r);     
           }
       }
+      
+      color("red")
+      translate([-pull_bar_length - rack_length / 2, rail_length / 2 - gears_setback_distance -  34.5, -42])
+      pull_bar();
+
+      translate([pull_bar_length + rack_length / 2 , rail_length / 2 - gears_setback_distance -  34.5, -42])
+      pull_bar(rotate=true);
       
       // apparatus
       translate([

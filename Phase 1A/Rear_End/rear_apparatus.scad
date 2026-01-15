@@ -75,7 +75,7 @@ module rear_apparatus(
         // the rail cutout for this is 
         // x-> ball_bearing_height - .3
         // y -> 25.2
-          cube([ball_bearing_height - .7, 24.5, ball_bearing_outer_diameter + 5], center = true);
+          cube([ball_bearing_height - .75, 24.5, ball_bearing_outer_diameter + 5], center = true);
        
           // cutout for peg
          translate([
@@ -85,7 +85,7 @@ module rear_apparatus(
          cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
         }
       
-        // attachment bar
+        // stability bar
         translate(
             [
                 -2 * ball_bearing_height,

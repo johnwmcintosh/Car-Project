@@ -19,7 +19,7 @@ module tire_apparatus(
   include_axle = false,
   include_pull_bar = false,
   include_grab_bar = false,
-  draw_left_apparatus = false
+  draw_left_apparatus = true
 ) 
 {  
   if (include_axle)
@@ -114,7 +114,7 @@ module tire_apparatus(
       
       translate([ball_bearing_height / 2 , 0, flip * spring_z + 7])
         rotate([flip_spring ? 180 : 0, 0, 0])
-        cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter);
+        cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter - .2);
       
       // locking bar cutout  
       translate([ball_bearing_height / 2 , 0, 9 + spring_z + post_height + ball_bearing_height])

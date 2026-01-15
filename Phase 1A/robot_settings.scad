@@ -103,7 +103,7 @@ ball_bearing_inner_diameter = 8;
 
  armature_holder_height = 20;
  armature_holder_thickness = 8;
-pull_bar_peg_r = 3.3;
+pull_bar_peg_r = 3.2;
 apparatus_locking_peg_d = 4;
 
 rack_module = 1;
@@ -112,6 +112,8 @@ rack_height = 10;
 rack_width = 10;
 rack_teeth = 30;
 rack_bore = 3;
+
+pull_bar_length = rail_width / 2 - rack_length + 1;
 
 // tire hardware
 axle_length = 30;
