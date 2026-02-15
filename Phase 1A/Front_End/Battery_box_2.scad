@@ -2,6 +2,7 @@ include <tobsun_parts.scad>
 include <../robot_settings.scad>
 use <robot_rail.scad>
 use <../rear_end/pico2.scad>
+use <../rear_end/RP5.scad>
 
 module battery_box() {
 
@@ -24,77 +25,8 @@ module battery_box() {
   }
 
   // rp5 mounting pegs - top right
-  difference() {
-    translate([
-              -raspberry_pi_peg_h + .2, 
-              main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
-    rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = ball_bearing_inner_diameter);
-    
-    // screw hole
-    translate([
-              -raspberry_pi_peg_h - .2, 
-              main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
-    rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
-  }
-
-  // rp5 mounting pegs - top left
-  difference() {
-    translate([
-              -raspberry_pi_peg_h + .2,
-              main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
-    rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = ball_bearing_inner_diameter);
-
-    // screw hole
-    translate([
-              -raspberry_pi_peg_h - .2,
-              main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
-    rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
-  }
-
-  // rp5 mounting pegs - bottom right
-  // rp5 mounting pegs - top right
-  difference() {
-    translate([
-              -raspberry_pi_peg_h + .2, 
-              main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 - raspberry_pi_screw_seperation_z + 9])
-    rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = ball_bearing_inner_diameter);
-    
-    // screw hole
-    translate([
-              -raspberry_pi_peg_h - .2, 
-              main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
-              main_box_z / 2 - main_box_z /6 + main_box_z / 2 - raspberry_pi_screw_seperation_z + 9])
-    rotate([0,90,0])
-  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);  
-  }
-
-  // rp5 mounting pegs - bottom left
-  difference() {
-  translate([
-            -raspberry_pi_peg_h + .2,
-            main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
-            main_box_z / 2 - main_box_z /6 + main_box_z / 2 -raspberry_pi_screw_seperation_z + 9])
-  rotate([0,90,0])
-  cylinder(h = raspberry_pi_peg_h, d = ball_bearing_inner_diameter);
-
-  translate([
-            -raspberry_pi_peg_h - .2,
-            main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
-            main_box_z / 2 - main_box_z /6 + main_box_z / 2 -raspberry_pi_screw_seperation_z + 9])
-  rotate([0,90,0])
-  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
-  }
-  
+  RP5();
+ 
   // pico extender
   translate([main_box_x + 2, main_box_y / 2, 45])
   pico_mounts();
@@ -122,5 +54,42 @@ tobsun_tray();
     rotate([0, 90, 0])
     cylinder(h = 100, d = 3);
   }
+  
+  // usb hub holder
+ //color("black")
+ //translate([-usbhub_width + 10, 4.3, main_box_z + usbhub_thickness / 2 + 0])
+ // cube([usbhub_width, usbhub_depth, usbhub_thickness]);
+  
+  // usb hub mount
+  difference() {
+    // end wall
+    translate([main_box_x - 5, 4, main_box_z + usbhub_thickness / 2 ])
+    cube([5, usbhub_depth + .3, usbhub_thickness + usbhub_thickness / 2 - 1]);
+    
+    // usb cutout
+    color("green")
+    translate([main_box_x - 6, usbhub_depth / 2 - 6 , main_box_z + 1])
+    cube([7, usbhub_end_port_width + 3, usbhub_thickness + usbhub_thickness / 2]);
+  }
+  // end roof
+  translate([main_box_x - 9, 4.3, main_box_z + usbhub_thickness + usbhub_thickness / 2 + .3])
+  cube([9, usbhub_depth, 5]);
+  
+  // side right wall
+  translate([main_box_x - usbhub_front_face_safe_zone_right - 5, 0, main_box_z])
+  cube([usbhub_front_face_safe_zone_right + 5, 4, usbhub_thickness  + usbhub_thickness / 2 + 3]);
+  
+  // side right roof
+   translate([main_box_x - usbhub_front_face_safe_zone_right - 5, 0, main_box_z + usbhub_thickness + usbhub_thickness / 2 + .3])
+   cube([usbhub_front_face_safe_zone_right + 5, 9, 5]);
+ 
+  // side left wall
+  translate([0, 0, main_box_z])
+  cube([usbhub_front_face_safe_zone_left , 4, usbhub_thickness  + usbhub_thickness / 2 + 3]);
+  
+  // side left roof
+  translate([0, 0, main_box_z + + usbhub_thickness + usbhub_thickness / 2 + .3])
+   cube([usbhub_front_face_safe_zone_left, 9, 5]);
+ 
 }
 battery_box();

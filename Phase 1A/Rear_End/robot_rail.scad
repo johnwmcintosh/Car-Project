@@ -46,6 +46,24 @@ module rear_robot_rail(
       // Pi's power passthrough
       translate([-rail_width / 3 + 10, power_bar_y / 2 - 75, 0])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
+      
+      // right switch cutout
+      translate([rail_width /2 - 20, -45, - rail_thickness + 2])
+      cylinder(rail_thickness + 4, d = switch_cutout_d);
+      
+      // right switch bump cutout
+      color("green")
+      translate([rail_width /2 - 28, -54, - rail_thickness + 1.7 * switch_bump_h])
+      cube([switch_w, switch_bump_l,  switch_bump_h]);
+      
+      // left switch cutout
+      translate([-rail_width /2 + 20, -45, - rail_thickness + 2])
+      cylinder(rail_thickness + 4, d = switch_cutout_d);
+      
+      // left switch bump cutout
+      color("green")
+      translate([-rail_width /2 + 12, -54, - rail_thickness + 1.7 * switch_bump_h])
+      cube([switch_w, switch_bump_l,  switch_bump_h]);    
       }
 
     if (include_apparatus) {
@@ -245,7 +263,6 @@ module rear_robot_rail(
     translate([rail_width / 3 + power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
       linear_extrude(1)
       text("N", 6);
-
     
     if (include_battery_box) {
         translate([-rail_width / 4, -rail_length / 2, 3.6])

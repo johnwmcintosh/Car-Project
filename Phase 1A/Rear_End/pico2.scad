@@ -19,7 +19,7 @@ module pico_extender() {
       cylinder(5, d = pico_screw_hole_d, center = true);
     }
 }
-pico_extender();
+//pico_extender();
 
 module pico_mounts() {
   rotate([90, 0, 90])

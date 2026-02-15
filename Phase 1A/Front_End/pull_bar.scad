@@ -15,8 +15,8 @@ module pull_bar(rotate = false) {
         }
         
         // rack fitting
-        translate([pull_bar_length - .1, -pull_bar_peg_r, -pull_bar_peg_r + .2])
-        cube(2 * pull_bar_peg_r - .4);
+        translate([pull_bar_length + .1, -pull_bar_peg_r, -pull_bar_peg_r + .1])
+        cube(2 * pull_bar_peg_r - .2);
 
         // grabber
       translate([-.5, 0, -1.1])

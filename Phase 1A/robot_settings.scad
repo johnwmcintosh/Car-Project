@@ -12,7 +12,7 @@ rail_width = 200;
 
 raspberry_pi_screw_seperation_y = 57;
 raspberry_pi_screw_seperation_z = 48;
-raspberry_pi_peg_h = 4;
+raspberry_pi_peg_h = 5;
 
 gears_module = 1;
 pinion_gear_teeth = 30;
@@ -144,3 +144,15 @@ pico_expander_width = 63;
 pico_expander_height = 57;
 pico_screw_hole_offset = 3;
 pico_screw_hole_d = 2.5;
+
+usbhub_thickness = 11.7;
+usbhub_depth = 37.5;
+usbhub_width = 86.7;
+usbhub_end_port_width = 14.8;
+usbhub_front_face_safe_zone_left = 10;
+usbhub_front_face_safe_zone_right = 14.8;
+
+switch_w = 16;
+switch_cutout_d = 12.2;
+switch_bump_h = 2;
+switch_bump_l = 18.2;
