@@ -44,8 +44,12 @@ module rear_robot_rail(
       cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 10, power_bar_y / 2 - 75, 0])
+      translate([-rail_width / 3 + 13, power_bar_y / 2 - 75, 0])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
+      
+      // Pico's  passthrough
+      translate([rail_width / 3 - 12, power_bar_y / 2 - 75, 0])
+      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result 
       
       // right switch cutout
       translate([rail_width /2 - 20, -45, - rail_thickness + 2])
@@ -114,7 +118,7 @@ module rear_robot_rail(
     // rail attachments
     difference() {
       union() {
-        translate([0,  -rail_length / 2, rail_thickness / 2 - .95]) {
+        translate([3,  -rail_length / 2, rail_thickness / 2 - .95]) {
             translate([-main_box_x / 2 + rail_inset - 2.9, 0, 0]) {
               color("blue")
               translate([ .5, 0, 0]) 

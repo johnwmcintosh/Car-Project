@@ -3,6 +3,7 @@ include <../robot_settings.scad>
 use <robot_rail.scad>
 use <../rear_end/pico2.scad>
 use <../rear_end/RP5.scad>
+use <../rear_end/breadboard_pegs.scad>
 
 module battery_box() {
 
@@ -23,13 +24,19 @@ module battery_box() {
       translate([main_box_x / 4, -wall_thickness, main_box_z / 4])
       cube([main_box_x / 2, 4 * wall_thickness, main_box_z / 2]);
   }
-
+  
   // rp5 mounting pegs - top right
   RP5();
  
   // pico extender
   translate([main_box_x + 2, main_box_y / 2, 45])
   pico_mounts();
+  
+  translate([main_box_y / 2 - 3,  -4, main_box_z / 2 + breadboard_height / 2])
+  rotate([90, 90, 0])
+  breadboard_pegs();
+  
+  
 
 // tobsun
 translate([main_box_x / 2 - tobsun_shelf_width / 2, main_box_y - tobsun_shelf_length, main_box_z + rail_gap + 2 * wall_thickness])
@@ -76,16 +83,16 @@ tobsun_tray();
   cube([9, usbhub_depth, 5]);
   
   // side right wall
-  translate([main_box_x - usbhub_front_face_safe_zone_right - 5, 0, main_box_z])
-  cube([usbhub_front_face_safe_zone_right + 5, 4, usbhub_thickness  + usbhub_thickness / 2 + 3]);
+  translate([main_box_x - usbhub_front_face_safe_zone_right - 5, 0, main_box_z + 4.5])
+  cube([usbhub_front_face_safe_zone_right + 5, 4, usbhub_thickness  + usbhub_thickness / 2]);
   
   // side right roof
    translate([main_box_x - usbhub_front_face_safe_zone_right - 5, 0, main_box_z + usbhub_thickness + usbhub_thickness / 2 + .3])
    cube([usbhub_front_face_safe_zone_right + 5, 9, 5]);
  
   // side left wall
-  translate([0, 0, main_box_z])
-  cube([usbhub_front_face_safe_zone_left , 4, usbhub_thickness  + usbhub_thickness / 2 + 3]);
+  translate([0, 0, main_box_z + 4.5])
+  cube([usbhub_front_face_safe_zone_left , 4, usbhub_thickness  + usbhub_thickness / 2]);
   
   // side left roof
   translate([0, 0, main_box_z + + usbhub_thickness + usbhub_thickness / 2 + .3])
