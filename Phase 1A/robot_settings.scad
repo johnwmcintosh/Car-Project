@@ -149,7 +149,8 @@ usbhub_thickness = 11.7;
 usbhub_depth = 37.5;
 usbhub_width = 86.7;
 usbhub_end_port_width = 14.8;
-usbhub_front_face_safe_zone_left = 10;
+usbhub_end_port_height = 12;
+usbhub_front_face_safe_zone_left = 15;
 usbhub_front_face_safe_zone_right = 14.8;
 
 switch_w = 16;
