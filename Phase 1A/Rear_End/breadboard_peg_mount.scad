@@ -4,21 +4,27 @@
    use <breadboard_pegs.scad>
    $fn = 50;
    
-   breadboard_mount();
-   translate([0, 0, -raspberry_pi_peg_h - 2.2])
+   module breadboard_mount_with_pegs() 
    {
-     translate([breadboard_width / 2 -power_bar_screw_d, breadboard_length / 2 - power_bar_screw_d, 0])
-     cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d, center = true);
+     peg_d_offset = .01;
      
-     translate([breadboard_width / 2 -power_bar_screw_d, -breadboard_length / 2 + power_bar_screw_d, 0])
-      cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d,  center = true);
-     
-     translate([-breadboard_width / 2 +power_bar_screw_d, -breadboard_length / 2 + power_bar_screw_d, 0])
-      cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d,  center = true);
-     
-     translate([-breadboard_width / 2  + power_bar_screw_d, breadboard_length / 2 - power_bar_screw_d, 0])
-      cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d,  center = true);
+     breadboard_mount();
+     translate([0, 0, -raspberry_pi_peg_h - 2.2])
+     {
+       translate([breadboard_width / 2 -power_bar_screw_d, breadboard_length / 2 - power_bar_screw_d, 0])
+       cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d + peg_d_offset, center = true);
+       
+       translate([breadboard_width / 2 -power_bar_screw_d, -breadboard_length / 2 + power_bar_screw_d, 0])
+        cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d + peg_d_offset,  center = true);
+       
+       translate([-breadboard_width / 2 +power_bar_screw_d, -breadboard_length / 2 + power_bar_screw_d, 0])
+        cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d + peg_d_offset,  center = true);
+       
+       translate([-breadboard_width / 2  + power_bar_screw_d, breadboard_length / 2 - power_bar_screw_d, 0])
+        cylinder(h = raspberry_pi_peg_h, d =  power_bar_screw_d + peg_d_offset,  center = true);
 
-    //translate([0,0, -.6]) 
-   //breadboard_pegs();
-   }
+      //translate([0,0, -.6]) 
+     //breadboard_pegs();
+     }
+  }
+   breadboard_mount_with_pegs();
