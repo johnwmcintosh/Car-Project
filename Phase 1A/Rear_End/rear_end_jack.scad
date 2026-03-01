@@ -3,7 +3,7 @@
    
    // front end jack
   module back_jack(
-    show_pipe = true,
+    show_pipe = false,
     show_structure = true
     ) {
       
@@ -11,13 +11,18 @@
       // platform
       translate([0,  0, 0])
       cube([110, 110, 8], center = true);
-        
+
+     
       // top holder structure
       difference() {
           translate([0, 0, 108])
           cube([rail_width, 50, dc_motor_cutout_d + 20], center = true);
-          
-          
+         
+          // back wall breadboard clearance
+          translate([0, -18, 123])
+          cube([breadboard_length + 10, 20, 17], center = true);        
+               
+          // pipe carve out
           translate([0, 0, 108])
           rotate([0, 90, 0])
           cylinder(h = rail_width * 2, d = 20.2, center = true);
@@ -78,7 +83,7 @@
         cube([8, 8, 120], center = true);
       }
      
-      // carve out for claim pipe (otherwise the support columns get in the way
+      // carve out for clam pipe (otherwise the support columns get in the way
        translate([50, 0, 108])
         rotate([0, 90, 0])
         cylinder(h = 2 * rail_width, d =21, center = true);

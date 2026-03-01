@@ -1,7 +1,7 @@
    include <../robot_settings.scad>
    $fn = 50;
    
-    module breadboard_pegs(show_platform = true)
+    module breadboard_pegs(show_platform = false)
     {
       peg_size = .35;
       
