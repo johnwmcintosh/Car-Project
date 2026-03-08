@@ -4,13 +4,15 @@ use <physical_ball_bearing.scad>
 use <tire_apparatus.scad>
 use <dc_motor_mount.scad>
 use <pull_bar.scad>
+use <../Rear_End/front_end_jack.scad>
 use <../spring_library.scad>
 use <MCAD/involute_gears.scad>
 use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 $fn = 50;
 
 module front_robot_rail(
-  show_steering_apparatus = true
+  show_steering_apparatus = true,
+  show_jackstand = true
  ){
  
   difference() {
@@ -23,14 +25,16 @@ module front_robot_rail(
       center = true
     );
           
-       // attachment cutouts for extension
+       // right attachment cutouts for extension
       translate([-20,  rail_length / 2 - 5, 0])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
       
+      // alan wrench access cutout 
       translate([0,  rail_length / 2 + .1, -3.8])
       rotate([90, 0, 0])
       cylinder(h = 91, d = 3.5);
       
+       // left attachment cutouts for extension
       translate([20,  rail_length / 2 - 5, 0])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
       
@@ -188,6 +192,14 @@ module front_robot_rail(
       //translate([rail_width - ball_bearing_outer_diameter, 31, rail_thickness - 1.5])
        // physical_ball_bearing();
     }
+    
+    if (show_jackstand)
+    {
+      translate([0, rail_length / 2 + 5.5, -108])
+      rotate([0,0, 180])
+        front_end_jack();
+    }
+
 }
 
 front_robot_rail();
