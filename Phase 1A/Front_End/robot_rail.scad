@@ -4,15 +4,16 @@ use <physical_ball_bearing.scad>
 use <tire_apparatus.scad>
 use <dc_motor_mount.scad>
 use <pull_bar.scad>
+use <steering_rack.scad>
 use <../Rear_End/front_end_jack.scad>
 use <../spring_library.scad>
 use <MCAD/involute_gears.scad>
-use <OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
+
 $fn = 50;
 
 module front_robot_rail(
   show_steering_apparatus = true,
-  show_jackstand = true
+  show_jackstand = false
  ){
  
   difference() {
@@ -148,28 +149,15 @@ module front_robot_rail(
       color("yellow")
       translate([
         0, 
-        rail_length / 2 - gears_setback_distance -  30, 
+        rail_length / 2 - gears_setback_distance -  34.5, 
         -47
        ])
       rotate([0,0,0])
       {
-        difference() {
-          zahnstange(rack_module, rack_length, rack_height, rack_width);
-
-           translate([-rack_length / 2, rack_width /2 - 4 * pull_bar_peg_r , rack_height /2 - pull_bar_peg_r])
-          cube(2 * pull_bar_peg_r);
-          
-           translate([rack_length / 2 - 2 * pull_bar_peg_r + .75, rack_width /2 - 4 * pull_bar_peg_r , rack_height - pull_bar_peg_r - 5])
-          cube(2 * pull_bar_peg_r);     
-          }
+          steering_rack();
       }
       
-      color("red")
-      translate([-pull_bar_length - rack_length / 2, rail_length / 2 - gears_setback_distance -  34.5, -42])
-      pull_bar();
 
-      translate([pull_bar_length + rack_length / 2 , rail_length / 2 - gears_setback_distance -  34.5, -42])
-      pull_bar(rotate=true);
       
       // apparatus
       translate([
