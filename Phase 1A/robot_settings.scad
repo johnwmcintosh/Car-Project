@@ -14,6 +14,10 @@ raspberry_pi_screw_seperation_y = 57;
 raspberry_pi_screw_seperation_z = 48;
 raspberry_pi_peg_h = 5;
 
+battery_box_peg_h = 6;
+battery_box_peg_d = 8;
+battery_box_peg_cutout = 5;
+
 gears_module = 1;
 pinion_gear_teeth = 30;
 pinion_gear_width = 5;

@@ -4,17 +4,16 @@ use <../Front_End/robot_rail.scad>
 use <../Front_End/tire_apparatus.scad>
 use <../Front_End/dc_motor_mount.scad>
 use <../spring_library.scad>
-use <../Front_End/MCAD/involute_gears.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
-use <../Front_End/Battery_box_2.scad>
+use <../Front_End/Battery_box_3.scad>
 use <pd_mount.scad>
 use <lidar_mount.scad>
+use <../Front_End/battery_box_peg_mounts.scad>
 
 use <rear_apparatus.scad>
 use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
-use <breadboard_mount.scad>
 $fn = 50;
 
 
@@ -34,22 +33,23 @@ module rear_robot_rail(
       
       translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness])
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
-   
-      // power bar wire passthrough cutouts
-      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
-      cube([power_bar_y / 3, power_bar_cutout_x , 2 * rail_thickness], center = true);
         
       // power bar wire passthrough cutouts
       translate([-rail_width / 3 + 10,  power_bar_y / 2 + 26, 0])
-      cube([power_bar_y / 3, power_bar_cutout_x, 2 * rail_thickness], center = true);
+      cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 13, power_bar_y / 2 - 75, 0])
+      translate([-rail_width / 3 + 13, power_bar_y / 2 - 60, 0])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
       
+      // power bar wire passthrough cutouts
+      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
+      cube([power_bar_y / 2.3, power_bar_cutout_x - 10 , 2 * rail_thickness], center = true);
+      
       // Pico's  passthrough
-      translate([rail_width / 3 - 12, power_bar_y / 2 - 75, 0])
-      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result 
+      translate([rail_width / 3 - 10, power_bar_y / 2 - 52, 0])
+      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
+      
       
       // right switch cutout
       translate([rail_width /2 - 20, -45, - rail_thickness + 2])
@@ -115,43 +115,9 @@ module rear_robot_rail(
         cube([151, 10, 3]);
       }
    
-    // rail attachments
-    difference() {
-      union() {
-        translate([3,  -rail_length / 2, rail_thickness / 2 - .95]) {
-            translate([-main_box_x / 2 + rail_inset - 2.9, 0, 0]) {
-              color("blue")
-              translate([ .5, 0, 0]) 
-              cube([rail_gap, main_box_y, rail_inset - 1.7]);
-              
-              color("red")
-              translate([-4.4, -0, rail_inset - rail_gap - 1.8])
-              cube([rail_inset - .1, main_box_y, rail_gap + 1.7]);
-            }
-
-          //color("yellow")
-            translate([main_box_x / 2 - rail_inset - 4.65, 0, 0]) {
-              color("blue")
-              translate([0, 0, 0])
-              cube([rail_gap, main_box_y, rail_inset - 1.7]);
-              
-              color("yellow")
-              translate([0 , 0, rail_inset - rail_gap - 1.8])
-              cube([rail_inset - .1, main_box_y, rail_gap + 1.7]);
-              }
-          }
-      }
-      
-      // peg cutout
-      translate([0, -105, 7.5])
-      rotate([0, 90, 0])
-      cylinder(h = 150, d = 3, center = true); 
-    }
-
-      // peg for battery box
-     // translate([-3, -105, 7.5])
-      //rotate([0, 90, 0])
-      //cylinder(h = 97, d = 3.02, center = true); 
+      // battery box attachment points
+      translate([-rail_width / 4, -main_box_y + 10, 4.9])
+      battery_box_peg_mounts(show_mounts = false, show_points = true);
     
     // drv8871 Adafruit platform UPPER
     translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
@@ -190,12 +156,7 @@ module rear_robot_rail(
     if (show_lidar_platform) {
       lidar_mount();
     }
-    
-    // breadboard mount
-    translate([0, 7, rail_thickness / 2  + 5])
-    rotate([0,0,-90])
-    breadboard_mount();
-    
+        
     // power bar stand LEFT
     difference() {
       translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .6 ])
@@ -259,7 +220,7 @@ module rear_robot_rail(
     
     // power bar label RIGHT
     color("red")
-    translate([rail_width / 3 - power_bar_y / 2 + 3, power_bar_y / 2 - 36,  rail_thickness / 2])
+    translate([rail_width / 3 - power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
       linear_extrude(1)
       text("12V", 6);
       
@@ -269,7 +230,7 @@ module rear_robot_rail(
       text("N", 6);
     
     if (include_battery_box) {
-        translate([-rail_width / 4, -rail_length / 2, 3.6])
+        translate([-rail_width / 4, -main_box_y + 10, 3.6 + 7])
         battery_box();
     }
 

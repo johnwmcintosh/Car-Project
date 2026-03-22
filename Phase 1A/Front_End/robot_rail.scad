@@ -7,7 +7,7 @@ use <pull_bar.scad>
 use <steering_rack.scad>
 use <../Rear_End/front_end_jack.scad>
 use <../spring_library.scad>
-use <MCAD/involute_gears.scad>
+use <gear.scad>
 
 $fn = 50;
 
@@ -115,19 +115,7 @@ module front_robot_rail(
       -47 
       ])
       {
-        difference() {
-        rotate([0,0,5])
-          gear(gear_thickness = pinion_gear_width,
-               number_of_teeth = pinion_gear_teeth,
-               circular_pitch = gears_module * PI,
-               bore_diameter = ball_bearing_inner_diameter,
-               pressure_angle = 20,
-               clearance = 0,
-               backlash = .5);
-          
-          translate([0,0,-2])
-          cube([ball_bearing_inner_diameter - 1, 2, 10]);
-        }
+          geared();
       }
 
       // apparatus
