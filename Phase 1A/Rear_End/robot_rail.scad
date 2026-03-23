@@ -35,11 +35,11 @@ module rear_robot_rail(
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
         
       // power bar wire passthrough cutouts
-      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 26, 0])
+      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 32, 0])
       cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 13, power_bar_y / 2 - 60, 0])
+      translate([-rail_width / 3 + 13, power_bar_y / 2 - 51, 0])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
       
       // power bar wire passthrough cutouts
@@ -50,26 +50,26 @@ module rear_robot_rail(
       translate([rail_width / 3 - 10, power_bar_y / 2 - 52, 0])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
       
-      
       // right switch cutout
       translate([rail_width /2 - 20, -45, - rail_thickness + 2])
       cylinder(rail_thickness + 4, d = switch_cutout_d);
-      
+                  
       // right switch bump cutout
       color("green")
-      translate([rail_width /2 - 28, -54, - rail_thickness + 1.7 * switch_bump_h])
+      translate([rail_width /2 - 28, -54, rail_thickness  - switch_bump_h - 3])
       cube([switch_w, switch_bump_l,  switch_bump_h]);
       
       // left switch cutout
       translate([-rail_width /2 + 20, -45, - rail_thickness + 2])
       cylinder(rail_thickness + 4, d = switch_cutout_d);
-      
+
       // left switch bump cutout
       color("green")
-      translate([-rail_width /2 + 12, -54, - rail_thickness + 1.7 * switch_bump_h])
+      translate([-rail_width /2 + 12, -54, rail_thickness - switch_bump_h - 3])
       cube([switch_w, switch_bump_l,  switch_bump_h]);    
       }
 
+    // apparatus
     if (include_apparatus) {
         translate([rail_width / 2 - 25, -rail_length / 2 + 35, -45])
           rear_apparatus();
@@ -147,11 +147,6 @@ module rear_robot_rail(
   translate([drv8871_screw_distance + 10, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2  + .25 ])
     rotate([180,0,90])
     drv8871mount("Teyleten"); 
-    
-    // pd mount
-    translate([- drv8871_screw_distance - 60, -rail_length / 2 + 5.1 * pdmount_y, -rail_thickness / 2 - 1])
-    rotate([180,0,0])
-    pdmount();
     
     if (show_lidar_platform) {
       lidar_mount();
