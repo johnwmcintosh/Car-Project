@@ -3,17 +3,20 @@ include <../robot_settings.scad>
 use <../Front_End/robot_rail.scad>
 use <../Front_End/tire_apparatus.scad>
 use <../Front_End/dc_motor_mount.scad>
-use <../spring_library.scad>
-use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/Battery_box_3.scad>
-use <pd_mount.scad>
-use <lidar_mount.scad>
+use <../Front_End/battery_box_peg_mounts.scad>
+use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../Front_End/battery_box_peg_mounts.scad>
 
+use <../spring_library.scad>
+
+use <lidar_mount.scad>
 use <rear_apparatus.scad>
 use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
+use <battery_box_support.scad>
+
 $fn = 50;
 
 
@@ -27,20 +30,27 @@ module rear_robot_rail(
     difference() {
       front_robot_rail(show_steering_apparatus = include_apparatus);
       
+
+      
       // tire apparatus cutouts
       translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -rail_thickness])
        cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);
       
       translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness])
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
-        
+      
       // power bar wire passthrough cutouts
       translate([-rail_width / 3 + 10,  power_bar_y / 2 + 32, 0])
       cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
       translate([-rail_width / 3 + 13, power_bar_y / 2 - 51, 0])
-      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); // the divisor 2.3 result in a little over 8 mm which allows the min-HDMI plug
+      {
+      cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
+        union()
+        translate([-10, -30, -5])
+      cube([power_bar_y / 2.3, 40, 2 * rail_thickness]);
+      }
       
       // power bar wire passthrough cutouts
       translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
@@ -118,7 +128,19 @@ module rear_robot_rail(
       // battery box attachment points
       translate([-rail_width / 4, -main_box_y + 10, 4.9])
       battery_box_peg_mounts(show_mounts = false, show_points = true);
-    
+        
+
+  
+
+     // REAR SUPPORT for battery box
+     translate([-.6, -main_box_y - .3, 0])
+      battery_box_support();
+      
+     // FRONT SUPPORT for battery box
+     translate([-4.6, 20, 0])
+      rotate([0, 0, 180])
+      battery_box_support();
+      
     // drv8871 Adafruit platform UPPER
     translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
     drv8871mount();
@@ -187,6 +209,12 @@ module rear_robot_rail(
     translate([-rail_width / 3 - power_bar_y / 2 - 13, power_bar_y / 2 - 36,  rail_thickness / 2])
       linear_extrude(1)
       text("N", 6);
+            
+      color("black")
+      translate([rail_width / 2 - 3.4, -55, -2.5])
+      rotate([90, 0, 90])
+      linear_extrude(2)
+      text("ON -->", 5);
     
     // power bar stand RIGHT
     difference() {
@@ -223,9 +251,10 @@ module rear_robot_rail(
     translate([rail_width / 3 + power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
       linear_extrude(1)
       text("N", 6);
+
     
     if (include_battery_box) {
-        translate([-rail_width / 4, -main_box_y + 10, 3.6 + 7])
+        translate([-rail_width / 4, -main_box_y + 10, 2.4 + 10])
         battery_box();
     }
 
