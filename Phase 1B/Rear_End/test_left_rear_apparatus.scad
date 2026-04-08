@@ -1,6 +1,5 @@
 include <../robot_settings.scad>
 
-use <../apparatus_pegs.scad>
 use <axle_for_custom_hub.scad>
 use <pull_bar.scad>
 use <physical_ball_bearing.scad>
@@ -10,26 +9,29 @@ $fn = 50;
 module tire_apparatus(
   axle_length = 20,
   axle_rotation = false,
+  armature_holder_height = 20,
+  armature_holder_thickness = 8,
   armature_holder_width = 28,
   pull_bar_length = 25,
   flip_spring = false,
   post_height = 10,
   dish_offset = 6,
-  include_ball_bearing = true,
-  include_axle = true,
+  include_ball_bearing = false,
+  include_axle = false,
+  rear_axle = false,
   include_pull_bar = false,
   include_grab_bar = false,
   draw_left_apparatus = true
 ) 
 {  
   if (include_axle)
-    axle(axle_length = axle_length + 10, rotate = axle_rotation, rear_axle = false);
+    axle(axle_length = axle_length + 10, rotate = axle_rotation, rear_axle = rear_axle);
 
   if (include_ball_bearing) {
-    // ball bearing
-    translate([axle_length - ball_bearing_height / 2, 0, 0])
-    rotate([0, 90, 0])
-    physical_ball_bearing();
+  // ball bearing
+  translate([axle_length - ball_bearing_height / 2, 0, 0])
+  rotate([0, 90, 0])
+  physical_ball_bearing();
   }
 
   translate([0, -8, 0])
@@ -51,8 +53,8 @@ module tire_apparatus(
      }
    
      // armature grab bar cutout
-     translate([armature_holder_thickness / 2,  -armature_edge + armature_holder_width / 2 - 5.5 / 2,  -armature_holder_height / 2 + 1])
-      cylinder(h = armature_holder_height + 1, r =  pull_bar_peg_r);
+      translate([armature_holder_thickness / 2,  -armature_edge + armature_holder_width / 2 - 5.5 / 2,  -armature_holder_height / 2 + 1])
+      cylinder(h = armature_holder_height + 1, r =   3.1);
      
      // draw slanted turning spaces
      
@@ -79,16 +81,15 @@ module tire_apparatus(
     }
 
     
+    // armature grab bar
     if (include_grab_bar)
-      // armature grab bar
-      translate([-35.9,  -26.35, 25])
-      color("red")
-      front_rack_grab_bar_peg();
+   translate([armature_holder_thickness / 2,  -60, -6.5])
+   cylinder(h = armature_holder_height + 5, r = 3);
 
-     if (include_pull_bar)
-      // armature pull bar
-      translate([armature_holder_thickness / 2, -26.5, 0]) 
-      pull_bar(pull_bar_length, rotate = axle_rotation);
+   if (include_pull_bar)
+    // armature pull bar
+    translate([armature_holder_thickness / 2, -26.5, 0]) 
+    pull_bar(pull_bar_length, rotate = axle_rotation);
   }
  
 
@@ -98,7 +99,7 @@ module tire_apparatus(
       rotate([0, 90, 0])
       cylinder(h =  ball_bearing_height, d = 2 * ball_bearing_outer_diameter);
 
-      translate([-1, 0, 0])
+       translate([-1, 0, 0])
       rotate([0, 90, 0])
       cylinder(h = 2 * ball_bearing_height, d = ball_bearing_outer_diameter + .19);   
     }
@@ -109,18 +110,10 @@ module tire_apparatus(
   springLeaf(width = ball_bearing_height, len =  30, height = 9, thickness = 3);
 
   // post
-    difference() {
-      spring_z = flip_spring ? ball_bearing_outer_diameter  : ball_bearing_outer_diameter;
-      
-      translate([ball_bearing_height / 2 , 0, flip * spring_z + 7])
-        rotate([flip_spring ? 180 : 0, 0, 0])
-        cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter - .2);
-      
-      // locking bar cutout  
-      translate([ball_bearing_height / 2 , 0, 9 + spring_z + post_height + ball_bearing_height])
-       rotate([90,0,0])
-       cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
-    }
+  spring_z = flip_spring ? ball_bearing_outer_diameter  : ball_bearing_outer_diameter;
+  translate([ball_bearing_height / 2 , 0, flip * spring_z + 7])
+   rotate([flip_spring ? 180 : 0, 0, 0])
+  cylinder(h = post_height + ball_bearing_height + 10, d = ball_bearing_inner_diameter);
     
    // circular anti-sway 
    difference() {
