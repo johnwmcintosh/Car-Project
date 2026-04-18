@@ -5,8 +5,8 @@ use <../Front_End/tire_apparatus.scad>
 use <../Front_End/tire_rim.scad>
 use <../Front_End/dc_motor_mount.scad>
 use <../Front_End/axle_for_custom_hub.scad>
-use <../Front_End/MCAD/involute_gears.scad>
-use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
+//use <../Front_End/MCAD/involute_gears.scad>
+use <../Front_End/gears_overlay.scad>
 use <../Front_End/Battery_box_2.scad>
 use <dc_motor.scad>
 use <../spring_library.scad>
@@ -17,15 +17,49 @@ use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
 $fn = 50;
+rotate([0, -90, 0])
+tirerim();
+translate([-16, 0, 0])
+axle();
 
-        difference() {
-          zahnstange(rack_module, rack_length, rack_height, rack_width);
+// PROTOTYPE ENGINE HOLDER - still in-work
+  /*
+        translate([14, 0, -4.1])
+        dc_motor();
 
-           translate([-rack_length / 2, rack_width /2 - 4 * pull_bar_peg_r , rack_height /2 - pull_bar_peg_r])
-          cube(2 * pull_bar_peg_r);
+
+        translate([0, 0, 0]) {
+            difference() {
+                color("red")
+                difference() {
+                  translate([0, 0, -7])
+                  rotate([0, 90, 0])
+                  cylinder(h = 66, d = dc_motor_cutout_d);
           
-           translate([rack_length / 2 - 2 * pull_bar_peg_r + .75, rack_width /2 - 4 * pull_bar_peg_r , rack_height - pull_bar_peg_r - 5])
-          cube(2 * pull_bar_peg_r);     
-          }
+                 // axle hole
+                translate([60, 0, -4])
+                  rotate([0, 90, 0])
+                  cylinder(h = 20, d = dc_motor_screw_offset);
+                 
+                 // screw hole
+                translate([60, dc_motor_screw_offset, -4])
+                 rotate([0, 90, 0])
+                 cylinder(h = 20, d = dc_motor_screw_d);
+                 
+                 // screw hole
+                translate([60, -dc_motor_screw_offset, -4])
+                 rotate([0, 90, 0])
+                 cylinder(h = 20, d = dc_motor_screw_d);
+              }
+ 
+             color("green") 
+              translate([4, 0, -4])
+              rotate([0, 90, 0])
+              cylinder(h = 58.5, d = dc_motor_cutout_d + 1);   
 
-//axle(axle_length = 30, rear_axle = true);
+              // curcuit board connector cutout
+              translate([4, 10, -12])
+              cube([7, 3,  5]);
+          }
+      }
+      */

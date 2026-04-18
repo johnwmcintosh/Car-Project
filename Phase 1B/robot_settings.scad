@@ -69,7 +69,7 @@ dc_motor_screw_offset = 8.5;
 
 dc_motor_axle_ring_z = 3;
 dc_motor_axle_ring_d = 7.2;
-dc_motor_axle_cutout_d = 4.5;
+dc_motor_axle_cutout_d = 4.2;
 dc_motor_axle_cutout_z = 10;
 dc_motor_axle_notch_cutout = 0.4;
 dc_motor_axle_notch_cutout_z = 6;
@@ -105,14 +105,23 @@ ball_bearing_height = 7;
 ball_bearing_outer_diameter = 22;
 ball_bearing_inner_diameter = 8;
 
- armature_holder_height = 20;
- armature_holder_thickness = 8;
+M4_diameter = 5.1;
+M3_diameter = 2.9;
+M3_length = 35;
+M3_cap_length= 3;
+M3_cap_diameter = 5.44;
+
+suspension_spring_outer_diameter = 8;
+suspension_spring_inner_diameter = 5.3;
+
+armature_holder_height = 20;
+armature_holder_thickness = 8;
 pull_bar_peg_r = 3.2;
 apparatus_locking_peg_d = 4;
 
 rack_module = 1;
-rack_length = main_box_x / 2;
-rack_height = 10;
+rack_length = main_box_x;
+rack_height = 5;
 rack_width = 10;
 rack_teeth = 30;
 rack_bore = 3;
@@ -120,8 +129,9 @@ rack_bore = 3;
 pull_bar_length = rail_width / 2 - rack_length + 1;
 
 // tire hardware
-axle_length = 30;
-axle_reciever_inner_diameter = 7.75;
+axle_length = 24; 
+axle_reciever_inner_diameter = 8.2;
+axle_reciever_outer_diameter = 12;
 axle_reciever_length = 18.8;
 axle_notch_length = 7;
 axle_notch_cutout = 2.4;
@@ -134,15 +144,6 @@ power_bar_screw_distance = 91.4;
 power_bar_screw_d = 2.8;
 power_bar_standoff_z = 5;
 power_bar_standoff_d = 6.83;
-
-// breadboard
-breadboard_wall_thickness = 3;
-breadboard_width = 55;
-breadboard_length = 83;
-breadboard_height = 10.5;
-breadboard_notch_width = 4.2;
-breadboard_longside_notch_separation = 58.2 - breadboard_notch_width / 2;
-breadboard_shortside_notch_separation = 26.3 - breadboard_notch_width;
 
 pico_expander_width = 63;
 pico_expander_height = 57;

@@ -8,7 +8,6 @@ module tirerim()
   ridge_thickness = 2;
   tire_diameter = 47.5;
   tire_width = 21.8;
-  axle_reciever_outer_diameter = 11;
 
   difference() {
       union() {

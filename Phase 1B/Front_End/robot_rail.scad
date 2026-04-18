@@ -3,11 +3,9 @@ include <../robot_settings.scad>
 use <physical_ball_bearing.scad>
 use <full_aparatus.scad>
 use <dc_motor_mount.scad>
+use <../Rear_End/dc_motor.scad> 
 use <pull_bar.scad>
 use <steering_rack.scad>
-use <../Rear_End/front_end_jack.scad>
-use <../spring_library.scad>
-use <gear.scad>
 
 $fn = 50;
 
@@ -18,25 +16,37 @@ module front_robot_rail(
  
   difference() {
         // rail
-        //    
+        //
+      translate([-rail_width / 2, -rail_length /2, 0])
         cube([
           rail_width - rail_gap * wall_thickness, 
           rail_length, 
           rail_thickness], 
-          center = true
+          center = false
         );
           
        // right attachment cutouts for extension
-      translate([-20,  rail_length / 2 - 5, 0])
+      translate([-20,  rail_length / 2 - 5, 1])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
 
        // left attachment cutouts for extension
-      translate([20,  rail_length / 2 - 5, 0])
+      translate([20,  rail_length / 2 - 5, 1])
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
-    }
     
-    translate([0, main_box_y, -35])
-    full_apparatus();
+      // right cutout for apparatus
+      translate([main_box_x - 3 *  ball_bearing_height, 102, -1])
+      cylinder(h = 20, d = ball_bearing_outer_diameter);
+    
+      // left cutout for apparatus
+      translate([-main_box_x + 3 *  ball_bearing_height, 102, -1])
+      cylinder(h = 20, d = ball_bearing_outer_diameter);
+     }
+
+    if (show_steering_apparatus) {
+        
+        translate([0, main_box_y, -43])
+        full_apparatus();
+    }
  
     if (show_jackstand)
     {

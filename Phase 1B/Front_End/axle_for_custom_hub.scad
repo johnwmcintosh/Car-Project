@@ -4,9 +4,9 @@ $fn=50;
 
 module axle(
   axle_length = axle_length,
-  axle_inner_radius = axle_reciever_inner_diameter / 2 + 0.1,
+  axle_inner_radius = (axle_reciever_inner_diameter- 0.1) / 2 ,
   rotate = true,
-  rear_axle = true
+  rear_axle = false
 )
 {
   cutout1 = -axle_notch_cutout;
@@ -45,7 +45,7 @@ module axle(
           // axle cap
           translate([axle_length, 0, 0])
            rotate([0,90,0])
-          cylinder(h = 3, d = ball_bearing_outer_diameter);
+          cylinder(h = 3, d = ball_bearing_outer_diameter + 1.5);
       }
       else {
         

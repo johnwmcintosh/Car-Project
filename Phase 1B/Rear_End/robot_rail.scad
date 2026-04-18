@@ -2,7 +2,7 @@ include <../robot_settings.scad>
 
 use <../Front_End/robot_rail.scad>
 use <../Front_End/tire_apparatus.scad>
-use <../Front_End/dc_motor_mount.scad>
+
 use <../Front_End/Battery_box_3.scad>
 use <../Front_End/battery_box_peg_mounts.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
@@ -27,63 +27,63 @@ module rear_robot_rail(
     show_lidar_platform = false
     ) 
     {
+
     difference() {
       front_robot_rail(show_steering_apparatus = include_apparatus);
       
-
       
       // tire apparatus cutouts
-      translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -rail_thickness])
+      translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -rail_thickness / 2])
        cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);
       
-      translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness])
+      translate([rail_width / 2 - 25, -rail_length / 2 + 35, -rail_thickness / 2])
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
-      
-      // power bar wire passthrough cutouts
-      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 32, 0])
-      cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 13, power_bar_y / 2 - 51, 0])
+      translate([-rail_width / 3 + 13, power_bar_y / 2 - 51, rail_thickness / 2])
       {
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
         union()
         translate([-10, -30, -5])
       cube([power_bar_y / 2.3, 40, 2 * rail_thickness]);
       }
+            
+      // power bar wire passthrough cutouts
+      translate([-rail_width / 3 + 10,  power_bar_y / 2 + 32, rail_thickness / 2])
+      cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
       
       // power bar wire passthrough cutouts
-      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, 0])
+      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, rail_thickness / 2])
       cube([power_bar_y / 2.3, power_bar_cutout_x - 10 , 2 * rail_thickness], center = true);
       
       // Pico's  passthrough
-      translate([rail_width / 3 - 10, power_bar_y / 2 - 52, 0])
+      translate([rail_width / 3 - 10, power_bar_y / 2 - 52, rail_thickness / 2])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
       
       // right switch cutout
-      translate([rail_width /2 - 20, -45, - rail_thickness + 2])
+      translate([rail_width /2 - 20, -45, - rail_thickness / 2 + 2])
       cylinder(rail_thickness + 4, d = switch_cutout_d);
                   
       // right switch bump cutout
       color("green")
-      translate([rail_width /2 - 28, -54, rail_thickness  - switch_bump_h - 3])
+      translate([rail_width /2 - 28, -54, rail_thickness  - switch_bump_h + 1])
       cube([switch_w, switch_bump_l,  switch_bump_h]);
       
       // left switch cutout
-      translate([-rail_width /2 + 20, -45, - rail_thickness + 2])
+      translate([-rail_width /2 + 20, -45, - rail_thickness / 2 + 2])
       cylinder(rail_thickness + 4, d = switch_cutout_d);
 
       // left switch bump cutout
       color("green")
-      translate([-rail_width /2 + 12, -54, rail_thickness - switch_bump_h - 3])
+      translate([-rail_width /2 + 12, -54, rail_thickness - switch_bump_h + 1])
       cube([switch_w, switch_bump_l,  switch_bump_h]);    
       }
 
-    // apparatus
+    // rear apparatus
     if (include_apparatus) {
-        translate([rail_width / 2 - 25, -rail_length / 2 + 35, -45])
+        translate([rail_width / 2 - 25, -rail_length / 2 + 35, -41])
           rear_apparatus();
-        translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -45])
+        translate([-rail_width / 2 + 25, -rail_length / 2 + 35, -41])
           rotate([0,0,180])
           rear_apparatus();
       }
@@ -129,10 +129,7 @@ module rear_robot_rail(
       // battery box attachment points
       translate([-rail_width / 4, -main_box_y + 10, 4.9])
       battery_box_peg_mounts(show_mounts = false, show_points = true);
-        
-
-  
-
+      
      // REAR SUPPORT for battery box
      translate([-.6, -main_box_y - .3, 0])
       battery_box_support();
