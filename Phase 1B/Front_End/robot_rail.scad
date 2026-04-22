@@ -1,7 +1,7 @@
 include <../robot_settings.scad>
 
 use <physical_ball_bearing.scad>
-use <full_aparatus.scad>
+use <full_apparatus.scad>
 use <dc_motor_mount.scad>
 use <../Rear_End/dc_motor.scad> 
 use <pull_bar.scad>
@@ -43,7 +43,6 @@ module front_robot_rail(
      }
 
     if (show_steering_apparatus) {
-        
         translate([0, main_box_y, -43])
         full_apparatus();
     }

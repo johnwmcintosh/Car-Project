@@ -17,6 +17,7 @@ use <drv8871.scad>
 use <drv8871mount.scad>
 use <battery_box_support.scad>
 
+
 $fn = 50;
 
 
@@ -98,13 +99,13 @@ module rear_robot_rail(
           rotate([0, 90, 0])
           cylinder(h = 149, d = dc_motor_cutout_d);
 
-          translate([-76, -rail_length / 2 + 35, -44])
+          translate([-76, -rail_length / 2 + 35, -42])
           rotate([0, 90, 0])
-          cylinder(h = 69, d = dc_motor_cutout_d + 1);
+          cylinder(h = 69, d = dc_motor_cutout_d + 2);
           
-          translate([7, -rail_length / 2 + 35, -44])
+          translate([7, -rail_length / 2 + 35, -42])
           rotate([0, 90, 0])
-          cylinder(h = 69, d = dc_motor_cutout_d + 1);   
+          cylinder(h = 69, d = dc_motor_cutout_d + 2);   
 
           // curcuit board connector cutout
           translate([15, -rail_length / 2 + 45, -52])
