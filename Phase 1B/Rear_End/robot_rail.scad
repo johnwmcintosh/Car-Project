@@ -16,13 +16,13 @@ use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
 use <battery_box_support.scad>
-
+use <../Front_End/steering_motor_holder.scad>
 
 $fn = 50;
 
 
 module rear_robot_rail(
-    include_apparatus = true, 
+    include_apparatus = false, 
     include_battery_box = false,
     include_power_bar = false,
     show_lidar_platform = false
@@ -90,7 +90,7 @@ module rear_robot_rail(
       }
 
     // engine support
-      translate([-5, -rail_length / 2 + 30, -41])
+      translate([-5, -rail_length / 2 + 30, -38])
       cube([10, 10, 44]);
      
       difference() {
@@ -116,7 +116,7 @@ module rear_robot_rail(
           cube([7, 3,  5]);   
       }
       
-      // engine holder support bar
+      // drive engines holder support bar
       difference() {
         translate([-149/2, -rail_length / 2 + 34.5, -58.5])
         rotate([90,0,90])
@@ -128,7 +128,7 @@ module rear_robot_rail(
 
       
       // battery box attachment points
-      translate([-rail_width / 4, -main_box_y + 10, 4.9])
+      translate([-rail_width / 4, -main_box_y + 10, battery_box_peg_h + 2.5])
       battery_box_peg_mounts(show_mounts = false, show_points = true);
       
      // REAR SUPPORT for battery box
@@ -136,59 +136,65 @@ module rear_robot_rail(
       battery_box_support();
       
      // FRONT SUPPORT for battery box
-     translate([-4.6, 20, 0])
+     translate([-4.6, 20, 2])
       rotate([0, 0, 180])
       battery_box_support();
       
-    // drv8871 Adafruit platform UPPER
-    translate([drv8871_screw_distance + drv8871_x, rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
-    drv8871mount();
+    // drv8871 Adafruit platform STEERING
+    translate([-drv8871_screw_distance + drv8871_x + 20, -rail_length / 2 + 1.5 * drv8871_y, -rail_thickness / 2 + 3])
+      rotate([180, 0, 180])
+      drv8871mount();
     
-    // drv8871 Teyleten platform UPPER
-    translate([-drv8871_screw_distance - drv8871_x,  rail_length / 2 - 1.5 * drv8871_y, rail_thickness / 2 - .25])
-    rotate([0,0,0])
-    drv8871mount("Teyleten");
+    // drv8871 Teyleten platform STEERING
+    translate([-drv8871_screw_distance + drv8871_x/2 -20,  -rail_length / 2 + 1.5 * drv8871_y, -rail_thickness / 2 + 3])
+      rotate([180, 0, 180])
+      drv8871mount("Teyleten");
     
     // drv8871 Adafruit platform LOWER LEFT
-    translate([- drv8871_screw_distance, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + .25])
+    translate([- drv8871_screw_distance -20, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount();
  
     // drv8871 Teyleten platform LOWER LEFT
-    translate([- drv8871_screw_distance, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2 + .25])
+    translate([- drv8871_screw_distance - 20, -rail_length / 2 + 5 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount("Teyleten");    
     
     // drv8871 Adafruit platform LOWER RIGHT
-    translate([drv8871_screw_distance + 10, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2  + .25 ])
+    translate([drv8871_screw_distance + 25, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2  + 3])
     rotate([180,0,90])
     drv8871mount();
       
    // drv8871 Teyleten platform LOWER RIGHT
-  translate([drv8871_screw_distance + 10, -rail_length / 2 + 4 * drv8871_y, -rail_thickness / 2  + .25 ])
+  translate([drv8871_screw_distance + 25, -rail_length / 2 + 5 * drv8871_y, -rail_thickness / 2  + 3])
     rotate([180,0,90])
     drv8871mount("Teyleten"); 
     
     if (show_lidar_platform) {
       lidar_mount();
     }
-        
+  
+    // Steering motor holder
+    translate([0, -45.5, -17])
+    rotate([180, 0, 90])
+    steering_motor_holder();
+   
     // power bar stand LEFT
     difference() {
-      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .6 ])
+      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 + 3 ])
       cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
       
       // pilot hole for screw
-      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 - .5 ])
+      translate([-rail_width / 3 - 10, 80,  rail_thickness / 2  + 3 ])
       cylinder(h = power_bar_standoff_z, d = 1.5);
       }
     
       difference() {
-      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 + 3])
       cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
           
        // pilot hole for screw
-      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 - .5])
+      translate([-rail_width / 3 - 10, 80-power_bar_screw_distance, rail_thickness / 2 + 3])
       cylinder(h = power_bar_standoff_z, d = 1.5);
       }
         
@@ -200,37 +206,37 @@ module rear_robot_rail(
     
     // power bar label LEFT
     color("blue")
-    translate([-rail_width / 3 - power_bar_y / 2, power_bar_y / 2 - 36,  rail_thickness / 2])
+    translate([-rail_width / 3 - power_bar_y / 2, power_bar_y / 2 - 36,  rail_thickness / 2 + 2.9])
     linear_extrude(1)
       text("3.3V", 6);
      
     color("green")
-    translate([-rail_width / 3 - power_bar_y / 2 - 13, power_bar_y / 2 - 36,  rail_thickness / 2])
+    translate([-rail_width / 3 - power_bar_y / 2 - 13, power_bar_y / 2 - 36,  rail_thickness / 2 + 3])
       linear_extrude(1)
       text("N", 6);
             
       color("black")
-      translate([rail_width / 2 - 3.4, -55, -2.5])
+      translate([rail_width / 2 - 4, -55, 1])
       rotate([90, 0, 90])
       linear_extrude(2)
       text("ON -->", 5);
     
     // power bar stand RIGHT
     difference() {
-      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .6 ])
+      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 + 3 ])
       cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
       
       // pilot hole for screw
-      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 - .5 ])
+      translate([rail_width / 3 + 10, 80,  rail_thickness / 2 + 3 ])
       cylinder(h = power_bar_standoff_z, d = 1.5);
     }
 
   difference() {
-      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .6])
+      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 + 3])
       cylinder(h = power_bar_standoff_z, d = power_bar_standoff_d);
 
       // pilot hole for screw
-      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 - .5])
+      translate([rail_width / 3 + 10, 80-power_bar_screw_distance, rail_thickness / 2 + 3])
       cylinder(h = power_bar_standoff_z, d = 1.5);
   }
     
@@ -242,12 +248,12 @@ module rear_robot_rail(
     
     // power bar label RIGHT
     color("red")
-    translate([rail_width / 3 - power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
+    translate([rail_width / 3 - power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2 + 3])
       linear_extrude(1)
       text("12V", 6);
       
     color("green")
-    translate([rail_width / 3 + power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2])
+    translate([rail_width / 3 + power_bar_y / 2 + 5, power_bar_y / 2 - 36,  rail_thickness / 2 + 3])
       linear_extrude(1)
       text("N", 6);
 

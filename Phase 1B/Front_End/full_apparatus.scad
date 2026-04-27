@@ -3,41 +3,61 @@ include <../robot_settings.scad>
 use <../Rear_End/dc_motor.scad>
 use <gears_overlay.scad>
 use <tire_apparatus.scad>
-use <steering_motor_holder.scad>
+use <steering_coupler.scad>
 
 $fn = 50;
 
 module full_apparatus(
-      show_motor = true,
-      show_gear = true,
+      show_motor = false,
+      show_turn_arm = false,
+      show_coupler_bar = true,
       show_left_apparatus = true,
       show_right_apparatus = true,
-      show_lower_crossbar = true,
-      show_upper_crossbar = true
+      show_crossbar = true
  )
 {
   if (show_motor) {
-      translate([0, -93, 2])
-      rotate([0, 0, 90])
-      dc_motor();
-    
-      translate([0, -108.5, 6])
-      rotate([0, 0, 90])
-      steering_motor_holder();
-  }
-
-if (show_gear) {
-    // gear with d-bore for the motor. This gear matches the rack on the lower crossbar
-    translate([0, -32, 2]) {
-      translate([0, 0, 0])
-        rotate([90, 8, 0])
-        color("green")
-        gears_overlay("spur_gear");
+      translate([0, -133, 20]) {
+        translate([0, 0, 10])
+        rotate([0, 0, 90])
+        dc_motor();
         
-        translate([1.7,-dc_motor_axle_cutout_z + 2, -(dc_motor_axle_cutout_z - 2) / 2 + 1.5])
-        cube([dc_motor_axle_cutout_d - 2, dc_motor_axle_cutout_d + 3.5,dc_motor_axle_cutout_z - 5]); 
+        // coupler
+        translate([0, 65, 10])
+        rotate([90, 0, 0])
+        steering_coupler();
+      }
     }
-}
+      
+      if (show_turn_arm) {
+        // rotation arm that connects to coupler
+        translate([0, 65, 10])
+        rotate([-90, 0, 0])
+        cylinder(h = 20, d = ball_bearing_inner_diameter);
+        translate([-4, 78, -16])
+         cube([ball_bearing_inner_diameter, ball_bearing_inner_diameter, 32]);
+        
+        // rotation arm circle 
+        difference() {
+          translate([0, 78, -20])
+          rotate([-90, 0, 0])
+          cylinder(h=8, d=ball_bearing_inner_diameter + 4);
+          
+          translate([0, 77, -20])
+          rotate([-90, 0, 0])
+          cylinder(h=10, d=ball_bearing_inner_diameter + 1 );
+        }
+      }
+//      
+      if (show_coupler_bar) {
+        // coupler bar
+        translate([0, 0, 0]){
+          rotate([-90, 0, 0])
+          cylinder(h = 50, d = ball_bearing_inner_diameter - 0.5);
+          rotate([-90, 0, 0])
+          cylinder(h = 3, d  = 2 * ball_bearing_inner_diameter);
+          }
+      }
   
     // left apparatus
     if (show_left_apparatus) {
@@ -87,7 +107,7 @@ if (show_gear) {
         }
       }
       
-      if (show_upper_crossbar) {
+      if (show_crossbar) {
           translate([0, 0, 13.5]) {
               difference() {
                   // top  crossbar aparatus connector
@@ -102,31 +122,35 @@ if (show_gear) {
                   translate([main_box_x - 3 * ball_bearing_height + 7, -35, 0])
                     cylinder  (h = 10, d = M4_diameter, center = true);                
              }
-           
-            translate([0, -40,  -4])
-            rotate([-90, 0, 0])
-             color("yellow")
-            gears_overlay("rack");
-           }
-      }
-         
-        if (show_lower_crossbar) {
-           translate([0, 0, -13]) {
-           difference() {
-                 // lower  crossbar aparatus connector
-                translate([- main_box_x + 2 * ball_bearing_height, -35 - 5, -3])
-                    cube([2 * main_box_x - 3 * ball_bearing_height, 10, 5]);
-                          
-              // top right crossbar hole cutout
-              translate([-main_box_x + 3 *  ball_bearing_height, -35, 0])
-                  cylinder  (h = 10, d = M4_diameter, center = true);
-                
-              // top left crossbar hole cutout
-                translate([main_box_x -3 * ball_bearing_height + 7, -35, 0])
-                  cylinder  (h = 10, d = M4_diameter, center = true);       
+           }         
+
+         translate([0, 0, -13]) {
+             difference() {
+                   // lower  crossbar aparatus connector
+                  translate([- main_box_x + 2 * ball_bearing_height, -35 - 5, -3])
+                      cube([2 * main_box_x - 3 * ball_bearing_height, 10, 5]);
+                            
+                // top right crossbar hole cutout
+                translate([-main_box_x + 3 *  ball_bearing_height, -35, 0])
+                    cylinder  (h = 10, d = M4_diameter, center = true);
+                  
+                // top left crossbar hole cutout
+                  translate([main_box_x -3 * ball_bearing_height + 7, -35, 0])
+                    cylinder  (h = 10, d = M4_diameter, center = true);       
+              }
             }
+         
+           // bar connector
+ 
+              difference() {
+                translate([-7.5, -40, -15])
+                  cube([15, 10, 30]);
+
+                translate([0, -25, 0])
+                    rotate([90, 0, 0])
+                              cylinder(h = 20, d = 8);
+                }
           }
-       }
 }
 
 full_apparatus();

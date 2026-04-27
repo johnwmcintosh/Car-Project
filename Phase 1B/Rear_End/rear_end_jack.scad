@@ -18,10 +18,6 @@
           translate([0, 0, 108])
           cube([rail_width, 50, dc_motor_cutout_d + 20], center = true);
          
-          // back wall breadboard clearance
-          translate([0, -18, 123])
-          cube([breadboard_length + 10, 20, 17], center = true);        
-               
           // pipe carve out
           translate([0, 0, 108])
           rotate([0, 90, 0])
@@ -59,6 +55,10 @@
         translate([-40, 0, 54])
         cube([8,8,108], center = true);
         
+        // left top reinforcment
+        translate([-44, -15, 77])
+        cube([8, 19, 10]);
+        
         // left back support
         translate([-40,  -26, 55])
         rotate([-25, 0, 0])
@@ -67,17 +67,25 @@
         // center post
         translate([0, 0, 108/2])
         cube([8,8, 108], center = true);
+        
+        // left top reinforcment
+        translate([-4, -15, 77])
+        cube([8, 19, 10]);
        
         // center back support 
         translate([0,  -26, 55])
         rotate([-25, 0, 0])
         cube([8, 8, 120], center = true);
         
-        // center post
+        // right post
         translate([40, 0, 108/2])
         cube([8,8, 108], center = true);
-       
-        // center back support 
+        
+        // left top reinforcment
+        translate([36, -15, 77])
+        cube([8, 19, 10]);
+        
+        // right back support 
         translate([40,  -26, 55])
         rotate([-25, 0, 0])
         cube([8, 8, 120], center = true);

@@ -2,8 +2,8 @@
    $fn = 50;
  
  module battery_box_peg_mounts(
-  show_mounts = true,
-  show_points = false) 
+  show_mounts = false,
+  show_points = true) 
   {
 
 if (show_mounts) 
