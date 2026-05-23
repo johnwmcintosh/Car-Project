@@ -129,11 +129,11 @@ rack_bore = 3;
 pull_bar_length = rail_width / 2 - rack_length + 1;
 
 // tire hardware
-axle_length = 24; 
+axle_length = 59; 
 axle_reciever_inner_diameter = 8.2;
 axle_reciever_outer_diameter = 12;
 axle_reciever_length = 18.8;
-axle_notch_length = 7;
+axle_notch_length = 15;
 axle_notch_cutout = 2.4;
 
 // power distribution bar
