@@ -17,6 +17,7 @@ use <../apparatus_pegs.scad>
 use <power_bar.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
+use <../Front_End/steering_coupler.scad>
 $fn = 50;
 //rotate([0, -90, 0])
 //tirerim();
@@ -28,4 +29,11 @@ $fn = 50;
         //translate([14, 0, -4.1])
         //dc_motor();
 full_apparatus();
+translate([118, 0, 0])
+axle();
+translate([98, 0, 0])
+rotate([0, -90, 0])
+color("yellow")
+tirerim();
 
+//steering_coupler();

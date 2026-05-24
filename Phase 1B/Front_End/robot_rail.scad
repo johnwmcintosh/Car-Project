@@ -10,7 +10,7 @@ use <steering_rack.scad>
 $fn = 50;
 
 module front_robot_rail(
-  show_steering_apparatus = true,
+  show_steering_apparatus = false,
   show_jackstand = false
  ){
  
@@ -35,13 +35,21 @@ module front_robot_rail(
     
       // right cutout for apparatus
       translate([main_box_x - 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter);
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .3);
     
       // left cutout for apparatus
       translate([-main_box_x + 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter);
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .3);
      }
-
+     
+     translate([main_box_x - 30, 124, 3.5])
+     rotate([0, 90, 0])
+     cylinder(h = 20, d = rail_thickness);
+     
+     translate([-main_box_x + 10 , 124, 3.5])
+     rotate([0, 90, 0])
+     cylinder(h = 20, d = rail_thickness);
+     
     if (show_steering_apparatus) {
         translate([0, main_box_y, -43])
         full_apparatus();

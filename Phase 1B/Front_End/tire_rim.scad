@@ -45,7 +45,7 @@ module tirerim()
               // note, this only creates a hole in the conical hub, something 
               // else is there too that needs the same poke out
               translate([0, 0, 5])
-                cube ([4.8, 6.5, 20], center = true);             
+                cube ([5, 7, 20], center = true);             
           }
 
           // radial braces
