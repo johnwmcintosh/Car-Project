@@ -9,7 +9,7 @@ use <targus4mount.scad>
 
 module battery_box() {
 
-  translate([0,0,6])
+  translate([-main_box_x / 2, -main_box_y / 2,6])
   difference() {
       // battery box
     translate([0, -1, 0])
@@ -41,20 +41,22 @@ module battery_box() {
   }
 
   // rp5 mounting pegs - top right
+  translate([-main_box_x / 2, -main_box_y / 2, 0])
   RP5();
  
   // pico extender
   // orientate it so that gpios are easy to access the wires
-  translate([main_box_x + 2, main_box_y / 2, 45])
+  translate([main_box_x / 2 + 2, -main_box_y +100, 45])
   rotate([90, 0, 0])
   pico_mounts();
  
 // tobsun
-translate([main_box_x / 2 - tobsun_shelf_width / 2, main_box_y - tobsun_shelf_length, main_box_z + rail_gap + 2 * wall_thickness])
+translate([ - tobsun_shelf_width / 2, -main_box_y/11.3, main_box_z + rail_gap + 2 * wall_thickness])
 tobsun_tray();
 
 battery_box_peg_mounts(show_mounts = true, show_points = false);
 
+translate([-main_box_x / 2, - main_box_y / 2 , 0])
   // usb hub mount
   targus4mount();
   

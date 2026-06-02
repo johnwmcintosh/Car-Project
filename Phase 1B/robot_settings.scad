@@ -8,7 +8,7 @@ rail_inset = 7;
 
 rail_thickness = 7;
 rail_length = 250;
-rail_width = 200;
+rail_width = 250;
 
 raspberry_pi_screw_seperation_y = 57;
 raspberry_pi_screw_seperation_z = 48;
@@ -129,7 +129,7 @@ rack_bore = 3;
 pull_bar_length = rail_width / 2 - rack_length + 1;
 
 // tire hardware
-axle_length = 44 + ball_bearing_height; 
+axle_length = 24 + ball_bearing_height; 
 axle_reciever_inner_diameter = 8.2;
 axle_reciever_outer_diameter = 12;
 axle_reciever_length = 18.8;

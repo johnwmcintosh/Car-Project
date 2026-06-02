@@ -17,7 +17,7 @@ module RP5() {
               main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
               main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
     rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
+    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2 +.5);
   }
 
   // rp5 mounting pegs - top left
@@ -35,7 +35,7 @@ module RP5() {
               main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
               main_box_z / 2 - main_box_z /6 + main_box_z / 2 + 9])
     rotate([0,90,0])
-    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
+    cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2 + .5);
   }
 
   // rp5 mounting pegs - bottom right
@@ -54,7 +54,7 @@ module RP5() {
               main_box_y / 2 - raspberry_pi_screw_seperation_y / 2, 
               main_box_z / 2 - main_box_z /6 + main_box_z / 2 - raspberry_pi_screw_seperation_z + 9])
     rotate([0,90,0])
-  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);  
+  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2 + .5);  
   }
 
   // rp5 mounting pegs - bottom left
@@ -71,7 +71,7 @@ module RP5() {
             main_box_y / 2 + raspberry_pi_screw_seperation_y / 2, 
             main_box_z / 2 - main_box_z /6 + main_box_z / 2 -raspberry_pi_screw_seperation_z + 9])
   rotate([0,90,0])
-  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2);
+  cylinder(h = raspberry_pi_peg_h, d = power_bar_screw_d / 2 + 1);
   }
 }
 RP5();

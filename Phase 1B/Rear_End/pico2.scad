@@ -31,19 +31,20 @@ module pico_mounts() {
       
       // pilot hole
        translate([pico_expander_width / 2 - pico_screw_hole_offset, pico_expander_height / 2 - pico_screw_hole_offset, 0])
-        cylinder(raspberry_pi_peg_h, d =  power_bar_screw_d / 2, center = true);
+        cylinder(raspberry_pi_peg_h + 1, d =  power_bar_screw_d / 2 + .5, center = true);
       }
 
       difference() {
         // mount
         translate([pico_expander_width / 2 - pico_screw_hole_offset,  -pico_expander_height / 2 + pico_screw_hole_offset, 0])
         cylinder(raspberry_pi_peg_h, d = ball_bearing_inner_diameter, center = true);
-        
+
         // pilot hole
         translate([pico_expander_width / 2 - pico_screw_hole_offset,  -pico_expander_height / 2 + pico_screw_hole_offset, 0])
-        cylinder(raspberry_pi_peg_h, d = power_bar_screw_d / 2, center = true);
+        cylinder(raspberry_pi_peg_h + 1, d = power_bar_screw_d / 2 + .5, center = true);
       }
-    
+        
+        
     difference() {
       // mount
       translate([- pico_expander_width / 2 + pico_screw_hole_offset,  -pico_expander_height / 2 + pico_screw_hole_offset, 0])
@@ -51,7 +52,7 @@ module pico_mounts() {
       
       // pilot hole
       translate([- pico_expander_width / 2 + pico_screw_hole_offset,  -pico_expander_height / 2 + pico_screw_hole_offset, 0])
-      cylinder(raspberry_pi_peg_h, d = power_bar_screw_d / 2, center = true);
+      cylinder(raspberry_pi_peg_h + 1, d = power_bar_screw_d / 2 + .5, center = true);
     }
       
     difference()  {
@@ -61,7 +62,7 @@ module pico_mounts() {
       
       //pilot hole
       translate([- pico_expander_width / 2 + pico_screw_hole_offset,  pico_expander_height / 2 - pico_screw_hole_offset, 0])
-      cylinder(raspberry_pi_peg_h, d = power_bar_screw_d / 2, center = true);
+      cylinder(raspberry_pi_peg_h + 1, d = power_bar_screw_d / 2 + .5, center = true);
       }
     }
 }

@@ -10,7 +10,7 @@ use <steering_rack.scad>
 $fn = 50;
 
 module front_robot_rail(
-  show_steering_apparatus = false,
+  show_steering_apparatus = true,
   show_jackstand = false
  ){
  
@@ -34,19 +34,34 @@ module front_robot_rail(
       cylinder(h = 2 * rail_thickness, d = 3, center = true);
     
       // right cutout for apparatus
-      translate([main_box_x - 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter + .3);
+      translate([rail_width / 2 - 3 *  ball_bearing_height, 102, -1])
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .6);
     
       // left cutout for apparatus
-      translate([-main_box_x + 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter + .3);
-     }
-     
-     translate([main_box_x - 30, 124, 3.5])
+      translate([-rail_width / 2 + 3 *  ball_bearing_height, 102, -1])
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .5);
+      
+      // stress relief for left
+      translate([-rail_width / 2 + 3 * ball_bearing_height, 100 - ball_bearing_outer_diameter / 2, -1])
+      cube([2, ball_bearing_outer_diameter + 4, 10]); 
+
+      translate([-rail_width / 2 + ball_bearing_height + .5, 101.5, -1])
+      cube([ball_bearing_outer_diameter + 4, 2, 10]); 
+      
+      // stress relief for right
+      translate([rail_width / 2 - 3 * ball_bearing_height, 100 - ball_bearing_outer_diameter / 2, -1])
+      cube([2, ball_bearing_outer_diameter + 4, 10]); 
+
+      translate([rail_width / 2 -  1.5 * ball_bearing_outer_diameter - 1, 101.5, -1])
+      cube([ball_bearing_outer_diameter + 4, 2, 10]);
+      }
+ 
+      
+     translate([rail_width / 2 - 30, 123.5, 3.5])
      rotate([0, 90, 0])
      cylinder(h = 20, d = rail_thickness);
      
-     translate([-main_box_x + 10 , 124, 3.5])
+     translate([-rail_width / 2 + 10 , 123, 3.5])
      rotate([0, 90, 0])
      cylinder(h = 20, d = rail_thickness);
      

@@ -12,9 +12,9 @@ module rear_apparatus(
   flip_spring = false,
   post_height = 15,
   include_ball_bearing = false,
-  include_axle = false,
+  include_axle = true,
   incude_motor = false,
-  include_rim = false
+  include_rim = true
   )
   
   {
