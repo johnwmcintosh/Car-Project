@@ -102,28 +102,28 @@ translate([0, 0, -0]) {
 
         // front cradle wall
         translate([0, -15, 10])
-        cube([rail_width / 2 + 8, 5, 20], center = true);
+        cube([rail_width / 2 + 12, 5, 20], center = true);
       
         // cradle floor
-          cube([rail_width / 2 + 8, 35, 4], center = true);
+          cube([rail_width / 2 + 12, 35, 4], center = true);
           
           difference() {
             // back cradle wall
              translate([0, 15, 10])
-              cube([rail_width / 2 + 8, 5, 20], center = true);
+              cube([rail_width / 2 + 12, 5, 20], center = true);
               
               // circuit board cutout
               translate([-15, 10, 8])
               cube([10, 10, 15]);
               
-                            // circuit board cutout
+              // circuit board cutout
               translate([5, 10, 8])
               cube([10, 10, 15]);    
           }
 
          // cutouts
         difference() {
-            translate([-66.5, -15, 0])
+            translate([-68.5, -15, 0])
             cube([3, 30, 20]);
 
             // cutout for axle ring
@@ -142,11 +142,11 @@ translate([0, 0, -0]) {
         }
 
         difference() {
-            translate([63.5, -15, 0])
+            translate([65.5, -15, 0])
             cube([3, 30, 20]);
             
             // cutout for axle ring
-             translate([60.5, 0, 14.5])
+             translate([63.5, 0, 14.5])
              rotate([0, 90, 0])
                 cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_axle_notch_cutout_z + 2);
 

@@ -37,42 +37,43 @@ $fn = 50;
 //tirerim();
 
 //steering_coupler();
+translate([0, 0, -0]) {
 
-      // U structure holding the engine supports
-      translate([-5, -rail_length / 2 + 17.5, -57])
+      // U structure holding the engine supports - seperate the verical bars by at least an engine width so manuerving the motors into the cradle is possible.
+      translate([-5, -rail_length / 2 + 12.5, -57])
       cube([10, 10, 64]);
-      translate([-5, -rail_length / 2 + 42.5, -57])
+      translate([-5, -rail_length / 2 + 47.5, -57])
       cube([10, 10, 64]);
       translate([-5, -rail_length / 2 + 17.5, -57])
-      cube([10, 30, 10]);
+      cube([10, 40, 10]);
       
-      // engine support - engine cradles
+              
       translate([0, -rail_length / 2 + 35, -55.5]) {
-          
-          cube([rail_width / 2 + 8, 35, 4], center = true);
-          
-          difference() {
-             translate([0, 15, 10])
-              cube([rail_width / 2 + 8, 5, 20], center = true);
-              
-              // circuit board cutout
-              translate([-20.2, 10, 8])
-              cube([15, 10, 15]);
-          }
 
-              
+        // front cradle wall
+        translate([0, -15, 10])
+        cube([rail_width / 2 + 12, 5, 20], center = true);
+      
+        // cradle floor
+          cube([rail_width / 2 + 12, 35, 4], center = true);
+          
           difference() {
-              translate([0, -15, 10])
-              cube([rail_width / 2 + 8, 5, 20], center = true);
+            // back cradle wall
+             translate([0, 15, 10])
+              cube([rail_width / 2 + 12, 5, 20], center = true);
               
               // circuit board cutout
-              translate([5.1, -20, 8])
-              cube([15, 10, 15]);
+              translate([-15, 10, 8])
+              cube([10, 10, 15]);
+              
+              // circuit board cutout
+              translate([5, 10, 8])
+              cube([10, 10, 15]);    
           }
 
          // cutouts
         difference() {
-            translate([-66.5, -15, 0])
+            translate([-68.5, -15, 0])
             cube([3, 30, 20]);
 
             // cutout for axle ring
@@ -83,29 +84,30 @@ $fn = 50;
             // cutouts for screws
             translate([-70, -dc_motor_screw_offset, 14.5])
             rotate([0, 90, 0])
-                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d);
+                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d + .2);
                     
             translate([-70, dc_motor_screw_offset, 14.5])
             rotate([0, 90, 0])
-                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d);  
+                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d + .2);  
         }
 
         difference() {
-            translate([63.5, -15, 0])
+            translate([65.5, -15, 0])
             cube([3, 30, 20]);
-
+            
             // cutout for axle ring
-             translate([62, 0, 14.5])
+             translate([63.5, 0, 14.5])
              rotate([0, 90, 0])
                 cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_axle_notch_cutout_z + 2);
-            
+
             // cutouts for screws
             translate([63, -dc_motor_screw_offset, 14.5])
             rotate([0, 90, 0])
-                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d);
+                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d + .2);
                     
             translate([63, dc_motor_screw_offset, 14.5])
             rotate([0, 90, 0])
-                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d);  
+                cylinder(h = dc_motor_axle_ring_z + 5, d = dc_motor_screw_head_d + .2);
         }
     }
+  }

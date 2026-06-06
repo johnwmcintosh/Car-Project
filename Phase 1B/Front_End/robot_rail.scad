@@ -35,11 +35,11 @@ module front_robot_rail(
     
       // right cutout for apparatus
       translate([rail_width / 2 - 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter + .6);
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .45);
     
       // left cutout for apparatus
       translate([-rail_width / 2 + 3 *  ball_bearing_height, 102, -1])
-      cylinder(h = 20, d = ball_bearing_outer_diameter + .5);
+      cylinder(h = 20, d = ball_bearing_outer_diameter + .45);
       
       // stress relief for left
       translate([-rail_width / 2 + 3 * ball_bearing_height, 100 - ball_bearing_outer_diameter / 2, -1])
