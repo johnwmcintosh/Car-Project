@@ -24,10 +24,6 @@ module full_apparatus(
         }
       }
       
-        // coupler
-        translate([0, 65, 10])
-        rotate([90, 0, 0])
-        steering_coupler();
       
       if (show_turn_arm) {
         // rotation arm that connects to coupler
@@ -47,6 +43,11 @@ module full_apparatus(
           rotate([-90, 0, 0])
           cylinder(h=10, d=ball_bearing_inner_diameter + 1 );
         }
+        
+        // coupler
+        translate([0, 65, 10])
+        rotate([90, 0, 0])
+        steering_coupler();
       }
 //      
       if (show_coupler_bar) {

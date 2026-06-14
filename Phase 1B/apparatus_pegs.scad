@@ -1,8 +1,8 @@
 include <robot_settings.scad>
 $fn=50;
   
- print_front_rack_grab_bar_peg = true;
- print_apparatus_peg = false;
+ print_front_rack_grab_bar_peg = false;
+ print_apparatus_peg = true;
   
 
 // this applies to all locking pegs

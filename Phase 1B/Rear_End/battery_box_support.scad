@@ -15,7 +15,7 @@ module battery_box_support()
       
       // cross bar for side support
       translate([-2, 5, 20])
-      cube([main_box_x + 7, 3, 13], center = true);
+      cube([main_box_x + 7, 5, 13], center = true);
       
       // left side support
       color("green")

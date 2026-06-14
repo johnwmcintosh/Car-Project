@@ -62,6 +62,8 @@ dc_motor_encoder_circuit_thickness = 2;
 dc_motor_cutout_d = 24.8;
 dc_motor_cutout_z = 19.5;
 
+M3_shaft_d = 2.82;
+
 dc_motor_screw_head_z = 2;
 dc_motor_screw_head_d = 5.6;
 dc_motor_screw_d = 3.2;
