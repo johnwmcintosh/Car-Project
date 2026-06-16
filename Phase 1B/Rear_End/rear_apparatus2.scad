@@ -8,7 +8,7 @@ use <../Front_End/tire_apparatus.scad>
 $fn = 50;
     
  module rear_apparatus2(
-      flip_apparatus = false, 
+      flip_apparatus = true, 
       include_motor = false, 
       include_coupler = false, 
       include_apparatus = true,
@@ -25,6 +25,7 @@ $fn = 50;
           include_steering_coupler = include_coupler,
           motor_z_offset = motor_z_offset);
           
+          // holes that provide a pathway for an allen wrench to screw the motor to the frame.
           translate([-10, 8,0])
           rotate([0, 90, 0])
           cylinder(h = 20, r = 2);
@@ -40,7 +41,8 @@ $fn = 50;
              difference() {
                 translate([0, 0,  ball_bearing_outer_diameter - 4])
                 springLeaf(width = ball_bearing_height, len =  30, height = 10, thickness = 3);
-
+                
+                // remove the bit of the spring leaf from the inner circle
                 translate([-1, 0, 0])
                  rotate([0, 90, 0])
                  cylinder(h = 5, d = ball_bearing_outer_diameter + 1);
@@ -50,7 +52,8 @@ $fn = 50;
              difference() {
                 translate([0, 0,  ball_bearing_outer_diameter - 4])
                 springLeaf(width = ball_bearing_height, len =  30, height = 10, thickness = 3);
-
+                
+                // remove the bit of the spring leaf from the inner circle
                 translate([-4, 0, 0])
                  rotate([0, 90, 0])
                  cylinder(h = 5, d = ball_bearing_outer_diameter + 1);
@@ -58,7 +61,7 @@ $fn = 50;
           }
       
 
-       translate([0, 0, -5]) {
+       translate([0, 0, -2.5]) {
             // body connector 
             difference() {
                 translate([
