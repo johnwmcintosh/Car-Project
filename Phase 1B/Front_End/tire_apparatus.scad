@@ -37,6 +37,7 @@ module tire_apparatus(
                 translate([axle_length + 10.9, 0, 0])
                   axle(axle_length = axle_length, rotate = true, rear_axle = false);
                   
+                 // holes to allow reach to the motor screws
                 translate([-20, 8.5, 0])
                   rotate([0, 90, 0])
                       cylinder(h = 900, d = M3_shaft_d);
