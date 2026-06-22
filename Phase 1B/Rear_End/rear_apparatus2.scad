@@ -8,7 +8,7 @@ use <../Front_End/tire_apparatus.scad>
 $fn = 50;
     
  module rear_apparatus2(
-      flip_apparatus = true, 
+      flip_apparatus = false, 
       include_motor = false, 
       include_coupler = false, 
       include_apparatus = true,
@@ -99,47 +99,17 @@ $fn = 50;
             
             // side wall
               translate([
-                  larger_x, 6, 2 * ball_bearing_outer_diameter - 11
+                  larger_x, 6, 2 * ball_bearing_outer_diameter - 8
                 ])
-                cube([12,2,5]);
+                cube([12,2,3]);
             
             // side wall
             translate([
-                larger_x, -7, 2 * ball_bearing_outer_diameter - 11
+                larger_x, -7, 2 * ball_bearing_outer_diameter - 8
               ])
-              cube([12,2,5]);
+              cube([12,2,3]);
      
-            // angled reinformace
-            if (flip_apparatus) {
-                 translate([
-                    larger_x, 6, 2 * ball_bearing_outer_diameter - 13.9
-                    ])
-                rotate([0, -25, 0])
-                cube([12,2,4]);
-          }
-            else {
-               translate([
-                      larger_x, 6, 2 * ball_bearing_outer_diameter - 8.8
-                    ])
-                rotate([0, 25, 0])
-                cube([12,2,4]);
-            }
-            
-             // angled reinformace
-            if (flip_apparatus) {
-                translate([
-                     larger_x, -7, 2 * ball_bearing_outer_diameter - 13.9
-                    ])
-                rotate([0, -25,0])
-                cube([12,2,4]);
-            }
-            else { 
-                 translate([
-                     larger_x, -7, 2 * ball_bearing_outer_diameter - 8.8
-                    ])
-                rotate([0, 25,0])
-                cube([12,2,4]);
-            }
+   
 
           // smaller one
             if (flip_apparatus) {
