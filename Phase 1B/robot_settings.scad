@@ -1,6 +1,11 @@
 main_box_x = 95; // 96
 main_box_y = 102;
 main_box_z = 74; // 74.5
+
+lfp_main_box_x = 65;
+lfp_main_box_y = 151;
+lfp_main_box_z = 95;
+
 wall_thickness = 2;
 
 rail_gap = 2;
@@ -164,3 +169,21 @@ switch_w = 16;
 switch_cutout_d = 12.2;
 switch_bump_h = 2;
 switch_bump_l = 18.2;
+
+i2c_mount_thickness = 3;
+i2c_w = 28;
+i2c_l = 28;
+i2c_circuitboard_thickness = 1.23;
+i2c_bottom_notch_w = 14.35;
+i2c_bottom_notch_depth = 1;
+i2c_screw_hole_d = 1.9;
+i2c_screw_hole_offset = 1.4;
+i2c_pin_l = 11;
+i2c_pin_d = 0.8;
+i2c_pin_offset = 1.5;
+i2c_pin_separation = 2.5;
+i2c_all_pins_l = 8.3;
+i2c_screen_thickness = 1.88;
+i2c_screen_w = 14.6;
+i2c_screen_d = 27;
+i2c_screen_offset = 4.1;

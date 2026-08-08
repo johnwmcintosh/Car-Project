@@ -23,7 +23,7 @@ $fn = 50;
 
 module rear_robot_rail(
     include_apparatus = true, 
-    include_battery_box = false,
+    include_battery_box = true,
     include_power_bar = false,
     show_lidar_platform = false
     )
@@ -82,7 +82,7 @@ module rear_robot_rail(
     // rear apparatus
     if (include_apparatus) {
         translate([rail_width / 2 - 21.5, -rail_length / 2 + 35, -40])
-          rear_apparatus2(include_motor = true, include_coupler = true, motor_z_offset=0);
+          rear_apparatus2(flip_apparatus=true, include_motor = true, include_coupler = true, motor_z_offset=0);
         translate([-rail_width / 2 + 21.5, -rail_length / 2 + 35, -36.8])
           rear_apparatus2(flip_apparatus = false, include_motor = true, include_coupler = true, motor_z_offset = 0);
       }

@@ -3,6 +3,7 @@ include <../robot_settings.scad>
 use <robot_rail.scad>
 use <../rear_end/pico2.scad>
 use <../rear_end/RP5.scad>
+use <../i2c.scad>
 
 use<battery_box_peg_mounts.scad>
 use <targus4mount.scad>
@@ -24,8 +25,8 @@ module battery_box() {
       cube([main_box_x + 2 * wall_thickness, main_box_y - 10 * wall_thickness, main_box_z / 4]);
 
       // back window
-      translate([main_box_x / 4, -wall_thickness, main_box_z / 4])
-      cube([main_box_x / 2, 4 * wall_thickness, main_box_z / 2]);
+      //translate([main_box_x / 4, -wall_thickness, main_box_z / 4])
+      //cube([main_box_x / 2, 4 * wall_thickness, main_box_z / 2]);
   
     // notch on the back wall because the battery has a little bump there.
     translate([2 * wall_thickness - .1, wall_thickness - 1.5, wall_thickness + rail_gap - 6]) {
@@ -41,7 +42,7 @@ module battery_box() {
   }
 
   // rp5 mounting pegs - top right
-  translate([-main_box_x / 2, -main_box_y / 2, 0])
+  translate([-main_box_x / 2,  0, 0])
   RP5();
  
   // pico extender
@@ -60,5 +61,12 @@ translate([-main_box_x / 2, - main_box_y / 2 , 0])
   // usb hub mount
   targus4mount();
   
+  translate([-main_box_x / 2 + i2c_w, -main_box_y / 2 - 2 *i2c_pin_l, main_box_z / 2 + i2c_l / 2])
+  rotate([120, 0, 180])
+  i2c();  
+  
+  translate([main_box_x / 2 - i2c_w, -main_box_y / 2 - 2 *i2c_pin_l, main_box_z / 2 + i2c_l / 2])
+  rotate([120, 0, 180])
+  i2c();
 }
 battery_box();

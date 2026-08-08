@@ -12,7 +12,7 @@ if (show_mounts)
   //translate([0, 0, battery_box_peg_d / 2 + 3])
   //cube([main_box_x, main_box_y, 2]);
   
-    translate([-main_box_x / 2, -main_box_y / 2, battery_box_peg_d / 2 + .1])
+    translate([-lfp_main_box_x / 2, -lfp_main_box_y / 2, battery_box_peg_d / 2 + .1])
     {
      color("green")
     translate([battery_box_peg_d, battery_box_peg_d, 0])
@@ -23,7 +23,7 @@ if (show_mounts)
       }
 
   color("red")
-    translate([-battery_box_peg_d + main_box_x, battery_box_peg_d, 0])
+    translate([-battery_box_peg_d + lfp_main_box_x, battery_box_peg_d, 0])
       difference() {
         cylinder(h = battery_box_peg_h, d = battery_box_peg_d, center = true);
        translate([0, 0, -.1])
@@ -31,14 +31,14 @@ if (show_mounts)
       }
 
   color("white")
-    translate([-battery_box_peg_d + main_box_x, -battery_box_peg_d + main_box_y, 0])
+    translate([-battery_box_peg_d + lfp_main_box_x, -battery_box_peg_d + lfp_main_box_y, 0])
       difference() {
         cylinder(h = battery_box_peg_h, d = battery_box_peg_d, center = true);
        translate([0, 0, -.1])
         cylinder(h = battery_box_peg_h + 1, d = battery_box_peg_cutout, center = true); 
       }
      
-    translate([battery_box_peg_d, -battery_box_peg_d + main_box_y, 0])
+    translate([battery_box_peg_d, -battery_box_peg_d + lfp_main_box_y, 0])
       difference() {
         cylinder(h = battery_box_peg_h, d = battery_box_peg_d, center = true);
        translate([0, 0, -.1])
@@ -54,18 +54,18 @@ if (show_mounts)
       cutout_offset = .4;
       
       // battery box attachment points
-       translate([-main_box_x / 2, -main_box_y / 2,  - .1]) 
+       translate([-lfp_main_box_x / 2, -lfp_main_box_y / 2,  - .1]) 
       {
         translate([battery_box_peg_d, battery_box_peg_d, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
 
-        translate([-battery_box_peg_d + main_box_x, battery_box_peg_d, 0])
+        translate([-battery_box_peg_d + lfp_main_box_x, battery_box_peg_d, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
 
-        translate([-battery_box_peg_d + main_box_x, -battery_box_peg_d + main_box_y, 0])
+        translate([-battery_box_peg_d + lfp_main_box_x, -battery_box_peg_d + lfp_main_box_y, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
 
-        translate([battery_box_peg_d, -battery_box_peg_d + main_box_y, 0])
+        translate([battery_box_peg_d, -battery_box_peg_d + lfp_main_box_y, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
        }
    }
