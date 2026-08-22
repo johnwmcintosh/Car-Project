@@ -2,7 +2,7 @@ main_box_x = 100; // 96
 main_box_y = 102;
 main_box_z = 74; // 74.5
 
-lfp_main_box_x = 65;
+lfp_main_box_x = 66;
 lfp_main_box_y = 151;
 lfp_main_box_z = 95;
 
@@ -13,7 +13,24 @@ rail_inset = 7;
 
 rail_thickness = 7;
 rail_length = 250;
-rail_width = 250;
+rail_width = 290;
+
+lfp_battery_width = 65.5;
+lfp_battery_depth = 150.5;
+lfp_battery_height = 93;
+lfp_battery_midterrace_width = 64.8;
+lfp_battery_midterrace_depth = 150.2;
+lfp_battery_midterrace_height = 7.8;
+lfp_battery_topterrace_width = 62.8;
+lfp_battery_topterrace_depth = 149.4;
+lfp_battery_topterrace_height = 6.6;
+
+// red right
+// black left
+lfp_battery_terminal_width = 9.2;
+lfp_battery_terminal_depth = 9.5;
+lfp_battery_terminal_depth_setback = 14.4;
+lfp_battery_terminal_width_setback = 5.9;
 
 raspberry_pi_screw_seperation_y = 57;
 raspberry_pi_screw_seperation_z = 48;
@@ -58,8 +75,14 @@ drv8871_solder_offset_y = 4.4;
 drv8871_solder_inner_points_distance = 5;
 drv8871_solder_outer_points_distance = 12;
 
-dc_motor_75_1_housing_minus_encoder_z = 53.8;
 dc_motor_75_1_encoder_z = 14.75;
+dc_motor_75_1_encoder_d = 24.5;
+dc_motor_75_1_housing_z = 30;
+dc_motor_75_1_housing_d = 24.1;
+dc_motor_75_1_gearbox_z = 23;
+dc_motor_75_1_gearbox_d = 24.8;
+dc_motor_75_1_z = dc_motor_75_1_encoder_z + dc_motor_75_1_housing_z + dc_motor_75_1_gearbox_z;
+
 dc_motor_housing_minus_encoder_z = 48;
 dc_motor_encoder_z = 9.33;
 dc_motor_encoder_wheel_d = 13.4;

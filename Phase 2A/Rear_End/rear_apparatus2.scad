@@ -1,6 +1,6 @@
 include <../robot_settings.scad>
 use <../spring_library.scad>
-use <dc_motor.scad>
+
 use <../Front_End/axle_for_custom_hub.scad>
 use <../Front_End/tire_rim.scad>
 use <../Front_End/tire_apparatus.scad>

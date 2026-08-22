@@ -2,7 +2,7 @@
 // 
   $fn = 50;
   
-module dc_motor(motor_height = dc_motor_housing_minus_encoder_z)
+module dc_motor(motor_height = dc_motor_75_1_z)
 {        
       rotate([0,90,0])
         cylinder(h = motor_height, d = dc_motor_cutout_d);

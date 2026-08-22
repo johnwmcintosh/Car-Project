@@ -55,7 +55,7 @@ module tire_apparatus(
            }
             
           if (include_motor) {
-                translate([-79.5, 0, motor_z_offset])
+                translate([-93.5, 0, motor_z_offset])
                 //color(rotate?"green": "red")
                 dc_motor();
             }

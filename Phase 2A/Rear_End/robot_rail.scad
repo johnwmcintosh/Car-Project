@@ -3,10 +3,10 @@ include <../robot_settings.scad>
 use <../Front_End/robot_rail.scad>
 use <../Front_End/tire_apparatus.scad>
 
-use <../Front_End/Battery_box_3.scad>
-use <../Front_End/battery_box_peg_mounts.scad>
+use <../Battery/Battery_box_LFP.scad>
+use <../Battery/lfp_battery_box_peg_mounts.scad>
+use <../Battery/battery_lfp.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
-use <../Front_End/battery_box_peg_mounts.scad>
 use <../spring_library.scad>
 
 use <dc_motor.scad>
@@ -40,7 +40,7 @@ module rear_robot_rail(
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
  
       // Pi's power passthrough
-      translate([-rail_width / 3 + 27, power_bar_y / 2 - 51, rail_thickness / 2])
+      translate([-rail_width / 7 , power_bar_y / 2 - 25, rail_thickness / 2])
       {
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
         union()
@@ -81,10 +81,10 @@ module rear_robot_rail(
 
     // rear apparatus
     if (include_apparatus) {
-        translate([rail_width / 2 - 22.5, -rail_length / 2 + 35, -40])
+        translate([rail_width / 2 - 21.5, -rail_length / 2 + 35, -40])
           rear_apparatus2(flip_apparatus=true, include_motor = true, include_coupler = true, motor_z_offset=0);
-          dc_motor();
-        translate([-rail_width / 2 + 21.5, -rail_length / 2 +- 35, -40])
+
+        translate([-rail_width / 2 + 21.5, -rail_length / 2 + 35, -40])
           rear_apparatus2(flip_apparatus = false, include_motor = true, include_coupler = true, motor_z_offset = 0);
       }
 
@@ -95,7 +95,7 @@ translate([0, 0, -0]) {
       post_thickness_x_y = 10;
       post_wallside_position_y = 12.5;
       post_separation_y = 47.5;
-      post_x_position = 60.5; //note the four end positions are not "mirrored" because the zero point for each bar is on the left edge. 
+      post_x_position = 80; // width of cradle. this is proportional to rail_width.
       
       // posts
       translate([0, -rail_length / 2, -57.5]) {
@@ -228,22 +228,25 @@ translate([0, 0, -0]) {
 }
 
       // battery box attachment points
-      translate([-2.5, -rail_length / 2 + 84, battery_box_peg_h])
+      translate([0, -rail_length / 2 + 108, battery_box_peg_h])
       battery_box_peg_mounts(show_mounts = false, show_points = true);
     
       if (include_battery_box) {
-          translate([-2.5, -main_box_y + 61, 2.4 + 8])
+          translate([0, -17, 2.4 + 8])
           battery_box();
+          translate([0, 75.9, 18])
+          rotate([0, 0, 180])
+          lfp_battery();
       }
       
      // REAR SUPPORT for battery box
-     translate([-.6, -main_box_y - .3, 0])
-      battery_box_support();
+     translate([2, -main_box_y - .3, 0])
+      battery_box_support(9);
       
      // FRONT SUPPORT for battery box
-     translate([-4.6, 20, 2])
+     translate([-2, main_box_y - 16.5, 2])
       rotate([0, 0, 180])
-      battery_box_support();
+      battery_box_support(6.1);
       
     // drv8871 Adafruit platform STEERING
     translate([-drv8871_screw_distance + drv8871_x + 20, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + 3])
@@ -256,12 +259,12 @@ translate([0, 0, -0]) {
       drv8871mount("Teyleten");
     
     // drv8871 Adafruit platform LOWER LEFT
-    translate([- drv8871_screw_distance -20, -rail_length / 2 + 6 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([- drv8871_screw_distance -20, -rail_length / 2 + 7.1 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount();
  
     // drv8871 Teyleten platform LOWER LEFT
-    translate([- drv8871_screw_distance - 20, -rail_length / 2 + 5 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([- drv8871_screw_distance - 20, -rail_length / 2 + 6.1 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount("Teyleten");    
     

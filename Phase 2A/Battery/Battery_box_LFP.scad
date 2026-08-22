@@ -1,18 +1,28 @@
 include <../robot_settings.scad>
-include <tobsun_parts.scad>
+include <../Front_End/tobsun_parts.scad>
 
-use <battery_box_3.scad>
+
 use <lfp_battery_box_peg_mounts.scad>
 use <../rear_end/pico2.scad>
 use <../rear_end/RP5.scad>
 use <../i2c.scad>
-use <targus4mountLFP.scad>
+use <../Front_End/targus4mountLFP.scad>
+use <tobsun.scad>
 
-module battery_box(show_i2c = false) {
+module battery_box(show_i2c = false, show_tobsun = false) {
 
     // tobsun
-    translate([ - tobsun_shelf_width / 2, lfp_main_box_y / 2 - tobsun_shelf_length + 1, lfp_main_box_z + rail_gap + 2.6 * wall_thickness])
+    translate([ -tobsun_shelf_width / 2, lfp_main_box_y / 2 - tobsun_shelf_length + 1, lfp_main_box_z + rail_gap + 2.6 * wall_thickness])
     tobsun_tray();
+    
+    if (show_tobsun) {
+        translate([ 0, lfp_main_box_y / 2 - tobsun_shelf_length + 24, lfp_main_box_z + rail_gap + 2.6 * wall_thickness + 14])
+        tobsun();
+    }
+    
+    // the lfp battery has its electrodes on top so the battery will have to stick out 17.5mm
+    translate([-lfp_main_box_x/2, -lfp_main_box_y /2, 6])
+    cube([lfp_main_box_x, 17.5, lfp_main_box_z]);
 
     translate([0, 0, 6]) {
       // rp5 mounting pegs - top right
@@ -36,8 +46,8 @@ module battery_box(show_i2c = false) {
                
                
             // side windows
-            translate([ lfp_main_box_x / 2 -wall_thickness,  0 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
-              cube([2 * wall_thickness, lfp_main_box_y / 2,  lfp_main_box_z / 4]);
+            translate([ lfp_main_box_x / 2 -wall_thickness,  -25 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
+              cube([2 * wall_thickness, lfp_main_box_y / 2 + 20,  lfp_main_box_z / 4]);
               
             // side windows
             translate([-lfp_main_box_x / 2 - wall_thickness,  0 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
