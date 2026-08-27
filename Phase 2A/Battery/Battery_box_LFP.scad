@@ -11,68 +11,91 @@ use <tobsun.scad>
 
 module battery_box(show_i2c = false, show_tobsun = false) {
 
-    // tobsun
-    translate([ -tobsun_shelf_width / 2, lfp_main_box_y / 2 - tobsun_shelf_length + 1, lfp_main_box_z + rail_gap + 2.6 * wall_thickness])
-    tobsun_tray();
+    translate([0,1.5, -4.7]) {
+        // tobsun tray
+        translate([ -tobsun_shelf_width / 2, lfp_main_box_y / 2 - tobsun_shelf_length + 1, lfp_main_box_z + rail_gap + wall_thickness + 25])
+        color("red")
+        tobsun_tray(.5, 2.6);
+    }
+    
+    // tray mount
+    translate([0, 2.5, 0])
+    difference() {
+        translate([-10, lfp_main_box_y / 2 - tobsun_shelf_length, lfp_main_box_z + rail_gap + wall_thickness + 2.5]) 
+        cube([20, tobsun_shelf_length, 10]);
+ 
+        translate([-5, lfp_main_box_y / 2 - tobsun_shelf_length + 2.5, lfp_main_box_z + rail_gap + wall_thickness + 2.7]) 
+        cube([10, tobsun_shelf_length - 5, 10]);
+    }
     
     if (show_tobsun) {
-        translate([ 0, lfp_main_box_y / 2 - tobsun_shelf_length + 24, lfp_main_box_z + rail_gap + 2.6 * wall_thickness + 14])
+        translate([ 0, lfp_main_box_y / 2 - tobsun_shelf_length + 24, lfp_main_box_z + rail_gap + 2.6 * wall_thickness + 24])
         tobsun();
     }
     
-    // the lfp battery has its electrodes on top so the battery will have to stick out 17.5mm
-    translate([-lfp_main_box_x/2, -lfp_main_box_y /2, 6])
-    cube([lfp_main_box_x, 17.5, lfp_main_box_z]);
-
-    translate([0, 0, 6]) {
+    translate([0, 0, battery_box_peg_h]) {
       // rp5 mounting pegs - top right
-      translate([-lfp_main_box_x / 2 - .9, 0 , 0])
+      translate([-lfp_main_box_x / 2 - wall_thickness / 2, 0 , 0])
       RP5();
      
       // pico extender
       // orientate it so that gpios are easy to access the wires
-      translate([lfp_main_box_x / 2 + 3, 0, lfp_main_box_z / 2])
+      translate([lfp_main_box_x / 2 + wall_thickness / 2 + 2, 0, lfp_main_box_z / 2])
       rotate([90, 0, 0])
       pico_mounts();
+      
+      difference() {
+           // container
+           translate([0, 0, (lfp_main_box_z + wall_thickness)/2])  
+           cube([lfp_main_box_x + wall_thickness, lfp_main_box_y + wall_thickness, lfp_main_box_z + wall_thickness], center = true);
+          
+          // left cutout for battery terminals
+          leftterm = -lfp_battery_width / 2 + lfp_battery_terminal_width_setback - 2.5;
+          translate([leftterm, lfp_battery_depth / 2
+          -  lfp_battery_terminal_width_setback - 10, lfp_main_box_z +  wall_thickness - 5])
+          cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 10 , 10]);
+            
+          // right cutout for battery terminals
+          righttterm = lfp_battery_width / 2 - lfp_battery_terminal_width - lfp_battery_terminal_width_setback - 2.5;
+          translate([righttterm, lfp_battery_depth / 2
+          -  lfp_battery_terminal_width_setback - 10, lfp_main_box_z +  wall_thickness - 5])
+          cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 10, 10]);   
+          
+          // actual battery size
+           translate([0, wall_thickness, (lfp_main_box_z + wall_thickness)/2]) 
+           cube([lfp_main_box_x, lfp_main_box_y, lfp_main_box_z], center = true);
 
-        difference() {
-           translate([0, 0, (lfp_main_box_z + wall_thickness)/2]) 
-              // container
-              cube([lfp_main_box_x + wall_thickness, lfp_main_box_y + wall_thickness, lfp_main_box_z + wall_thickness], center = true);
-             
-              // actual battery size
-              translate([0, wall_thickness, (lfp_main_box_z + wall_thickness)/2]) 
-                cube([lfp_main_box_x, lfp_main_box_y, lfp_main_box_z], center = true);
-               
-               
-            // side windows
-            translate([ lfp_main_box_x / 2 -wall_thickness,  -25 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
+          // side windows
+          translate([ lfp_main_box_x / 2 -wall_thickness,  -35 - lfp_main_box_y /4,   lfp_main_box_z / 2 -   lfp_main_box_z / 8])
               cube([2 * wall_thickness, lfp_main_box_y / 2 + 20,  lfp_main_box_z / 4]);
               
-            // side windows
-            translate([-lfp_main_box_x / 2 - wall_thickness,  0 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
-            cube([2 * wall_thickness, lfp_main_box_y / 2,  lfp_main_box_z / 4]);  
-        }       
-      }
-      
+          // side windows
+          translate([-lfp_main_box_x / 2 - wall_thickness,  -35 - lfp_main_box_y /4, lfp_main_box_z / 2 -   lfp_main_box_z / 8])
+              cube([2 * wall_thickness, lfp_main_box_y / 2 + 20,  lfp_main_box_z / 4]);  
+        }    
+    }
+           
+          
+                       
       translate([0, 0, -.2])
       battery_box_peg_mounts();
       
-      translate([-lfp_main_box_x / 2 + 1, lfp_main_box_y / 2 - tobsun_shelf_width - 33 , 3])
+      translate([-lfp_main_box_x / 2 + 1, lfp_main_box_y / 2 - tobsun_shelf_width - 33 , wall_thickness])
       // usb hub mount
       targus4mount(); 
 
       if (show_i2c) {
-          translate([-i2c_w +  i2c_w /2 - 2,  -lfp_main_box_y / 2 + i2c_pin_l, lfp_main_box_z + i2c_l])
+          translate([-i2c_w +  i2c_w /2 - 2,  -lfp_main_box_y / 2 + i2c_pin_l, lfp_main_box_z + wall_thickness + i2c_l])
             rotate([120, 0, 180])
               i2c();  
          
-          translate([i2c_w - i2c_w / 2 + 3, -lfp_main_box_y / 2 + i2c_pin_l, lfp_main_box_z + i2c_l])
+          translate([i2c_w - i2c_w / 2 + 3, -lfp_main_box_y / 2 + i2c_pin_l, lfp_main_box_z + wall_thickness + i2c_l])
             rotate([120, 0, 180])
               i2c();
      }
-          
-     translate([-lfp_main_box_x/2 + 1, -lfp_main_box_y / 2 - 4.3, 0])
+       
+    // i2c holder
+     translate([-lfp_main_box_x/2 + 1, -lfp_main_box_y / 2 - 4.3, wall_thickness - 2])
      difference() {
         // mount pre-cutout
          translate([-1,  0, lfp_main_box_z + 7.5])
@@ -95,7 +118,8 @@ module battery_box(show_i2c = false, show_tobsun = false) {
      }
 
   
-     translate([-lfp_main_box_x / 2 + i2c_w - 2, -lfp_main_box_y / 2 - 4.3, 0])
+     // i2c holder
+    translate([-lfp_main_box_x / 2 + i2c_w - 2, -lfp_main_box_y / 2 - 4.3, wall_thickness - 2])
      difference() {
         // mount pre-cutout
          translate([-1,  0, lfp_main_box_z + 7.5])
@@ -117,7 +141,8 @@ module battery_box(show_i2c = false, show_tobsun = false) {
             cylinder(h = 20, d = i2c_screw_hole_d);      
      }
       
-     translate([lfp_main_box_x/2 - 6, -lfp_main_box_y / 2 - 4.3, 0])
+   // i2c holder
+      translate([lfp_main_box_x/2 - 6, -lfp_main_box_y / 2 - 4.3, wall_thickness - 2])
      difference() {
         // mount pre-cutout
          translate([-1,  0, lfp_main_box_z + 7.5])
@@ -139,7 +164,8 @@ module battery_box(show_i2c = false, show_tobsun = false) {
             cylinder(h = 20, d = i2c_screw_hole_d);     
      }
       
-     translate([lfp_main_box_x / 2 - i2c_w - 3, -lfp_main_box_y / 2 - 4.3, 0])
+   // i2c holder
+      translate([lfp_main_box_x / 2 - i2c_w - 3, -lfp_main_box_y / 2 - 4.3, wall_thickness - 2])
      difference() {
         // mount pre-cutout
          translate([-1,  0, lfp_main_box_z + 7.5])

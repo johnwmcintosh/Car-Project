@@ -19,7 +19,7 @@ module front_robot_rail(
         //
       translate([-rail_width / 2, -rail_length /2, 0])
         cube([
-          rail_width - rail_gap * wall_thickness, 
+          rail_width,
           rail_length, 
           rail_thickness], 
           center = false

@@ -4,6 +4,6 @@ use <Battery/tobsun.scad>
 
 battery_box();
 
-translate([0, 93, 8])
+translate([0, 80, 8])
 rotate([0, 0, 180])
 lfp_battery();

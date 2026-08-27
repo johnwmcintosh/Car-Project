@@ -2,18 +2,18 @@ main_box_x = 100; // 96
 main_box_y = 102;
 main_box_z = 74; // 74.5
 
-lfp_main_box_x = 66;
+lfp_main_box_x = 65;
 lfp_main_box_y = 151;
-lfp_main_box_z = 95;
+lfp_main_box_z = 93;
 
-wall_thickness = 2;
+wall_thickness = 5;
 
 rail_gap = 2;
 rail_inset = 7;
 
 rail_thickness = 7;
 rail_length = 250;
-rail_width = 290;
+rail_width = 280;
 
 lfp_battery_width = 65.5;
 lfp_battery_depth = 150.5;
@@ -29,7 +29,7 @@ lfp_battery_topterrace_height = 6.6;
 // black left
 lfp_battery_terminal_width = 9.2;
 lfp_battery_terminal_depth = 9.5;
-lfp_battery_terminal_depth_setback = 14.4;
+lfp_battery_terminal_depth_setback = 4.4;
 lfp_battery_terminal_width_setback = 5.9;
 
 raspberry_pi_screw_seperation_y = 57;

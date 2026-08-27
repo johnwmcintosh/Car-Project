@@ -91,7 +91,7 @@ module rear_robot_rail(
 translate([0, 0, -0]) {
 
       // U structures holding the engine supports - seperate the verical bars by at least an engine width so manuerving the motors into the cradle is possible.
-      wall_thickness = 5;
+      cradle_wall_thickness = 5;
       post_thickness_x_y = 10;
       post_wallside_position_y = 12.5;
       post_separation_y = 47.5;
@@ -125,11 +125,11 @@ translate([0, 0, -0]) {
 
         // front cradle wall
         translate([0, -15, 10])
-        cube([2 * post_x_position, wall_thickness, 22], center = true);
+        cube([2 * post_x_position, cradle_wall_thickness, 22], center = true);
       
         // cradle floor
         translate([0, 0, .5])
-        cube([2 * (post_x_position + post_thickness_x_y), 35, wall_thickness], center = true);
+        cube([2 * (post_x_position + post_thickness_x_y), 35, cradle_wall_thickness], center = true);
 
 
          translate([ -post_x_position - post_thickness_x_y, 0, 14.5]) {
@@ -139,7 +139,7 @@ translate([0, 0, -0]) {
                   // side wall
                   color("orange")
                   translate([0, -post_separation_y / 2 + 2.5, -14.5])
-                    cube([wall_thickness, post_separation_y - 5, 22]);
+                    cube([cradle_wall_thickness, post_separation_y - 5, 22]);
                 
                   // cutout for axle ring
                   translate([-dc_motor_axle_ring_z / 2, 0, 1])
@@ -159,7 +159,7 @@ translate([0, 0, -0]) {
                 difference() {
                   // inner setback wall (for countersinking)
                   translate([dc_motor_screw_head_z, -post_separation_y / 2 + 2.5, -14.5])
-                      cube([wall_thickness - dc_motor_screw_head_z, post_separation_y - 5, 22]);
+                      cube([cradle_wall_thickness - dc_motor_screw_head_z, post_separation_y - 5, 22]);
                       
                   // cutout for axle ring
                   translate([-dc_motor_axle_ring_z / 2, 0, 1])
@@ -178,14 +178,14 @@ translate([0, 0, -0]) {
                 
         }  // translate
 
-        translate([post_x_position + post_thickness_x_y - wall_thickness, 0, 14.5]) {
+        translate([post_x_position + post_thickness_x_y - cradle_wall_thickness, 0, 14.5]) {
             // end wall plus cutouts
             difference() {
             
                 // side wall
                 color("green")
                 translate([0, -post_separation_y / 2 + 2.5, -14.5])
-                cube([wall_thickness, post_separation_y - 5, 22]);
+                cube([cradle_wall_thickness, post_separation_y - 5, 22]);
                 
                  // cutout for axle ring
                  translate([-dc_motor_screw_head_d / 2 + 1, 0, 1])
@@ -207,7 +207,7 @@ translate([0, 0, -0]) {
                  // inner setback wall (for countersinking)
 
                   translate([0, -post_separation_y / 2 + 2.5, -14.5])
-                      cube([wall_thickness - dc_motor_screw_head_z, post_separation_y - 5, 22]);
+                      cube([cradle_wall_thickness - dc_motor_screw_head_z, post_separation_y - 5, 22]);
                       
                   // cutout for axle ring
                   translate([-dc_motor_axle_ring_z / 2, 0, 1])
@@ -234,19 +234,19 @@ translate([0, 0, -0]) {
       if (include_battery_box) {
           translate([0, -17, 2.4 + 8])
           battery_box();
-          translate([0, 75.9, 18])
+          translate([0, 63, 18])
           rotate([0, 0, 180])
           lfp_battery();
       }
       
      // REAR SUPPORT for battery box
      translate([2, -main_box_y - .3, 0])
-      battery_box_support(9);
+      battery_box_support(11);
       
      // FRONT SUPPORT for battery box
-     translate([-2, main_box_y - 16.5, 2])
+     translate([-2, main_box_y - 29.5, 2])
       rotate([0, 0, 180])
-      battery_box_support(6.1);
+      battery_box_support(11);
       
     // drv8871 Adafruit platform STEERING
     translate([-drv8871_screw_distance + drv8871_x + 20, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + 3])
@@ -304,7 +304,7 @@ translate([0, 0, -0]) {
     power_bar_mounts();
     
     // power bar label LEFT
-    //' top
+    // top
     color("blue")
     translate([-rail_width / 3 - power_bar_y / 2, power_bar_y / 2 - 36,  rail_thickness / 2 + 2.9])
     linear_extrude(1)

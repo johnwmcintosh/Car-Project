@@ -33,8 +33,8 @@ module lfp_battery() {
     translate([leftterm, lfp_battery_terminal_width_setback, hterm]) {
       color("red")
       cube([lfp_battery_terminal_width, lfp_battery_terminal_depth, 1]);
-      translate([0, 2, 6])
-      rotate([-45, 0, 0])
+      translate([0, 7, 0])
+      rotate([40, 0, 0])
       color("gold")
       cube([lfp_battery_terminal_width, lfp_battery_terminal_depth, 2]);
     }
@@ -42,8 +42,8 @@ module lfp_battery() {
     translate([rightterm, lfp_battery_terminal_width_setback, hterm]) {
      color("black")
      cube([lfp_battery_terminal_width, lfp_battery_terminal_depth, 1]);
-      translate([0, 2, 6])
-      rotate([-45, 0, 0])
+      translate([0, 7, 0])
+      rotate([40, 0, 0])
       color("gold")
       cube([lfp_battery_terminal_width, lfp_battery_terminal_depth, 2]);
    }    
