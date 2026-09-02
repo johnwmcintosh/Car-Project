@@ -14,6 +14,7 @@ module tire_apparatus(
     armature_holder_width = 28,
     pull_bar_length = 25,
     rotate = false,
+    motor_x_offset = 0,
     motor_z_offset = 0,
 
     include_ball_bearing = false,
@@ -55,7 +56,7 @@ module tire_apparatus(
            }
             
           if (include_motor) {
-                translate([-93.5, 0, motor_z_offset])
+                translate([-93.5 + motor_x_offset, 0, motor_z_offset])
                 //color(rotate?"green": "red")
                 dc_motor();
             }

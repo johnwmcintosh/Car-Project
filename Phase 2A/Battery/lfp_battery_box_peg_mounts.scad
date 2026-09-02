@@ -2,8 +2,8 @@
    $fn = 50;
  
  module battery_box_peg_mounts(
-  show_mounts = true,
-  show_points = false) 
+  show_mounts = false,
+  show_points = true) 
   {
 
 if (show_mounts) 
@@ -56,12 +56,15 @@ if (show_mounts)
       // battery box attachment points
        translate([-lfp_main_box_x / 2, -lfp_main_box_y / 2,  - .1]) 
       {
+        color("green")
         translate([battery_box_peg_d, battery_box_peg_d, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
 
+        color("red")
         translate([-battery_box_peg_d + lfp_main_box_x, battery_box_peg_d, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
-
+        
+        color("white")
         translate([-battery_box_peg_d + lfp_main_box_x, -battery_box_peg_d + lfp_main_box_y, 0])
         cylinder(h = battery_box_peg_h, d = battery_box_peg_cutout - cutout_offset);
 

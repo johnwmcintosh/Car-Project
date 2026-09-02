@@ -67,7 +67,7 @@ module front_robot_rail(
      
     if (show_steering_apparatus) {
         translate([0, main_box_y, -43])
-        full_apparatus();
+        full_apparatus(show_motor = false);
     }
  
     if (show_jackstand)

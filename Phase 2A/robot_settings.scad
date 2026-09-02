@@ -2,8 +2,8 @@ main_box_x = 100; // 96
 main_box_y = 102;
 main_box_z = 74; // 74.5
 
-lfp_main_box_x = 65;
-lfp_main_box_y = 151;
+lfp_main_box_x = 66;
+lfp_main_box_y = 152;
 lfp_main_box_z = 93;
 
 wall_thickness = 5;
@@ -13,7 +13,7 @@ rail_inset = 7;
 
 rail_thickness = 7;
 rail_length = 250;
-rail_width = 280;
+ rail_width = 260;
 
 lfp_battery_width = 65.5;
 lfp_battery_depth = 150.5;
@@ -37,7 +37,7 @@ raspberry_pi_screw_seperation_z = 48;
 raspberry_pi_peg_h = 5;
 
 battery_box_peg_h = 6;
-battery_box_peg_d = 8;
+battery_box_peg_d = 9.5;
 battery_box_peg_cutout = 5;
 
 gears_module = 1;
@@ -89,6 +89,7 @@ dc_motor_encoder_wheel_d = 13.4;
 dc_motor_encoder_wheel_thickness = 5;
 dc_motor_encoder_wheel_gap = 3;
 dc_motor_encoder_circuit_thickness = 2;
+dc_motor_z = dc_motor_housing_minus_encoder_z + dc_motor_encoder_z + dc_motor_encoder_wheel_thickness + dc_motor_encoder_wheel_gap + dc_motor_encoder_circuit_thickness;
 dc_motor_cutout_d = 24.8;
 dc_motor_cutout_z = 19.5;
 

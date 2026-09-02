@@ -8,7 +8,7 @@ use <steering_coupler.scad>
 $fn = 50;
 
 module full_apparatus(
-      show_motor = true,
+      show_motor = false,
       show_turn_arm = true,
       show_coupler_bar = true,
       show_left_apparatus = true,
@@ -17,35 +17,39 @@ module full_apparatus(
  )
 {
       if (show_motor) {
-          translate([0, -133, 20]) {
+          translate([0, -163, 20]) {
             translate([0, 0, 10])
             rotate([0, 0, 90])
-            dc_motor();
+            dc_motor(motor_height = dc_motor_z);
         }
       }
       
+      turn_assembly_y = -70;
+      turn_assembly_z = 5;
       
       if (show_turn_arm) {
-        // rotation arm that connects to coupler
-        translate([0, 65, 10])
+        // coupler connector
+        translate([0, turn_assembly_y, -turn_assembly_z + 36])
         rotate([-90, 0, 0])
         cylinder(h = 20, d = ball_bearing_inner_diameter);
-        translate([-4, 78, -16])
+        
+        // turn arm
+        translate([-4, turn_assembly_y + 13, turn_assembly_z])
          cube([ball_bearing_inner_diameter, ball_bearing_inner_diameter, 32]);
         
         // rotation arm circle 
         difference() {
-          translate([0, 78, -20])
+          translate([0, turn_assembly_y + 13, turn_assembly_z-4])
           rotate([-90, 0, 0])
           cylinder(h=8, d=ball_bearing_inner_diameter + 4);
           
-          translate([0, 77, -20])
+          translate([0, turn_assembly_y + 12, turn_assembly_z-4])
           rotate([-90, 0, 0])
           cylinder(h=10, d=ball_bearing_inner_diameter + 1 );
         }
         
         // coupler
-        translate([0, 65, 10])
+        translate([0, turn_assembly_y , turn_assembly_z + 26])
         rotate([90, 0, 0])
         steering_coupler();
       }

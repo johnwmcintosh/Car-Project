@@ -9,22 +9,22 @@ use <../Battery/battery_lfp.scad>
 use <../Front_End/OpenSCAD_Gear_Library_with_Customizer/files/gears.scad>
 use <../spring_library.scad>
 
-use <dc_motor.scad>
 use <lidar_mount.scad>
 use <rear_apparatus2.scad>
 use <../power_bar_mount.scad>
 use <drv8871.scad>
 use <drv8871mount.scad>
+use <dc_motor.scad>
 use <battery_box_support.scad>
 use <../Front_End/steering_motor_holder.scad>
-use <dc_motor.scad>
+
 $fn = 50;
 
 
 module rear_robot_rail(
     include_apparatus = true, 
     include_battery_box = true,
-    include_power_bar = false,
+    include_power_bar = true,
     show_lidar_platform = false
     )
     
@@ -33,14 +33,14 @@ module rear_robot_rail(
       front_robot_rail(show_steering_apparatus = include_apparatus);
       
       // tire apparatus cutouts
-      translate([-rail_width / 2 + 21.5, -rail_length / 2 + 35, -rail_thickness / 2])
+      translate([-rail_width / 2 + 18, -rail_length / 2 + 35, -rail_thickness / 2])
        cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true);
       
-      translate([rail_width / 2 - 21.5, -rail_length / 2 + 35, -rail_thickness / 2])
+      translate([rail_width / 2 - 18, -rail_length / 2 + 35, -rail_thickness / 2])
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
  
       // Pi's power passthrough
-      translate([-rail_width / 7 , power_bar_y / 2 - 25, rail_thickness / 2])
+      translate([-rail_width / 6 , power_bar_y / 2 - 25, rail_thickness / 2])
       {
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
         union()
@@ -53,11 +53,11 @@ module rear_robot_rail(
       cube([power_bar_y / 2.3, power_bar_cutout_x, 2 * rail_thickness], center = true);
       
       // power bar wire passthrough cutouts
-      translate([rail_width / 3 - 10,  power_bar_y / 2 + 26, rail_thickness / 2])
+      translate([rail_width / 3 - 20,  power_bar_y / 2 + 26, rail_thickness / 2])
       cube([power_bar_y / 2.3, power_bar_cutout_x - 10 , 2 * rail_thickness], center = true);
       
       // Pico's  passthrough
-      translate([rail_width / 3 - 10, power_bar_y / 2 - 52, rail_thickness / 2])
+      translate([rail_width / 3 - 20, power_bar_y / 2 - 52, rail_thickness / 2])
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
       
       // right switch cutout
@@ -81,12 +81,22 @@ module rear_robot_rail(
 
     // rear apparatus
     if (include_apparatus) {
-        translate([rail_width / 2 - 21.5, -rail_length / 2 + 35, -40])
-          rear_apparatus2(flip_apparatus=true, include_motor = true, include_coupler = true, motor_z_offset=0);
+        translate([rail_width / 2 - 17.8, -rail_length / 2 + 35, -40])
+          rear_apparatus2(flip_apparatus=true, include_motor = true, include_coupler = true, motor_x_offset = -5, motor_z_offset=0);
 
-        translate([-rail_width / 2 + 21.5, -rail_length / 2 + 35, -40])
-          rear_apparatus2(flip_apparatus = false, include_motor = true, include_coupler = true, motor_z_offset = 0);
+        translate([-rail_width / 2 + 17.8, -rail_length / 2 + 35, -40])
+          rear_apparatus2(flip_apparatus = false, include_motor = true, include_coupler = true, motor_x_offset = -5, motor_z_offset = 0);
+          
+          // steering motor
+          translate([0, -dc_motor_z + 15, -dc_motor_cutout_d / 2])
+          rotate([0, 0, 90])
+          dc_motor(dc_motor_z);
       }
+  
+    // Steering motor holder
+    translate([0, -68, -17])
+    rotate([180, 0, 90])
+    steering_motor_holder(dc_motor_z + 10);
 
 translate([0, 0, -0]) {
 
@@ -95,7 +105,7 @@ translate([0, 0, -0]) {
       post_thickness_x_y = 10;
       post_wallside_position_y = 12.5;
       post_separation_y = 47.5;
-      post_x_position = 80; // width of cradle. this is proportional to rail_width.
+      post_x_position = 70; // width of cradle. this is proportional to rail_width.
       
       // posts
       translate([0, -rail_length / 2, -57.5]) {
@@ -105,7 +115,7 @@ translate([0, 0, -0]) {
           //translate([-5, post_separation_y, 0])
           //cube([post_thickness_x_y, post_thickness_x_y, 64]); // removed this post to make it easier to install the motors
           translate([-5, 17.5, 0])
-          cube([post_thickness_x_y, 40, post_thickness_x_y]);
+          cube([post_thickness_x_y, 40, post_thickness_x_y - 5]);
           
           // left
           translate([-post_x_position - 10, post_wallside_position_y, 0])
@@ -228,33 +238,33 @@ translate([0, 0, -0]) {
 }
 
       // battery box attachment points
-      translate([0, -rail_length / 2 + 108, battery_box_peg_h])
+      translate([0, -rail_length / 2 + 111.5, battery_box_peg_h])
       battery_box_peg_mounts(show_mounts = false, show_points = true);
     
       if (include_battery_box) {
-          translate([0, -17, 2.4 + 8])
+          translate([0, -13.5, 2.4 + 8])
           battery_box();
-          translate([0, 63, 18])
-          rotate([0, 0, 180])
-          lfp_battery();
+          //translate([0, 63, 18])
+          //rotate([0, 0, 180])
+          //lfp_battery();
       }
       
      // REAR SUPPORT for battery box
-     translate([2, -main_box_y - .3, 0])
+     translate([2, -main_box_y + 1, 0])
       battery_box_support(11);
       
      // FRONT SUPPORT for battery box
-     translate([-2, main_box_y - 29.5, 2])
+     translate([-2, main_box_y - 28, 2])
       rotate([0, 0, 180])
       battery_box_support(11);
       
     // drv8871 Adafruit platform STEERING
-    translate([-drv8871_screw_distance + drv8871_x + 20, -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([-drv8871_screw_distance + drv8871_x + 30, -rail_length / 2 + 2 * drv8871_y, -rail_thickness / 2 + 3])
       rotate([180, 0, 180])
       drv8871mount();
     
     // drv8871 Teyleten platform STEERING
-    translate([-drv8871_screw_distance + drv8871_x/2 -20,  -rail_length / 2 + 3 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([-drv8871_screw_distance + drv8871_x/2 -30,  -rail_length / 2 + 2 * drv8871_y, -rail_thickness / 2 + 3])
       rotate([180, 0, 180])
       drv8871mount("Teyleten");
     
@@ -281,11 +291,6 @@ translate([0, 0, -0]) {
     if (show_lidar_platform) {
       lidar_mount();
     }
-  
-    // Steering motor holder
-    translate([0, -45.5, -17])
-    rotate([180, 0, 90])
-    steering_motor_holder();
    
     // power bar stand LEFT
     translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 + 3 ])
@@ -331,7 +336,7 @@ translate([0, 0, -0]) {
       text("N", 6);
       
       color("black")
-      translate([rail_width / 2 - 4, -55, 1])
+      translate([rail_width / 2 - 1, -55, 1])
       rotate([90, 0, 90])
       linear_extrude(2)
       text("ON -->", 5);

@@ -10,8 +10,9 @@ $fn = 50;
  module rear_apparatus2(
       flip_apparatus = false, 
       include_motor = true, 
-      include_coupler = false, 
+      include_coupler = true, 
       include_apparatus = true,
+      motor_x_offset = 0,
       motor_z_offset = 0)
  {
  
@@ -23,6 +24,7 @@ $fn = 50;
           include_apparatus = include_apparatus,
           include_motor =  include_motor, 
           include_steering_coupler = include_coupler,
+          motor_x_offset = motor_x_offset,
           motor_z_offset = motor_z_offset);
           
           // holes that provide a pathway for an allen wrench to screw the motor to the frame.
