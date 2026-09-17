@@ -9,9 +9,9 @@ $fn = 50;
 
 module full_apparatus(
       show_motor = false,
-      show_turn_arm = true,
-      show_coupler_bar = true,
-      show_left_apparatus = true,
+      show_turn_arm = false,
+      show_coupler_bar = false,
+      show_left_apparatus = false,
       show_right_apparatus = true,
       show_crossbar = true
  )

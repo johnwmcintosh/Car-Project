@@ -1,0 +1,77 @@
+include <../robot_settings.scad>
+
+use <../spring_library.scad>
+
+module rear_apparatus_leaf(cutout_offset = 15, width_offset = 0, thickness_offset = 0) {
+      difference() {
+                translate([0, 0,  ball_bearing_outer_diameter - 4])
+                springLeaf(width = ball_bearing_height + width_offset, len =  30, height = 10, thickness = 3 + thickness_offset);
+                
+              // remove the bit of the spring leaf from the inner circle
+              translate([0, 0, 0])
+                 rotate([0, 90, 0])
+                 cylinder(h = 1.5 * cutout_offset, d = ball_bearing_outer_diameter +  cutout_offset, center=true);                
+         }
+
+         
+            translate([0, 0, -2.5]) {
+            
+              // body connector 
+              difference() {
+                  translate([
+                      0, 0, 2 * ball_bearing_outer_diameter
+                    ])
+                    // the rail cutout for this is 
+                    // x-> ball_bearing_height - .3
+                    // y -> 25.2
+                      cube([ball_bearing_height - .75, 24.5, ball_bearing_outer_diameter + 7], center = true);
+                 
+                    // cutout for peg
+                    translate([
+                      0,0, 2 * ball_bearing_outer_diameter + rail_thickness
+                   ]) 
+                      rotate([90,0,90])
+                      cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
+               }
+              
+              // stability bar
+              translate(
+                  [
+                      -2 * ball_bearing_height,
+                      -ball_bearing_height, 
+                       2 * ball_bearing_outer_diameter - rail_thickness + 0.5
+                 ])
+                cube([4 * ball_bearing_height, 15, 4]);
+            
+            // attachment bar supports
+                   
+            larger_x = 2 * ball_bearing_height - 12;
+            
+            // inside one
+            
+            // side wall
+              translate([
+                  larger_x, 6, 2 * ball_bearing_outer_diameter - 8
+                ])
+                cube([12,2,3]);
+            
+            // side wall
+            translate([
+                larger_x, -7, 2 * ball_bearing_outer_diameter - 8
+              ])
+              cube([12,2,3]);
+
+          // outside one
+           translate([
+              -ball_bearing_height /2 - 10.5, 6, 2 * ball_bearing_outer_diameter - 8
+            ])
+            cube([12,2,2]);
+     
+           translate([
+              -ball_bearing_height /2 - 10.5, -7, 2 * ball_bearing_outer_diameter - 8
+            ])
+            cube([12,2,2]);
+         }
+
+}
+ rear_apparatus_leaf();

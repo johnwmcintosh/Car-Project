@@ -51,7 +51,7 @@ if (show_mounts)
 //     translate([-main_box_x / 2, -main_box_y / 2, 0])
 //     cube([main_box_x, main_box_y, 2]);
       
-      cutout_offset = .4;
+      cutout_offset = .7;
       
       // battery box attachment points
        translate([-lfp_main_box_x / 2, -lfp_main_box_y / 2,  - .1]) 

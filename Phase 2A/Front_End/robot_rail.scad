@@ -56,7 +56,7 @@ module front_robot_rail(
       cube([ball_bearing_outer_diameter + 4, 2, 10]);
       }
  
-      
+      // bumbers
      translate([rail_width / 2 - 30, 123.5, 3.5])
      rotate([0, 90, 0])
      cylinder(h = 20, d = rail_thickness);

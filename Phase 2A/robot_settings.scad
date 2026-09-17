@@ -2,9 +2,9 @@ main_box_x = 100; // 96
 main_box_y = 102;
 main_box_z = 74; // 74.5
 
-lfp_main_box_x = 66;
+lfp_main_box_x = 65;
 lfp_main_box_y = 152;
-lfp_main_box_z = 93;
+lfp_main_box_z = 94;
 
 wall_thickness = 5;
 

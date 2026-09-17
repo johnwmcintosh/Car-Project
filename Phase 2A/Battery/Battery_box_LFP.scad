@@ -28,7 +28,7 @@ module battery_box(show_battery_box = true, show_i2c = false, show_tray = false,
     if (show_battery_box) {
         translate([0, 0, battery_box_peg_h]) {
           // rp5 mounting pegs - top right
-          translate([-lfp_main_box_x / 2 - wall_thickness / 2, 0 , 0])
+          translate([-lfp_main_box_x / 2 - wall_thickness / 2,  40, 0])
           RP5();
          
           // pico extender
@@ -55,18 +55,18 @@ module battery_box(show_battery_box = true, show_i2c = false, show_tray = false,
               // left cutout for battery terminals
               leftterm = -lfp_battery_width / 2 + lfp_battery_terminal_width_setback - 2.5;
               translate([leftterm, lfp_battery_depth / 2
-              -  lfp_battery_terminal_width_setback - 10, lfp_main_box_z +  wall_thickness - 5])
-              cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 10 , 10]);
+              -  lfp_battery_terminal_width_setback - 13, lfp_main_box_z +  wall_thickness - 5])
+              cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 13 , 10]);
                 
               // right cutout for battery terminals
               righttterm = lfp_battery_width / 2 - lfp_battery_terminal_width - lfp_battery_terminal_width_setback - 2.5;
               translate([righttterm, lfp_battery_depth / 2
-              -  lfp_battery_terminal_width_setback - 10, lfp_main_box_z +  wall_thickness - 5])
-              cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 10, 10]);   
+              -  lfp_battery_terminal_width_setback - 13, lfp_main_box_z +  wall_thickness - 5])
+              cube([lfp_battery_terminal_width + 5, lfp_battery_terminal_depth + 13, 10]);   
               
               // actual battery size
-               translate([0, wall_thickness, (lfp_main_box_z + wall_thickness)/2]) 
-               cube([lfp_main_box_x, lfp_main_box_y, lfp_main_box_z], center = true);
+               translate([0, wall_thickness- 1, (lfp_main_box_z + wall_thickness)/2]) 
+               cube([lfp_main_box_x, lfp_main_box_y+3, lfp_main_box_z], center = true);
 
               // side windows
               translate([ lfp_main_box_x / 2 -wall_thickness,  -35 - lfp_main_box_y /4,   lfp_main_box_z / 2 -   lfp_main_box_z / 8])

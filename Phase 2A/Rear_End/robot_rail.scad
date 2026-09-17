@@ -23,8 +23,8 @@ $fn = 50;
 
 module rear_robot_rail(
     include_apparatus = true, 
-    include_battery_box = true,
-    include_power_bar = true,
+    include_battery_box = false,
+    include_power_bar = false,
     show_lidar_platform = false
     )
     
@@ -40,7 +40,7 @@ module rear_robot_rail(
       cube([ball_bearing_height - .3, 25.2, ball_bearing_outer_diameter], center = true); 
  
       // Pi's power passthrough
-      translate([-rail_width / 6 , power_bar_y / 2 - 25, rail_thickness / 2])
+      translate([-rail_width / 6 , power_bar_y / 2 + 20, rail_thickness / 2])
       {
       cube([power_bar_y /2.3, 60, 2 * rail_thickness], center = true); 
         union()
@@ -68,21 +68,23 @@ module rear_robot_rail(
       color("green")
       translate([rail_width /2 - 28, -54, rail_thickness  - switch_bump_h + 1])
       cube([switch_w, switch_bump_l,  switch_bump_h]);
-      
-      // left switch cutout
-      translate([-rail_width /2 + 20, -45, - rail_thickness / 2 + 2])
-      cylinder(rail_thickness + 4, d = switch_cutout_d);
 
-      // left switch bump cutout
-      color("green")
-      translate([-rail_width /2 + 12, -54, rail_thickness - switch_bump_h + 1])
-      cube([switch_w, switch_bump_l,  switch_bump_h]);    
+// this swirch cutout is probably not going to use so I need the room for the 5V distributor.
+      
+//      // left switch cutout
+//      translate([-rail_width /2 + 20, -45, - rail_thickness / 2 + 2])
+//      cylinder(rail_thickness + 4, d = switch_cutout_d);
+//
+//      // left switch bump cutout
+//      color("green")
+//      translate([-rail_width /2 + 12, -54, rail_thickness - switch_bump_h + 1])
+//      cube([switch_w, switch_bump_l,  switch_bump_h]);    
       }
 
     // rear apparatus
     if (include_apparatus) {
         translate([rail_width / 2 - 17.8, -rail_length / 2 + 35, -40])
-          rear_apparatus2(flip_apparatus=true, include_motor = true, include_coupler = true, motor_x_offset = -5, motor_z_offset=0);
+          rear_apparatus2(flip_apparatus = true, include_motor = true, include_coupler = true, motor_x_offset = -5, motor_z_offset=0);
 
         translate([-rail_width / 2 + 17.8, -rail_length / 2 + 35, -40])
           rear_apparatus2(flip_apparatus = false, include_motor = true, include_coupler = true, motor_x_offset = -5, motor_z_offset = 0);
@@ -94,7 +96,7 @@ module rear_robot_rail(
       }
   
     // Steering motor holder
-    translate([0, -68, -17])
+    translate([0, -67, -17])
     rotate([180, 0, 90])
     steering_motor_holder(dc_motor_z + 10);
 
@@ -242,7 +244,7 @@ translate([0, 0, -0]) {
       battery_box_peg_mounts(show_mounts = false, show_points = true);
     
       if (include_battery_box) {
-          translate([0, -13.5, 2.4 + 8])
+          translate([0, -13.5, 6])
           battery_box();
           //translate([0, 63, 18])
           //rotate([0, 0, 180])
@@ -250,13 +252,13 @@ translate([0, 0, -0]) {
       }
       
      // REAR SUPPORT for battery box
-     translate([2, -main_box_y + 1, 0])
-      battery_box_support(11);
+     translate([2, -main_box_y + .8, 0])
+      battery_box_support(11.5);
       
      // FRONT SUPPORT for battery box
-     translate([-2, main_box_y - 28, 2])
+     translate([-2, main_box_y - 27.9, 2])
       rotate([0, 0, 180])
-      battery_box_support(11);
+      battery_box_support(11.5);
       
     // drv8871 Adafruit platform STEERING
     translate([-drv8871_screw_distance + drv8871_x + 30, -rail_length / 2 + 2 * drv8871_y, -rail_thickness / 2 + 3])
@@ -269,12 +271,12 @@ translate([0, 0, -0]) {
       drv8871mount("Teyleten");
     
     // drv8871 Adafruit platform LOWER LEFT
-    translate([- drv8871_screw_distance -20, -rail_length / 2 + 7.1 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([- drv8871_screw_distance -5, -rail_length / 2 + 7.5 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount();
  
     // drv8871 Teyleten platform LOWER LEFT
-    translate([- drv8871_screw_distance - 20, -rail_length / 2 + 6.1 * drv8871_y, -rail_thickness / 2 + 3])
+    translate([- drv8871_screw_distance -5, -rail_length / 2 + 6.5 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount("Teyleten");    
     
@@ -292,22 +294,29 @@ translate([0, 0, -0]) {
       lidar_mount();
     }
    
-    // power bar stand LEFT
+    // power bar stand UPPER LEFT
     translate([-rail_width / 3 - 10, 80,  rail_thickness / 2 + 3 ])
     power_bar_mounts();
 
+    // power bar stand 3,3V LOWER LEFT
     translate([-rail_width / 3 - 10, 80,  -rail_thickness / 2 + 4 ]) 
     rotate([0, 180, 0])
     power_bar_mounts();
     
-    // power bar stand RIGHT
+    // power bar 5V
+    translate([-rail_width /3 - 30, -50, -rail_thickness /2 + 4])
+    rotate([0, 180, 90])
+   power_bar_mounts(); 
+    
+    // power bar stand UPPER RIGHT
     translate([rail_width / 3 + 10, 80,  rail_thickness / 2 + 3 ])
     power_bar_mounts();
 
+    // power bar stand LOWER RIGHT
     translate([rail_width / 2 - 32, 80, -rail_thickness / 2 + 4])
     rotate([0, 180, 0])
     power_bar_mounts();
-    
+   
     // power bar label LEFT
     // top
     color("blue")
@@ -320,7 +329,29 @@ translate([0, 0, -0]) {
     translate([-rail_width / 3 + power_bar_y / 2.5, power_bar_y / 2 - 36,  -rail_thickness / 2 + 4])
     rotate([0, 180, 0])
     linear_extrude(1)
-      text("3.3V", 6);     
+      text("3.3V", 6); 
+      
+      // bottom 5V
+      color("red")
+      translate([-rail_width / 6, power_bar_y /2 - 52, -rail_thickness / 2 + 4])
+      rotate([0, 180, 0])
+      linear_extrude(1)
+        text("5V", 6);
+      
+      // bottom 5V N
+      color("green")
+      translate([-rail_width / 3, power_bar_y /2 - 72, -rail_thickness / 2 + 4])
+      rotate([0, 180, 0])
+      linear_extrude(1)
+        text("N", 6);
+        
+     // bottom
+     color("green")
+     translate([rail_width / 3 + power_bar_y / 2 + 15, power_bar_y / 2 - 36,  -rail_thickness / 2 + 4])
+     rotate([0, 180, 0])
+       linear_extrude(1)
+        text("N", 6);
+    }
     
     // top
     color("green")
@@ -368,10 +399,9 @@ translate([0, 0, -0]) {
     rotate([0, 180, 0])
       linear_extrude(1)
       text("N", 6);
-    }
     
-    translate([20, rail_length / 2 - 30, -rail_thickness + 6])
-    color("orange")
+    translate([16, rail_length / 2 - 30, -rail_thickness + 6])
+    color("red")
     linear_extrude(1)
     rotate([0, 180, 0])
     text("McIntosh" , 6);

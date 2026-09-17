@@ -6,6 +6,7 @@ use <tire_rim.scad>
 
 use <physical_ball_bearing.scad>
 use <../Rear_End/dc_motor.scad>
+use <../Rear_End/rear_apparatus_leaf.scad>
 
 $fn = 50;
 
@@ -33,20 +34,9 @@ module tire_apparatus(
       {
       
           if (include_axle) {
-            difference() {
                 color("blue")
                 translate([axle_length + 10.9, 0, 0])
                   axle(axle_length = axle_length, rotate = true, rear_axle = false);
-                  
-                 // holes to allow reach to the motor screws
-                translate([-20, 8.5, 0])
-                  rotate([0, 90, 0])
-                      cylinder(h = 900, d = M3_shaft_d);
-                  
-                translate([-20, -8.5, 0])
-                  rotate([0, 90, 0])
-                      cylinder(h = 900, d = M3_shaft_d);
-               }
            }
 
           if (include_steering_coupler) {
@@ -60,7 +50,9 @@ module tire_apparatus(
                 //color(rotate?"green": "red")
                 dc_motor();
             }
- 
+        }
+    }
+        
         if (include_ball_bearing) {          
           // ball bearing for tire
           
@@ -84,7 +76,9 @@ module tire_apparatus(
           }
             // ball bearing housing wheel
           
+          translate([-7, 0, 0]) {
            difference() {
+           
               translate([0, 0, 0])
               rotate([0, 90, 0])
               cylinder(h = 2 * ball_bearing_height, d = 2 * ball_bearing_outer_diameter);
@@ -96,8 +90,16 @@ module tire_apparatus(
              translate([-.1, 0, 0])
               rotate([0, 90, 0])
               cylinder(h = 3.1, d = ball_bearing_outer_diameter + 2);
-            }
               
+              
+              // make the leaf cutout a little bigger than the leaf so there is a good combination of strength, steadyness, and removeability
+               w_o = rotate ? -4.8 : 4.8;
+              rotate(deg_rotate)
+              translate([w_o, 0, 0])
+              rear_apparatus_leaf(width_offset = 5, thickness_offset = .3);
+           }
+
+          }
             // add a little ring inside for the ball bearing and axle cap so it snuggly fits on wheel side
             translate([3, 0, 0])
             rotate([0, 90, 0])
@@ -109,14 +111,13 @@ module tire_apparatus(
               }
            }
          }
-       }
-   }
+       
+   
         if (include_rim)
         {
         translate([23.5, 0, 0])
         rotate([0, 90, 180])
             tirerim();
         }
-              
- }
+ }  
 tire_apparatus();

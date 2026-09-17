@@ -23,6 +23,8 @@ module battery_box_support(width = 25)
         cube([3, 15, 13], center = true);
         translate([9, -6, 0])
         cube([16, 3, 13], center = true);
+        translate([-2.5, -1.75, 0])
+        cube([3, 18.5, 13], center = true);
       }
           
       // right side support
@@ -31,6 +33,7 @@ module battery_box_support(width = 25)
         cube([3, 15, 13], center = true);
         translate([-9, -6, 0])
         cube([16, 3, 13], center = true);
-      }
+        translate([2.5, -1.75, 0])
+        cube([3, 18.5, 13], center = true);      }
     }
     battery_box_support();
