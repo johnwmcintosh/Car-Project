@@ -93,7 +93,7 @@ module tire_apparatus(
               
               
               // make the leaf cutout a little bigger than the leaf so there is a good combination of strength, steadyness, and removeability
-               w_o = rotate ? -4.8 : 4.8;
+               w_o = rotate ? -4.8 : 9.2;
               rotate(deg_rotate)
               translate([w_o, 0, 0])
               rear_apparatus_leaf(width_offset = 5, thickness_offset = .3);
