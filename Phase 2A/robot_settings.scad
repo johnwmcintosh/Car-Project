@@ -13,7 +13,7 @@ rail_inset = 7;
 
 rail_thickness = 7;
 rail_length = 250;
- rail_width = 260;
+rail_width = 260;
 
 lfp_battery_width = 65.5;
 lfp_battery_depth = 150.5;
@@ -52,6 +52,20 @@ steering_motor_mount_x = 45;
 steering_motor_mount_y = 36;
 steering_motor_mount_z = 18;
 steering_motor_mount_setback_distance = gears_setback_distance + 16;
+
+cradle_wall_thickness = 5;
+post_thickness_x_y = 10;
+post_wallside_position_y = 12.5;
+post_separation_y = 47.5;
+post_x_position = 70; // width of cradle. this is proportional to rail_width.
+
+imu_width = 26; // x is along the width axis
+imu_depth = 16; // y is along the depth axes. +y points at pins.
+imu_screw_d = 3;
+imu_screw_corner_border = 1.27;
+imu_underside_pin_h = 1; // z is along the h axis
+imu_thickness = 1.6;
+imu_left_edge_pins = 1.6;
 
 dc_motor_drivertype = "Teyleten"; // Teyleten
 isAdafruit = (dc_motor_drivertype == "Adafruit");
@@ -120,7 +134,7 @@ steering_shaft_motor_fitting_d = 9;
 coupler_length = 24.6;
 coupler_diameter = 14;
 coupler_screw_d = 4;
-coupler_screw_z_offset = 5;
+coupler_screw_z_offset = 8.3;
 coupler_gear_side_insert = 12.6;
 steering_shaft_with_coupler_z = steering_shaft_z - coupler_gear_side_insert;
 
@@ -163,8 +177,8 @@ rack_bore = 3;
 pull_bar_length = rail_width / 2 - rack_length + 1;
 
 // tire hardware
-axle_length = 24 + ball_bearing_height; 
-axle_reciever_inner_diameter = 8.2;
+axle_length = 42.0; 
+axle_reciever_inner_diameter = ball_bearing_inner_diameter;
 axle_reciever_outer_diameter = 12;
 axle_reciever_length = 18.8;
 axle_notch_length = 15;

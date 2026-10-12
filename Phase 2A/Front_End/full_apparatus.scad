@@ -4,6 +4,7 @@ use <../Rear_End/dc_motor.scad>
 use <gears_overlay.scad>
 use <tire_apparatus.scad>
 use <steering_coupler.scad>
+use <spring_collar.scad>
 
 $fn = 50;
 
@@ -11,7 +12,7 @@ module full_apparatus(
       show_motor = false,
       show_turn_arm = false,
       show_coupler_bar = false,
-      show_left_apparatus = false,
+      show_left_apparatus = true,
       show_right_apparatus = true,
       show_crossbar = true
  )
@@ -87,6 +88,9 @@ module full_apparatus(
             rotate([90,0,90])
               cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
           }
+                  
+        translate([-rail_width / 2 + 3 * ball_bearing_height,  0, 37])
+        spring_collar();
       }
 
     // right apparatus
@@ -110,6 +114,9 @@ module full_apparatus(
             rotate([90,0,90])
               cylinder(h = ball_bearing_outer_diameter + 2, d = apparatus_locking_peg_d, center = true);
         }
+        
+        translate([rail_width / 2 - 3 * ball_bearing_height,  0, 37])
+        spring_collar();
       }
       
       if (show_crossbar) {

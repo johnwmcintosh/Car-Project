@@ -4,9 +4,9 @@ $fn = 70;
 
 module tirerim()
 {
-  tire_diameter = 48.5; // 47.5 for old tires, 48.5 for new tires
+  tire_diameter = 50; // 47.5 for old tires, 48.5 for new tires
   tire_width = 21.8;
-  ridge_diameter = tire_diameter + 4.2;
+  ridge_diameter = tire_diameter + 5.2;
   ridge_thickness = 2;
 
   difference() {
@@ -22,6 +22,7 @@ module tirerim()
         // tire 
         cylinder(h = tire_width, d = tire_diameter, center = true);
       }
+      // primary cutout
       translate([0,0,1])
         cylinder(h = tire_width + 5, d = tire_diameter - 3, center = true);
     }
@@ -45,7 +46,7 @@ module tirerim()
               // note, this only creates a hole in the conical hub, something 
               // else is there too that needs the same poke out
               translate([0, 0, 5])
-                cube ([5, 7, 20], center = true);             
+                cube ([4, axle_reciever_inner_diameter - 1, 20], center = true);             
           }
 
           // radial braces
@@ -55,29 +56,29 @@ module tirerim()
           
           difference() {
             translate([-1.5,5,0])
-              cube([3, tire_diameter / 2.8, 13]);
+              cube([3, tire_diameter / 2.6, 13]);
             translate([-.5, 0, -.5])
               cylinder(h = 8, d1 = 20, d2 = 10);
           }
         }
         
          // decorative "rivets"
-         for (i = [0 : 5]) {
-            angle = 360 / 5 * i;
+         for (i = [0 : 6]) {
+            angle = 360 / 6 * i;
             
-            rotate([0,0,angle + 20])
-            translate([5,0,-1])
+            rotate([0,0,angle])
+            translate([6,0,-1])
             cylinder(h = 2, d = 1);
           }
   
           translate([0, 0, 7.9])
-          // axle reciever
-          difference() {
-            cylinder(h = axle_reciever_length,  d = axle_reciever_outer_diameter);
-            cylinder(h = axle_reciever_length + 1, d = axle_reciever_inner_diameter);   
-                                        translate([0, 0, 5])
-                cube ([5, 6.5, 20], center = true);   
-          }
+            // axle reciever
+            difference() {
+              cylinder(h = axle_reciever_length,  d = axle_reciever_outer_diameter);
+              cylinder(h = axle_reciever_length + 1, d = axle_reciever_inner_diameter);   
+              translate([0, 0, -3])
+                  cube ([axle_reciever_inner_diameter, axle_reciever_inner_diameter, 7], center = true); 
+            }
        
        // see if moving the notch to the conical hub works better
        // plus the axle needs to be poked through so I can cotter pin it.
@@ -90,6 +91,5 @@ module tirerim()
 //          cube([2, 6,  axle_notch_length]);
 
       }
-      
 }
 tirerim();

@@ -16,19 +16,32 @@ use <drv8871.scad>
 use <drv8871mount.scad>
 use <dc_motor.scad>
 use <battery_box_support.scad>
+
 use <../Front_End/steering_motor_holder.scad>
+
+use <rear_end_jack.scad>
+use <front_end_jack.scad>
+
+use <imu_platform.scad>
 
 $fn = 50;
 
 
 module rear_robot_rail(
     include_apparatus = true, 
-    include_battery_box = false,
+    include_battery_box = true,
     include_power_bar = false,
-    show_lidar_platform = false
+    show_lidar_platform = true
     )
     
     {
+    translate([0, -rail_length / 2 - 50, -103])
+    back_jack();
+    translate([0, rail_length / 2 + 20, -104.5])
+    rotate([0, 0, 180])
+    front_jack();
+    
+    
     difference() {
       front_robot_rail(show_steering_apparatus = include_apparatus);
       
@@ -103,12 +116,7 @@ module rear_robot_rail(
 translate([0, 0, -0]) {
 
       // U structures holding the engine supports - seperate the verical bars by at least an engine width so manuerving the motors into the cradle is possible.
-      cradle_wall_thickness = 5;
-      post_thickness_x_y = 10;
-      post_wallside_position_y = 12.5;
-      post_separation_y = 47.5;
-      post_x_position = 70; // width of cradle. this is proportional to rail_width.
-      
+
       // posts
       translate([0, -rail_length / 2, -57.5]) {
           // center
@@ -145,6 +153,7 @@ translate([0, 0, -0]) {
 
 
          translate([ -post_x_position - post_thickness_x_y, 0, 14.5]) {
+         
              // end wall plus cutouts
             difference() {
               
@@ -260,6 +269,10 @@ translate([0, 0, -0]) {
       rotate([0, 0, 180])
       battery_box_support(11.5);
       
+      translate([0, -rail_length / 2 - 15, 3.4])
+      color("red")
+      imu_platform();
+      
     // drv8871 Adafruit platform STEERING
     translate([-drv8871_screw_distance + drv8871_x + 30, -rail_length / 2 + 2 * drv8871_y, -rail_thickness / 2 + 3])
       rotate([180, 0, 180])
@@ -274,6 +287,7 @@ translate([0, 0, -0]) {
     translate([- drv8871_screw_distance -5, -rail_length / 2 + 7.5 * drv8871_y, -rail_thickness / 2 + 3])
     rotate([180,0,-90])
     drv8871mount();
+
  
     // drv8871 Teyleten platform LOWER LEFT
     translate([- drv8871_screw_distance -5, -rail_length / 2 + 6.5 * drv8871_y, -rail_thickness / 2 + 3])
